@@ -1,0 +1,29 @@
+# get all of the names of the devices connected to the local network
+avahi-browse-domains --all
+# get all of the names of the devices connected to the local network and also try to resolve them (show IP address too)
+avahi-browse -ar 
+
+# spaces in domain names become hyphens (and remember to add the .local "domain") 
+# eg: iPhone di Pinko -> iPhone-di-Pinko.local
+avahi-resolve --name iPhone-di-Pinko.local -4
+# or this, for devices connected with IPv6
+avahi-resolve --name iPhone-di-Pinko.local -6
+
+# get the name of the device with this IP address
+avahi-resolve-address $IP_ADDRESS
+
+# get info on the status of the avahi daemon
+service avahi-daemon status
+
+# avahi daemon config file on linux 
+/etc/avahi/avahi-daemon.conf
+
+# a gui tool showing devices in real time
+avahi-discover
+
+# remove entries in the cache, modifying the configuration file 
+cache-entries-max=0
+
+
+
+
