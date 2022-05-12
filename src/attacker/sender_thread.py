@@ -13,7 +13,7 @@ class SenderThread(Thread):
         Thread.__init__(self)
         self.host, self.rr_type = host, rr_type
         self.running = False
-        self.daemon = True
+        self.daemon = True # gets killed as soon as the main thread is
     
     def run(self):
 
@@ -26,11 +26,3 @@ class SenderThread(Thread):
     def stop(self):
         logging.info(f"{self.getName()} killed")
         self.running = False
-    
-    @staticmethod
-    def get_count():
-
-        """
-        Assumes all threads are SenderThreads
-        """
-        return threading.active_count()
