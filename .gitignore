@@ -10,7 +10,8 @@
 *.blg
 *.bbl
 *.log
-report.pdf
+*.fls
+*.pdf
 
 # Python related files to ignore
 *.pyc

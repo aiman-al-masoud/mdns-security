@@ -26,6 +26,10 @@
 
 \usepackage{lipsum} % Required to insert dummy text. To be removed otherwise
 
+\usepackage{array} % Required for centering tables content
+
+\usepackage{float} % Avoid putting tables on top of the pages
+
 \graphicspath{ {./images/} } % Paths were images are taken
 
 %----------------------------------------------------------------------------------------
@@ -60,6 +64,10 @@
 	pdfauthor={Author},
 }
 
+\setlength{\parindent}{0cm} % Remove left padding from text
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % centering columns values
+
 %----------------------------------------------------------------------------------------
 %	ARTICLE INFORMATION
 %----------------------------------------------------------------------------------------
@@ -67,7 +75,7 @@
 \JournalInfo{\today} % Journal information
 \Archive{\textcopyright 2021-22, v.1.0} % Additional notes (e.g. copyright, DOI, review/research article)
 
-\PaperTitle{DDoS attack through mDNS} % Article title
+\PaperTitle{DDoS attack, through mDNS} % Article title
 
 \Authors{A. Al Masoud\textsuperscript{1}, F. Amato\textsuperscript{2}, A. Blindu\textsuperscript{3}, D. Lotito\textsuperscript{4}, D. Ragusa\textsuperscript{5}} % Authors
 \affiliation{\textsuperscript{1}\textit{Department of Computer Engineering, University of Pavia, Pavia, Italy}} % Author affiliation
@@ -80,7 +88,7 @@
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
 
-\Abstract{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer id, vulputate a, magna. Donec vehicula augue eu neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris ut leo. Cras viverra metus rhoncus sem. Nulla et lectus vestibulum urna fringilla ultrices. Phasellus eu tellus sit amet tortor gravida placerat. Integer sapien est, iaculis in, pretium quis, viverra ac, nunc. Praesent eget sem vel leo ultrices bibendum. Aenean faucibus. Morbi dolor nulla, malesuada eu, pulvinar at, mollis ac, nulla. Curabitur auctor semper nulla. Donec varius orci eget risus. Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam. Duis eget orci sit amet orci dignissim rutrum.}
+\Abstract{Add a brief discussion of the project}
 
 %----------------------------------------------------------------------------------------
 
@@ -141,72 +149,72 @@ An mDNS message is a UDP packet sent in multicast using the following addressing
     \item When using Ethernet frames, the standard IP multicast MAC address 01:00:5E:00:00:FB (for IPv4) or 33:33:00:00:FB (for IPv6)
 \end{itemize}
 The payload structure is based on the unicast DNS packet format, which consists of two parts: the header and the data.\\
-The header is identical to the one found in the unicast DNS, as are the subsections in the data part: queries, responses, authoritative-nameservers, and additional records. The number of records in each subsection corresponds to the value of the corresponding {\it{*COUNT}} field in the header.
+The header is identical to the one found in the unicast DNS, as are the subsections in the data part: queries, responses, authoritative-nameservers, and additional records. The number of records in each subsection corresponds to the value of the corresponding {\it{COUNT}} field in the header.
 
-\paragraph{Queries}
-The format of the records in the query section is a bit different from that of classic DNS by adding a single-bit UNICAST-RESPONSE field.
-
-\paragraph{Resource records}
-
-
-
-
-%------------------------------------------------
-
-\section{Results and Discussion}
-
-\lipsum[10] % Dummy text
-
-\subsection{Subsection}
-
-\lipsum[11] % Dummy text
+\subsection{Queries}
+The format of the records in the query section is a bit different from that of classic DNS by adding a single-bit {\it{UNICAST-RESPONSE}} field.
+The payload structure is based on the unicast DNS packet format, which consists of two parts: the header and the data.
 
 \begin{table}[hbt]
-	\caption{Table of Grades}
 	\centering
-	\begin{tabular}{llr}
-		\toprule
-		\multicolumn{2}{c}{Name} \\
-		\cmidrule(r){1-2}
-		First name & Last Name & Grade \\
-		\midrule
-		John & Doe & $7.5$ \\
-		Richard & Miles & $2$ \\
-		\bottomrule
+	\begin{tabular}{|C{2cm}|C{2.8cm}|C{1.5cm}|}
+		\hline
+		Field & Description & Lenght \\
+		\hline
+		\hline
+		QNAME & Name of the node to which the query pertains & Variable \\
+		\hline
+		QTYPE &	The type of the query &	16 \\
+		\hline
+		UNICAST-RESPONSE & Boolean flag indicating whether a unicast-response is desired & 1\\
+		\hline
+		QCLASS & "IN" & 15 \\
+		\hline
 	\end{tabular}
-	\label{tab:label}
+	\caption{Query structure}
 \end{table}
 
-\subsubsection{Subsubsection}
+The {\it{UNICAST-RESPONSE}} field is used to minimize unnecessary transmissions over the network: if the bit is set, responders should send a direct-unicast 
+response directly to the requesting node rather than broadcasting the response to the entire network.\\
+The {\it{QCLASS}} field is identical to that found in unicast DNS ({\it{IN}} class).
 
-\lipsum[12] % Dummy text
+\subsection{Resource Records}
+All records in the answers, authoritative-nameservers, and additional records sections have the same format and are known collectively as Resource Records (RR).\\
+The general format of RRs in mDNS is slightly different from classic DNS and is the Table \ref{tab:table2}.
 
-\subsubsection{Subsubsection}
+\begin{table}[hbt]
+	\centering
+	\begin{tabular}{|C{1.7cm}|C{4.2cm}|C{1cm}|}
+		\hline
+		Field & Description & Lenght \\
+		\hline
+		\hline
+		RRNAME & Name of the node to which the record pertains & Variable\\
+		\hline
+		RRTYPE & The type of the Resource Record & 16\\
+		\hline
+		CACHE-FLUSH & Boolean flag indicating whether outdated cached records should be purged & 1\\
+		\hline
+		RRCLASS & Class code, 1 a.k.a. "IN" for the Internet and IP networks & 15\\
+		\hline
+		TTL & Time interval (in seconds) that the RR should be cached & 32\\
+		\hline
+		RDLENGTH & Integer representing the length (in octets) of the RDATA field & 16\\
+		\hline
+		RDATA & Resource data; internal structure varies by RRTYPE & Variable\\
+		\hline
+	\end{tabular}
+	\caption{\label{tab:table2}Resource Records}
+\end{table}
 
-\lipsum[13] % Dummy text
-
-\begin{itemize}[noitemsep] % [noitemsep] removes whitespace between the items for a compact look
-	\item First item in a list
-	\item Second item in a list
-	\item Third item in a list
-\end{itemize}
-
-\subsubsection{Subsubsection}
-
-\lipsum[14] % Dummy text
-
-\subsection{Subsection}
-
-\lipsum[15-23] % Dummy text
+The {\it{CACHE-FLUSH}} bit is used to instruct neighboring nodes that the record should overwrite, rather than be added to any existing cache entry for this {\it{RRNAME}} and {\it{RRTYPE}}.
 
 %------------------------------------------------
 
-\phantomsection
-\section*{Acknowledgments} % The \section*{} command stops section numbering
+\section{Experiment}
+Start working from here
 
-\addcontentsline{toc}{section}{Acknowledgments} % Adds this section to the table of contents
-
-So long and thanks for all the fish \cite{Figueredo:2009dg, Smith:2012qr}.
+\section{Results}
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
@@ -215,6 +223,7 @@ So long and thanks for all the fish \cite{Figueredo:2009dg, Smith:2012qr}.
 \phantomsection
 \bibliographystyle{unsrt}
 \bibliography{mybibl.bib}
+\nocite{*}
 
 %----------------------------------------------------------------------------------------
 
