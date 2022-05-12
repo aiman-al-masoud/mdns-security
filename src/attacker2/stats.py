@@ -1,3 +1,7 @@
+"""
+Statistics that can be computed from the logs.
+"""
+
 def number_timeouts(logs : str) -> int:
     return logs.count("timeout")
 

@@ -1,3 +1,7 @@
+"""
+Still a stub
+"""
+
 def with_linux_spoofing(fn):
 
     def wrapper(*args, **kwargs):

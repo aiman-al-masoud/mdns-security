@@ -1,4 +1,5 @@
 from sender_thread import SenderThread
+from send_query import QueryTypes
 import signal
 import sys
 import argparse
@@ -36,7 +37,7 @@ def __main__():
 	args = parser.parse_args()
 
 	target =  args.target
-	rr_type = args.type or "A" # default to type A RR 
+	rr_type = args.type or QueryTypes.A  # default to type A RR 
 	# spoofed_ip = # default to NO spoofing # TODO: do somthing with it
 	parallelism = int(args.parallelism or "1") # default to NO parallelism
 
