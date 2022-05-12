@@ -16,4 +16,3 @@ def send_query(host, rr_type) -> None:
             logging.info("timeout")
 
 
-# send_query("1.1.1.1", "A")

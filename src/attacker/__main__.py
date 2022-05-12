@@ -2,17 +2,26 @@ from sender_thread import SenderThread
 import signal
 import sys
 import argparse
-from time import sleep
 import logging
-logging.basicConfig(filename='app.log', filemode='w+', format='%(asctime)s %(funcName)s(): %(message)s', level= logging.INFO )
+from stats import *
 
 
 def __main__():
+
+	LOG_FILE = 'logs/app.log'
+	logging.basicConfig(filename=LOG_FILE, filemode='w+', format='%(asctime)s %(funcName)s(): %(message)s', level= logging.INFO )
+
 
 	def signal_handler(sig, frame):
 		
 		for t in threads:
 			t.stop()
+
+		with open(LOG_FILE) as f:
+			logs = f.read()
+			print("\n"*2)
+			print("responses:", number_responses(logs))
+			print("timeouts:", number_timeouts(logs))
 		
 		sys.exit(0)
 
