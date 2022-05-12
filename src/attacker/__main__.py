@@ -37,7 +37,7 @@ def __main__():
 
 	target =  args.target
 	rr_type = args.type or "A" # default to type A RR 
-	# spoofed_ip = # default to NO spoofing
+	# spoofed_ip = # default to NO spoofing # TODO: do somthing with it
 	parallelism = int(args.parallelism or "1") # default to NO parallelism
 
 	# error out if no target ip provided
