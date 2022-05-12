@@ -180,7 +180,7 @@ The {\it{QCLASS}} field is identical to that found in unicast DNS ({\it{IN}} cla
 
 \subsection{Resource Records}
 All records in the answers, authoritative-nameservers, and additional records sections have the same format and are known collectively as Resource Records (RR).\\
-The general format of RRs in mDNS is slightly different from classic DNS and is the Table \ref{tab:table2}.
+The general format of RRs in mDNS is slightly different from classic DNS and is the following table.
 
 \begin{table}[hbt]
 	\centering
@@ -204,7 +204,7 @@ The general format of RRs in mDNS is slightly different from classic DNS and is 
 		RDATA & Resource data; internal structure varies by RRTYPE & Variable\\
 		\hline
 	\end{tabular}
-	\caption{\label{tab:table2}Resource Records}
+	\caption{Resource Records}
 \end{table}
 
 The {\it{CACHE-FLUSH}} bit is used to instruct neighboring nodes that the record should overwrite, rather than be added to any existing cache entry for this {\it{RRNAME}} and {\it{RRTYPE}}.
