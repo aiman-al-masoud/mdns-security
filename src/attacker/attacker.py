@@ -102,20 +102,21 @@ def __main__():
 	parser.add_argument("--target", "-t", help="Set the .local target (necessary).")
 	parser.add_argument("--type", "-rr", help="Set the RR type to query (default type A).")
 	parser.add_argument("--spoofed-ip", "-i", help="Set the spoofed ip default no spoofing).")
-	parser.add_argument("--parallelism", "-p", help="Set the number of sender threads (default 1 thread).")
+	parser.add_argument("--nthreads", "-n", help="Set the number of sender threads (default 1 thread).")
 	args = parser.parse_args()
 
 	target =  args.target
-	rr_type = args.type or QueryTypes.A  # default to type A RR 
+	rr_type = args.type or "A"  # default to type A RR 
 	spoofed_ip = args.spoofed_ip # default to NO spoofing # TODO: do somthing with it
-	parallelism = int(args.parallelism or "1") # default to NO parallelism
+	nthreads = int(args.nthreads or "1") # default to NO parallelism
 
 	# error out if no target ip provided
 	if target is None:
 		parser.print_help(sys.stderr)
 		sys.exit(1)
 
-	if 	spoofed_ip is not None:
+	if spoofed_ip is not None:
+		print("spoofed ip activating", spoofed_ip)
 		os.system(f"sudo iptables -t nat -A POSTROUTING -j SNAT --to-source {args.spoofed_ip}")
 	
 	
@@ -123,8 +124,8 @@ def __main__():
 	stop_event = threading.Event()
 	
 	try:
-		for i in range(int(args.nthreads)):
-			t = threading.Thread(target=send_query, args=[args.target,args.type, sock, stop_event])
+		for i in range(nthreads):
+			t = threading.Thread(target=send_query, args=[target,rr_type, sock, stop_event])
 			t.daemon = True
 			t.start()
 			print(f'Active Threads: {threading.active_count()}', end="\r")
@@ -135,9 +136,12 @@ def __main__():
 		stop_event.set()
 		time.sleep(1)
 		sock.close()
-		if 	spoofed_ip is not None:
+	finally:
+		if spoofed_ip is not None:
+			print("spoofed ip deactivated", spoofed_ip)
 			os.system(f"sudo iptables -t nat -D POSTROUTING -j SNAT --to-source {args.spoofed_ip}")
 
+	
 if __name__ == "__main__":
 	__main__()
 	
