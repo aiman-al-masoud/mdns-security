@@ -92,10 +92,14 @@ def send_query(host, RRtype, sock, stop_event):
 	except Exception as e:
 		print(e)
 
+def signal_handler(sig, frame):
+	print('\nQuitting...')
+	sys.exit(0)
+
 def __main__():
+	signal.signal(signal.SIGINT, signal_handler) #CTRL+C to end gracefully
 	
 	# command line args
-
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--target", "-t", help="Set the .local target (necessary).")
 	parser.add_argument("--type", "-rr", help="Set the RR type to query (default type A).")
@@ -105,7 +109,7 @@ def __main__():
 
 	target =  args.target
 	rr_type = args.type or "A"  # default to type A RR 
-	spoofed_ip = args.spoofed_ip # default to NO spoofing # TODO: do somthing with it
+	spoofed_ip = args.spoofed_ip # default to NO spoofing
 	nthreads = int(args.nthreads or "1") # default to NO parallelism
 
 	# error out if no target ip provided
@@ -127,20 +131,18 @@ def __main__():
 			t = threading.Thread(target=send_query, args=[target,rr_type, sock, stop_event])
 			t.daemon = True
 			t.start()
-		
-		#print(f'Active Threads: {threading.active_count()}', end="\r")
 		print("Active Threads: "+str(threading.active_count())+"\n")
 		while True:
 			time.sleep(0.5)
-	except KeyboardInterrupt:
-		print("Quitting...\n")
+	except:
+		print("Shutting down threads....\n")
 		stop_event.set()
 		time.sleep(1)
 		sock.close()
-	finally:
 		if spoofed_ip is not None:
-			print("spoofed ip deactivated", spoofed_ip)
+			print("Deactivating spoofing...\n")
 			os.system(f"sudo iptables -t nat -D POSTROUTING -j SNAT --to-source {args.spoofed_ip}")
+		print("Good bye!\n")
 
 	
 if __name__ == "__main__":
