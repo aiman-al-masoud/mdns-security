@@ -34,7 +34,7 @@ def get_type(type):
 	return "{:04x}".format(types.index(type)) if isinstance(type, str) else types[type]
 
 def build_message(type="A", address=""):
-	ID = 43690  # 16-bit identifier (0-65535) # 43690 equals 'aaaa'
+	ID = 0 # RFC says it should be 0 in trasmission
 
 	QR = 0	    # Query: 0, Response: 1	1bit
 	OPCODE = 0  # Standard query		4bit
