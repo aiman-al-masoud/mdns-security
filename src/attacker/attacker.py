@@ -129,7 +129,7 @@ def __main__():
 			t.start()
 		
 		#print(f'Active Threads: {threading.active_count()}', end="\r")
-		print("Active Threads: "+threading.active_count()+"\n")
+		print("Active Threads: "+str(threading.active_count())+"\n")
 		while True:
 			time.sleep(0.5)
 	except KeyboardInterrupt:

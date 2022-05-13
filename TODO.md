@@ -17,8 +17,3 @@ https://datatracker.ietf.org/doc/html/rfc6762
 
 ### Interesting Paper
 https://www.mdpi.com/1999-5903/12/3/55
-
-
-```
-python3 src/attacker/attacker.py  -t 1.1.1.1 -k A -i 1.1.1.1
-```
