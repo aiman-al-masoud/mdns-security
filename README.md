@@ -8,7 +8,7 @@
 <details>
 <summary><b>How to use it</b></summary>
 
-    ```
+```
 python3 src/attacker/attacker.py -t $TARGET_IP -n $NUM_THREADS  -rr $RR_TYPE -i $SPOOFED_IP 
 ```
 
