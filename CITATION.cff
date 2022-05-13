@@ -13,7 +13,7 @@ authors:
     given-names: Davide Pio
   - family-names: Ragusa
     given-names: Domenico
-url : "\url{https://github.com/aiman-al-masoud/mdns-security}"
+url : "https://github.com/aiman-al-masoud/mdns-security"
 title: "mDNS-security"
 version: 1.0.0
 doi: 10.5281/mDNS-security.1234
