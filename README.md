@@ -24,6 +24,6 @@ Only ```-t (target)``` is mandatory
 <details>
 <summary><b>Citation</b></summary>
 
-Please remember to cite this report, whenever you have taken some parts of the whole project.
+Please remember to cite this report, whenever you have taken some parts, or the whole project.
 
 </details>

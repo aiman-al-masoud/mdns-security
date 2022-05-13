@@ -88,7 +88,9 @@
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
 
-\Abstract{Add a brief discussion of the project}
+\Abstract{The aim of this report is to implement a DDoS attack, based on the mDNS protocol. 
+In addition, the generated traffic has been analyzed, and some studies have been conducted, 
+in order to understand the impact of this kind of DDoS attack under different conditions.}
 
 %----------------------------------------------------------------------------------------
 
@@ -146,7 +148,7 @@ An mDNS message is a UDP packet sent in multicast using the following addressing
 \begin{itemize}[leftmargin=*]
     \item IPv4 address 224.0.0.251 or IPv6 address ff02::fb
     \item UDP port 5353
-    \item When using Ethernet frames, the standard IP multicast MAC address 01:00:5E:00:00:FB (for IPv4) or 33:33:00:00:FB (for IPv6)
+    \item When using Ethernet frames, the standard IP multicast MAC address 01:00:5E:00:00:FB (for IPv4) \\or 33:33:00:00:FB (for IPv6)
 \end{itemize}
 The payload structure is based on the unicast DNS packet format, which consists of two parts: the header and the data.\\
 The header is identical to the one found in the unicast DNS, as are the subsections in the data part: queries, responses, authoritative-nameservers, and additional records. The number of records in each subsection corresponds to the value of the corresponding {\it{COUNT}} field in the header.
@@ -180,7 +182,7 @@ The {\it{QCLASS}} field is identical to that found in unicast DNS ({\it{IN}} cla
 
 \subsection{Resource Records}
 All records in the answers, authoritative-nameservers, and additional records sections have the same format and are known collectively as Resource Records (RR).\\
-The general format of RRs in mDNS is slightly different from classic DNS and is the following table.
+The general format of RRs in mDNS is slightly different from classic DNS and is the table \ref{tab:table_2}.
 
 \begin{table}[hbt]
 	\centering
@@ -204,6 +206,7 @@ The general format of RRs in mDNS is slightly different from classic DNS and is 
 		RDATA & Resource data; internal structure varies by RRTYPE & Variable\\
 		\hline
 	\end{tabular}
+	\label{tab:table_2}
 	\caption{Resource Records}
 \end{table}
 
@@ -212,9 +215,26 @@ The {\it{CACHE-FLUSH}} bit is used to instruct neighboring nodes that the record
 %------------------------------------------------
 
 \section{Experiment}
-Start working from here
+The aim of this section is taking into account the implemented mDNS DDoS attack solution, and consider the different parts of the script
+(GitHub repository \cite{repo}).
+
+\subsection{How to start the attack}
+Once the repository is cloned on your own device, the easiest way to start the script is by executing the following command, on your terminal (remember to move within the same folder
+in which you cloned this repo):
+
+\begin{footnotesize}
+	\begin{verbatim}
+	$ python3 src/attacker/attacker.py -t TARGET_IP 
+	\end{verbatim}
+\end{footnotesize}
+
+Where the {\it{target}} is the device connected within your network.
+Many other parameters can be specified, such as:
+
+\subsection{Python script analysis}
 
 \section{Results}
+The objective of this section is discussing about the results that have been achieved by the implemented DDoS attack.
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
