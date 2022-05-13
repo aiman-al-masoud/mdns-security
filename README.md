@@ -6,6 +6,7 @@
 
 
 ## Introduction
+A project with the aim to simulate (and try to prevent/mitigate) a DDos attack on a target server, relying on the mDNS protocol. 
 
 ***
 ## Other details
