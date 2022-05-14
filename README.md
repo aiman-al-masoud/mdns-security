@@ -15,7 +15,7 @@ A project with the aim to simulate (and try to prevent/mitigate) a DDos attack o
 <summary><b>How to use it</b></summary>
 
 ```
-python3 src/scripton.py -t $TARGET_IP -rr $RR_TYPE -i $SPOOFED_IP -n $NUM_THREADS 
+python3 src/scripton.py -t $TARGET(.local) -rr $RR_TYPE -i $SPOOFED_IP -n $NUM_THREADS 
 ```
 
 Only ```-t (target)``` is mandatory
