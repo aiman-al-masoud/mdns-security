@@ -9,29 +9,9 @@ import socket
 
 multicast_add = "224.0.0.251"
 mdns_port = 5353
+rr_dict = {"A": 1,"AAAA":28,"TXT":16,"PTR":12,"SRV":33,"ANY":255,}
 
-def get_type(type):
-	types = [
-		"ERROR", # type 0 does not exist
-		"A",
-		"NS",
-		"MD",
-		"MF",
-		"CNAME",
-		"MB",
-		"MG",
-		"MR",
-		"NULL",
-		"WKS",
-		"PTS",
-		"HINFO",
-		"MINFO",
-		"TXT"
-	]
-
-	return "{:04x}".format(types.index(type)) if isinstance(type, str) else types[type]
-
-def build_message(type="A", address=""):
+def build_message(type, address):
 	ID = 0 # RFC says it should be 0 in trasmission
 
 	QR = 0	    # Query: 0, Response: 1	1bit
@@ -74,7 +54,7 @@ def build_message(type="A", address=""):
 	message += "00" # Terminating bit for QNAME
 
 	# Type of request
-	QTYPE = get_type(type)
+	QTYPE = type
 	message += QTYPE
 
 	# Class for lookup. 1 is Internet
@@ -108,7 +88,7 @@ def __main__():
 	args = parser.parse_args()
 
 	target =  args.target
-	rr_type = args.type or "A"  # default to type A RR 
+	rr = args.type or "A"  # default to type A RR 
 	spoofed_ip = args.spoofed_ip # default to NO spoofing
 	nthreads = int(args.nthreads or "1") # default to NO parallelism
 
@@ -124,6 +104,12 @@ def __main__():
 	
 	sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	stop_event = threading.Event()
+
+	if rr in rr_dict.keys():
+		rr_type = "{:04x}".format(rr_dict[rr])
+	else:
+		print("Unsupported RR type\n")
+		sys.exit(1)
 	
 	try:
 		print("Loading threads....\n")
