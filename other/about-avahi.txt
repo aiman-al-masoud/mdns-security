@@ -23,7 +23,3 @@ avahi-discover
 
 # remove entries in the cache, modifying the configuration file 
 cache-entries-max=0
-
-
-
-

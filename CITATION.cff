@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, you must cite it as below."
+authors:
+  - family-names: Al Masoud
+    given-names: A.
+  - family-names: Amato
+    given-names: F.
+  - family-names: Blindu
+    given-names: A.
+  - family-names: Lotito
+    given-names: D.
+  - family-names: Ragusa
+    given-names: D.
+url : "https://github.com/aiman-al-masoud/mdns-security"
+title: "mDNS-security"
+version: 1.0.0
+doi: 10.5281/mDNS-security.1234
+date-released: 2022-05-13

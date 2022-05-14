@@ -9,7 +9,7 @@ import socket
 
 multicast_add = "224.0.0.251"
 mdns_port = 5353
-rr_dict = {"A": 1,"AAAA":28,"TXT":16,"PTR":12,"SRV":33,"ANY":255,}
+rr_dict = {"A": 1,"AAAA":28,"TXT":16,"PTR":12,"SRV":33,"ANY":255}
 
 def build_message(type, address):
 	ID = 0 # RFC says it should be 0 in trasmission
@@ -133,4 +133,3 @@ def __main__():
 	
 if __name__ == "__main__":
 	__main__()
-	
