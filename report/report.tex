@@ -75,23 +75,23 @@
 \JournalInfo{\today -- v.1.0} % Journal information
 \Archive{\textcopyright 2022/23} % Additional notes (e.g. copyright, DOI, review/research article)
 
-\PaperTitle{DDoS attack, through mDNS} % Article title
+\PaperTitle{DoS attack, through mDNS} % Article title
 
 \Authors{A. Al Masoud\textsuperscript{1}, F. Amato\textsuperscript{2}, A. Blindu\textsuperscript{3}, D. Lotito\textsuperscript{4}, D. Ragusa\textsuperscript{5}} % Authors
 \affiliation{\textsuperscript{1}\textit{Department of Computer Engineering, University of Pavia, Pavia, Italy}} % Author affiliation
 \affiliation{\textsuperscript{2}\textit{Enterprise Digital Infrastructure}} % Author affiliation
 \affiliation{\textbf{Corresponding author}: francesco.amato01@universitadipavia.it} % Corresponding author
 
-\Keywords{\small{DDoS -- mDNS -- Botnet -- Security}} % Keywords - if you don't want any simply remove all the text between the curly brackets
+\Keywords{\small{DoS -- mDNS -- Botnet -- Security}} % Keywords - if you don't want any simply remove all the text between the curly brackets
 \newcommand{\keywordname}{Keywords} % Defines the keywords heading name
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
 
-\Abstract{The aim of this report is to implement a DDoS attack, based on the mDNS protocol. 
+\Abstract{The aim of this report is to implement a DoS attack, based on the mDNS protocol. 
 In addition, the generated traffic has been analyzed, and some studies have been conducted, 
-in order to understand the impact of this kind of DDoS attack under different conditions.}
+in order to understand the impact of this kind of DoS attack under different conditions.}
 
 %----------------------------------------------------------------------------------------
 
@@ -111,13 +111,13 @@ in order to understand the impact of this kind of DDoS attack under different co
 
 \addcontentsline{toc}{section}{Introduction} % Adds this section to the table of contents
 
-The idea for this project is to perform a Distributed Denial Of Service attack (DDoS) \cite{DDoS} using the Multicast Domain Name System (mDNS) \cite{rfc6762}.\\
-For those who are not familiar with these concepts, a brief discussion about DDoS and its principles is explained below.
-A DDoS attack is when an attacker is attempting to make it impossible for a target service, or multiple services, to be properly delivered.\\
-In this types of attacks, it’s one system that is sending the malicious data or requests; a DDoS attack comes from multiple systems.\\
+The idea for this project is to perform a Distributed Denial Of Service attack (DoS) \cite{DDoS} using the Multicast Domain Name System (mDNS) \cite{rfc6762}.\\
+For those who are not familiar with these concepts, a brief discussion about DoS and its principles is explained below.
+A DoS attack is when an attacker is attempting to make it impossible for a target service, or multiple services, to be properly delivered.\\
+In this types of attacks, it’s one system that is sending the malicious data or requests.\\
 Generally, these attacks work by overwhelming a system with requests for data. This could be sending a web server so many requests to serve a page that it crashes under the demand, or small requests that are amplificated by providing a huge response. \\ The result is that available internet bandwidth and the resources of the target system become overloaded.\\
-In this project mDNS has been exploited in order to perform a DDoS attack. The starting hypothesis is that the botmaster and its malicious devices are within the same network of the target. In order to overload the network the attacker sends a query in multicast to all the devices inside the network according to the mDNS protocol. \\ The devices respond in multicast and the result is that the network availability, its bandwith and the mDNS service are compromised. \\
-In order to understand how we exploited the mDNS for the DDoS attack, an explanation of how this protocol works is provied below.
+In this project mDNS has been exploited in order to perform a DoS attack. The starting hypothesis is that the attacker and the target devices are within the same network of the target. In order to overload the network the attacker sends a query in multicast to all the devices inside the network according to the mDNS protocol. \\ The devices respond in multicast and the result is that the network availability, its bandwith and the mDNS service are compromised. \\
+In order to understand how we exploited the mDNS for the DoS attack, an explanation of how this protocol works is provied below.
 
 %----------------------------------------------------------------------------------------
 %	mDNS protocol
@@ -144,7 +144,7 @@ A popular implementation of mDNS is Bonjour by Apple, also the open source softw
     \item Assigning host names is problematic: since you can freely choose a name for each device, as long as it ends in {\it{.local}}, this can (at least theoretically) lead to two network devices with the same host name.\\
           The developers of mDNS have deliberately not proposed a solution to this problem. On the one hand, it is assumed that the case rarely occurs; on the other hand, the double naming may be intentional. Also, by default, mDNS only resolves hostnames that end with the {\it{.local}} top-level domain. \\
           This can cause problems if {\it{.local}} includes hosts that do not implement mDNS but can be found via a conventional unicast DNS server. Resolving such conflicts requires network configuration changes that mDNS is designed to avoid.
-    \item In some cases, mDNS is open. This means that it also responds to requests from outside (the Internet). Attackers can find such open services and use them for DDoS attacks, using network devices improperly and targeting a server. In addition, in a DNS Multicast even sensitive data can be detected. 
+    \item In some cases, mDNS is open. This means that it also responds to requests from outside (the Internet). Attackers can find such open services and use them for DoS attacks, using network devices improperly and targeting a server. In addition, in a DNS Multicast even sensitive data can be detected. 
 	      This allows attackers to know information about connected devices and use it for further attacks.
 \end{itemize}
 
@@ -222,7 +222,7 @@ The {\it{CACHE-FLUSH}} bit is used to instruct neighboring nodes that the record
 %----------------------------------------------------------------------------------------
 
 \section{Experiment}
-The aim of this section is taking into account the implemented mDNS DDoS attack solution, and consider the different parts of the script
+The aim of this section is taking into account the implemented mDNS DoS attack solution, and consider the different parts of the script
 (GitHub repository \cite{repo}).
 
 \subsection{How to start the attack}
@@ -236,8 +236,8 @@ in which you cloned this repo):
 \end{scriptsize}
 
 Where the {\it{target}} is the device, to be compromised, connected within your network.
-This parameter is the only one mandatory in order to start the DDoS over mDNS attack.\\
-The main goal is to compromise both the target and the service on which the DDoS is based. 
+This parameter is the only one mandatory in order to start the DoS over mDNS attack.\\
+The main goal is to compromise both the target and the service on which the DoS is based. 
 As a result of this, the other devices connected within the same network of the target will 
 also suffer from side effects, in a more or less visible way, depending on the extent and power of the assault
 (e.g., unable to reach and use completely or partially the mDNS service, the network is overloaded due to the huge quantity of the traffic ganerated, \dots).\\
@@ -249,8 +249,8 @@ Other parameters can be specified, such as:
 	If the primary objective of the attack is to compromise the target device (and not only the network, or mDNS service) it is necessary that all the botnet devices have spoofed their IP, 
 	so that the target device has a huge mDNS traffic to manage.
     \item {\it{Number of threads}} (-n or - -nthreads, default 1), this parameter is setted to create a higher level of parallelism (using multi-threading \cite{THREAD}), with the aim of increasing the number of mDNS requests that can be performed to the target device in a second. \\
-    If a botnet is not used, the power of the attack depends only on the computing power (therefore number of cores) of the device from which the attack starts (the more the number of cores the greater the amount of traffic generated). \\
-	Furthermore, if the same script runs simultaneously on multiple devices, using the same spoofed IP and the same IP target (of course botmaster and botnet must be connected within the same network) and exploiting the full computing power of each infected network node, the order of magnitude of the attack can be very devastating.
+    If a botnet has not been created (distributed DoS), the power of the attack depends only on the computing power (therefore number of cores) of the device from which the attack starts (the more the number of cores the greater the amount of traffic generated). \\
+	In order to perform a distributed attack, is enough to make this script run simultaneously on multiple infected devices, using the same spoofed IP and the same target IP (of course botmaster and botnet must be connected within the same network) and exploiting the full computing power of each infected network node, the order of magnitude of the attack can be very devastating.
 \end{itemize}
 
 The complete command, using all the parameters, should be executed as follows (a single line in the terminal/prompt):
@@ -262,14 +262,40 @@ The complete command, using all the parameters, should be executed as follows (a
 	\end{verbatim}
 \end{scriptsize}
 
-\subsection{Python script behavior analysis}
+\subsection{Python script analysis}
+In this section the python script, its functions and their behavior are discussed in more details.
+
+\subsubsection{Main()}
+Starting from the principal function, it parses the parameter passed as parameter, already discussed in the previous section.\\
+After that, a new socket is created and each of the threads are sharing the same socket, where the
+number of threads is the one specified as parameter when executed the latest illustrated command.\\
+In addition, it istantiates the threads and each of the thread executes the {\it{send\textunderscore query()}} function, that will be
+discussed later.\\
+Furthermore, the threads are made as deamons, so that when the main thread stops, all the other deamons are
+killed.\\
+The way the attack can be stopped is by inserting on the terminal the {\it{"control + c"}} command (the main thread and all the others are killed).
+In the case the IP of the attacker was spoofed, the source IP will be restablished as the same one it had before the spoofing phase.
+
+\subsubsection{Send\textunderscore query()}
+It accepts as parameters the: {\it{host}}, {\it{RR type}}, {\it{socket instance}}, and the {\it{stop\textunderscore event}}.
+Where the {\it{stop\textunderscore event}} parameter indicates a threading event that when is set it stops the sending of the queries.\\
+While the {\it{stop\textunderscore event}} is not set it builds the query with the {\it{build\textunderscore message()}} function and then sends it through the socket 
+in multicast.\\
+The {\it{host}} is the IP of the target device, connected within the attackers network.
+
+\subsubsection{Build\textunderscore message()}
+It accepts as parameters the: {\it{RR type}}, and the {\it{address}}. Where the {\it{address}} is the target IP. \\
+The purpose of this function is to create the hexadecimal message with all the flags setted.
+This message is the one that will be sent to the target IP. \\ There is even the possibility to set the type of 
+resource records (RR) we request to our target. Those RRs types are defined in the {\it{get\textunderscore type()}} function.
+The latest mentioned function will not be discussed, since its objective is trivial.
 
 %----------------------------------------------------------------------------------------
 %	RESULTS
 %----------------------------------------------------------------------------------------
 
 \section{Results}
-The objective of this section is discussing about the results that have been achieved by the implemented DDoS attack.
+The objective of this section is discussing about the results that have been achieved by the implemented DoS attack.
 
 \subsection{Generated traffic}
 
@@ -281,7 +307,7 @@ The objective of this section is discussing about the results that have been ach
 %----------------------------------------------------------------------------------------
 
 \section{Ways to mitigate or prevent}
-But how is possible to prevent or mitigate DDoS attacks, and more specifically DDoS over mDNS protocol? \\
+But how is possible to prevent or mitigate DoS attacks, and more specifically DoS over mDNS protocol? \\
 Many solutions are here discussed.
 
 %----------------------------------------------------------------------------------------

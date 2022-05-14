@@ -1,4 +1,4 @@
-# mDNS DDoS Project
+# mDNS DoS Project
 ![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)
 [![forthebadge](https://forthebadge.com/images/badges/built-by-developers.svg)](https://forthebadge.com)
 <br>
@@ -6,7 +6,7 @@
 
 
 ## Introduction
-A project with the aim to simulate (and try to prevent/mitigate) a DDos attack on a target server, relying on the mDNS protocol. 
+A project with the aim to simulate (and try to prevent/mitigate) a DoS attack on a target server, relying on the mDNS protocol. 
 
 ***
 ## Other details
