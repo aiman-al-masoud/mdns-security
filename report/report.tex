@@ -231,7 +231,7 @@ in which you cloned this repo):
 
 \begin{scriptsize}
 	\begin{verbatim}
-	$ python3 src/scripton.py -t $TARGET(.local)
+	$ python3 src/scripton.py -t $TARGET(.local) 
 	\end{verbatim}
 \end{scriptsize}
 
@@ -243,7 +243,7 @@ also suffer from side effects, in a more or less visible way, depending on the e
 (e.g., unable to reach and use completely or partially the mDNS service, the network is overloaded due to the huge quantity of the traffic ganerated, \dots).\\
 Other parameters can be specified, such as:
 \begin{itemize}[leftmargin=*]
-    \item {\it{RRTYPE}} (-rr or - -type, default type ANY), which are the RR types used in order to send particular mDNS requests to the target device
+    \item {\it{RRTYPE}} (-rr or - -type, default type A), which are the RR types used in order to send particular mDNS requests to the target device
     \item {\it{Spoofed IP} \cite{SPOOFING}} (-i or - -spoofed-ip, default NONE), in order to avoid that to prevent network administrators from tracing to whom the real device started the attack, 
 	the IP of our machine (or devices connected to the botnet \cite{BOTNET}, whose term indicates a set of infected devices, always ready to listen and perform the commands of the head of the botnet) is changed to one of another device connected within the same target's network (for example a friend, relative, colleague, \dots).\\
 	If the primary objective of the attack is to compromise the target device (and not only the network, or mDNS service) it is necessary that all the botnet devices have spoofed their IP, 
