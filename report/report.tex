@@ -186,7 +186,7 @@ response directly to the requesting node rather than broadcasting the response t
 The {\it{QCLASS}} field is identical to that found in unicast DNS ({\it{IN}} class).
 
 \subsection{Resource Records}
-All records in the answers, authoritative-nameservers, and additional records sections have the same format and are known collectively as Resource Records (RR).\\
+All records in the answers, authoritative-nameservers, and additional records sections have the same format and are known collectively as Resource Records (RR) \cite{rfc4034}.\\
 The general format of RRs in mDNS is slightly different from classic DNS, as shown in the table \ref{table}. % -- PLEASE DO NOT REMOVE THIS COMMENT.
 
 \begin{table}[hbt]
@@ -248,12 +248,12 @@ Other parameters can be specified, such as:
 	the IP of our machine (or devices connected to the botnet \cite{BOTNET}, whose term indicates a set of infected devices, always ready to listen and perform the commands of the head of the botnet) is changed to one of another device connected within the same target's network (for example a friend, relative, colleague, \dots).\\
 	If the primary objective of the attack is to compromise the target device (and not only the network, or mDNS service) it is necessary that all the botnet devices have spoofed their IP, 
 	so that the target device has a huge mDNS traffic to manage.
-    \item {\it{Number of threads}} (-n or - -nthreads, default 1), this parameter is setted to create a higher level of parallelism, with the aim of increasing the number of mDNS requests that can be performed to the target device in a second. \\
+    \item {\it{Number of threads}} (-n or - -nthreads, default 1), this parameter is setted to create a higher level of parallelism (using multi-threading \cite{THREAD}), with the aim of increasing the number of mDNS requests that can be performed to the target device in a second. \\
     If a botnet is not used, the power of the attack depends only on the computing power (therefore number of cores) of the device from which the attack starts (the more the number of cores the greater the amount of traffic generated). \\
 	Furthermore, if the same script runs simultaneously on multiple devices, using the same spoofed IP and the same IP target (of course botmaster and botnet must be connected within the same network) and exploiting the full computing power of each infected network node, the order of magnitude of the attack can be very devastating.
 \end{itemize}
 
-An example of how the complete command, using all the parameters, should be, is shown below (it must be executed in one single line in the terminal/prompt):
+The complete command, using all the parameters, should be executed as follows (a single line in the terminal/prompt):
 
 \begin{scriptsize}
 	\begin{verbatim}
