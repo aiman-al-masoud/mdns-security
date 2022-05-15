@@ -279,7 +279,7 @@ In the case the IP of the attacker was spoofed, the source IP will be restablish
 \subsubsection{Send\textunderscore query()}
 It accepts as parameters the: {\it{host}}, {\it{RR type}}, {\it{socket instance}}, and the {\it{stop\textunderscore event}}.
 Where the {\it{stop\textunderscore event}} parameter indicates a threading event that when is set it stops the sending of the queries.\\
-While the {\it{stop\textunderscore event}} is not set it builds the query with the {\it{build\textunderscore message()}} function and then sends it through the socket 
+Until the {\it{stop\textunderscore event}} is not set it builds the query with the {\it{build\textunderscore message()}} function and then sends it through the socket 
 in multicast.\\
 The {\it{host}} is the IP of the target device, connected within the attackers network.
 
@@ -287,8 +287,7 @@ The {\it{host}} is the IP of the target device, connected within the attackers n
 It accepts as parameters the: {\it{RR type}}, and the {\it{address}}. Where the {\it{address}} is the target IP. \\
 The purpose of this function is to create the hexadecimal message with all the flags setted.
 This message is the one that will be sent to the target IP. \\ There is even the possibility to set the type of 
-resource records (RR) we request to our target. Those RRs types are defined in the {\it{get\textunderscore type()}} function.
-The latest mentioned function will not be discussed, since its objective is trivial.
+resource records (RR) we request to our target. Those RRs types are defined in the {\it{rr\textunderscore type}} dictionary.
 
 %----------------------------------------------------------------------------------------
 %	RESULTS
