@@ -2,6 +2,34 @@
 
 Title: DDoS simulation (mDNS)
 
+# Ideas from 16-05-2022:
+
+## Measure time to reach server (latency) during an attack:
+
+  * pyhton resolver scrypton
+	* avahi (mdns) 
+	
+  ### Other services
+	* ping (weeee juuust diiiid iiiit)
+	
+	* iperf
+		
+    ```
+    iperf -s
+		iperf -c 192.168.1.128 -f M 
+		```
+
+## Correlate query type with:
+	* num devices connected to network 
+	* traffic	
+	* latency
+	* queries per second /num of crit. threads 
+	
+## Measure the impact of an attack on:
+	* target
+	* router (eg: ping router)
+  * "Collateral": other users on the network 
+
 
 ## Settimana in corso
 * creare il codice per l'attacco
