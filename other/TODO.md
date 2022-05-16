@@ -10,14 +10,14 @@ Title: DDoS simulation (mDNS)
 	* avahi (mdns) 
 	
   ### Other services
-	* ping (weeee juuust diiiid iiiit)
-	
-	* iperf
+  
+  * ping (weeee juuust diiiid iiiit)
+  * iperf
 		
+    ```bash
+    iperf -s # on server
+    iperf -c $SERVERS_IP -f M  # on client
     ```
-    iperf -s
-		iperf -c 192.168.1.128 -f M 
-		```
 
 ## Correlate query type with:
 	* num devices connected to network 
