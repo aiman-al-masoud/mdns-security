@@ -297,9 +297,35 @@ resource records (RR) we request to our target. Those RRs types are defined in t
 The objective of this section is discussing about the results that have been achieved by the implemented DoS attack.
 
 \subsection{Generated traffic}
+As already discussed, the main objective of a DoS attack is making unavailable a service (or a set of services), to all users connected within 
+the same network.\\
+Here it will be briefly discussed the effect size of the performed attack, both on the service used 
+in order to perform the attack (mDNS), and other kind of services (ICMP and UDP).\\
+A figure of merit taken into account for assessing this study is the Round Trip Time (RTT) \cite{RTT}. 
+This value has been considered both when the network was under attack, and not (baseline condition).
 
-\subsection{Statistical investigations}
+\paragraph{Environment setup}
+The following results have been obtained by performing the DoS attack on a "test" network (with few devices connected). 
+Just try to imagine the impact that would have had executing this script on a real network, and so on the other requests made by
+other users connected within a huge network.
 
+\subsubsection{mDNS analysis}
+\dots
+
+\subsubsection{ICMP analysis}
+\dots
+
+\subsubsection{UDP analysis}
+\dots
+
+\subsubsection{Different query types}
+\dots
+
+\subsubsection{...}
+\dots
+
+\subsection{Summary}
+\dots
 
 %----------------------------------------------------------------------------------------
 %	MITIGATION/PREVENTION
@@ -307,7 +333,7 @@ The objective of this section is discussing about the results that have been ach
 
 \section{Ways to mitigate or prevent}
 But how is possible to prevent or mitigate DoS attacks, and more specifically DoS over mDNS protocol? \\
-Many solutions are here discussed.
+Many different solutions are here discussed.
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
