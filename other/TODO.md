@@ -7,11 +7,13 @@ Title: DDoS simulation (mDNS)
 ## Measure time to reach server (latency) during an attack:
 
   * pyhton resolver scrypton
-	* avahi (mdns) 
+  
+  * avahi (mdns) 
 	
   ### Other services
   
   * ping (weeee juuust diiiid iiiit)
+  
   * iperf
 		
     ```bash
@@ -20,10 +22,11 @@ Title: DDoS simulation (mDNS)
     ```
 
 ## Correlate query type with:
-	* num devices connected to network 
-	* traffic	
-	* latency
-	* queries per second /num of crit. threads 
+
+* num devices connected to network 
+* traffic	
+* latency
+* queries per second /num of crit. threads 
 	
 ## Measure the impact of an attack on:
 	* target
