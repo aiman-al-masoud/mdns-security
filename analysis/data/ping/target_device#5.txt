@@ -1,0 +1,161 @@
+#The pinged (ICMP protocol) device is the target one, and the
+#attack was performed by 1 attacker (Andrei), with 100 
+#threads (4 devices conneced to the network and query type ANY)
+
+PING 192.168.1.108 (192.168.1.108): 56 data bytes
+64 bytes from 192.168.1.108: icmp_seq=0 ttl=64 time=93.466 ms
+64 bytes from 192.168.1.108: icmp_seq=1 ttl=64 time=7.810 ms
+64 bytes from 192.168.1.108: icmp_seq=2 ttl=64 time=27.113 ms
+64 bytes from 192.168.1.108: icmp_seq=3 ttl=64 time=34.206 ms
+64 bytes from 192.168.1.108: icmp_seq=4 ttl=64 time=69.676 ms
+64 bytes from 192.168.1.108: icmp_seq=5 ttl=64 time=6.799 ms
+64 bytes from 192.168.1.108: icmp_seq=6 ttl=64 time=34.605 ms
+64 bytes from 192.168.1.108: icmp_seq=7 ttl=64 time=24.812 ms
+64 bytes from 192.168.1.108: icmp_seq=8 ttl=64 time=46.755 ms
+64 bytes from 192.168.1.108: icmp_seq=9 ttl=64 time=7.062 ms
+64 bytes from 192.168.1.108: icmp_seq=10 ttl=64 time=87.135 ms
+64 bytes from 192.168.1.108: icmp_seq=11 ttl=64 time=102.730 ms
+64 bytes from 192.168.1.108: icmp_seq=12 ttl=64 time=23.983 ms
+64 bytes from 192.168.1.108: icmp_seq=13 ttl=64 time=6.569 ms
+64 bytes from 192.168.1.108: icmp_seq=14 ttl=64 time=60.814 ms
+64 bytes from 192.168.1.108: icmp_seq=15 ttl=64 time=28.421 ms
+64 bytes from 192.168.1.108: icmp_seq=16 ttl=64 time=99.942 ms
+64 bytes from 192.168.1.108: icmp_seq=17 ttl=64 time=4.639 ms
+64 bytes from 192.168.1.108: icmp_seq=18 ttl=64 time=28.100 ms
+64 bytes from 192.168.1.108: icmp_seq=19 ttl=64 time=57.260 ms
+64 bytes from 192.168.1.108: icmp_seq=20 ttl=64 time=76.035 ms
+64 bytes from 192.168.1.108: icmp_seq=21 ttl=64 time=5.605 ms
+64 bytes from 192.168.1.108: icmp_seq=22 ttl=64 time=14.836 ms
+64 bytes from 192.168.1.108: icmp_seq=23 ttl=64 time=34.766 ms
+64 bytes from 192.168.1.108: icmp_seq=24 ttl=64 time=18.259 ms
+64 bytes from 192.168.1.108: icmp_seq=25 ttl=64 time=16.961 ms
+64 bytes from 192.168.1.108: icmp_seq=26 ttl=64 time=87.989 ms
+64 bytes from 192.168.1.108: icmp_seq=27 ttl=64 time=25.004 ms
+64 bytes from 192.168.1.108: icmp_seq=28 ttl=64 time=29.786 ms
+64 bytes from 192.168.1.108: icmp_seq=29 ttl=64 time=6.563 ms
+64 bytes from 192.168.1.108: icmp_seq=30 ttl=64 time=34.078 ms
+64 bytes from 192.168.1.108: icmp_seq=31 ttl=64 time=7.380 ms
+64 bytes from 192.168.1.108: icmp_seq=32 ttl=64 time=114.410 ms
+64 bytes from 192.168.1.108: icmp_seq=33 ttl=64 time=37.372 ms
+64 bytes from 192.168.1.108: icmp_seq=34 ttl=64 time=55.410 ms
+64 bytes from 192.168.1.108: icmp_seq=35 ttl=64 time=75.049 ms
+64 bytes from 192.168.1.108: icmp_seq=36 ttl=64 time=35.548 ms
+64 bytes from 192.168.1.108: icmp_seq=37 ttl=64 time=7.636 ms
+64 bytes from 192.168.1.108: icmp_seq=38 ttl=64 time=30.260 ms
+64 bytes from 192.168.1.108: icmp_seq=39 ttl=64 time=30.882 ms
+64 bytes from 192.168.1.108: icmp_seq=40 ttl=64 time=5.942 ms
+64 bytes from 192.168.1.108: icmp_seq=41 ttl=64 time=86.721 ms
+64 bytes from 192.168.1.108: icmp_seq=42 ttl=64 time=30.001 ms
+64 bytes from 192.168.1.108: icmp_seq=43 ttl=64 time=27.324 ms
+64 bytes from 192.168.1.108: icmp_seq=44 ttl=64 time=51.078 ms
+64 bytes from 192.168.1.108: icmp_seq=45 ttl=64 time=25.108 ms
+64 bytes from 192.168.1.108: icmp_seq=46 ttl=64 time=6.349 ms
+64 bytes from 192.168.1.108: icmp_seq=47 ttl=64 time=206.481 ms
+64 bytes from 192.168.1.108: icmp_seq=48 ttl=64 time=26.025 ms
+64 bytes from 192.168.1.108: icmp_seq=49 ttl=64 time=48.087 ms
+Request timeout for icmp_seq 50
+Request timeout for icmp_seq 51
+64 bytes from 192.168.1.108: icmp_seq=52 ttl=64 time=26.577 ms
+64 bytes from 192.168.1.108: icmp_seq=53 ttl=64 time=90.946 ms
+64 bytes from 192.168.1.108: icmp_seq=54 ttl=64 time=81.872 ms
+Request timeout for icmp_seq 55
+64 bytes from 192.168.1.108: icmp_seq=56 ttl=64 time=86.075 ms
+64 bytes from 192.168.1.108: icmp_seq=57 ttl=64 time=131.297 ms
+Request timeout for icmp_seq 58
+Request timeout for icmp_seq 59
+Request timeout for icmp_seq 60
+64 bytes from 192.168.1.108: icmp_seq=61 ttl=64 time=4.046 ms
+Request timeout for icmp_seq 62
+Request timeout for icmp_seq 63
+64 bytes from 192.168.1.108: icmp_seq=64 ttl=64 time=353.000 ms
+Request timeout for icmp_seq 65
+Request timeout for icmp_seq 66
+64 bytes from 192.168.1.108: icmp_seq=67 ttl=64 time=177.116 ms
+64 bytes from 192.168.1.108: icmp_seq=68 ttl=64 time=66.363 ms
+64 bytes from 192.168.1.108: icmp_seq=69 ttl=64 time=24.199 ms
+Request timeout for icmp_seq 70
+64 bytes from 192.168.1.108: icmp_seq=71 ttl=64 time=19.498 ms
+64 bytes from 192.168.1.108: icmp_seq=72 ttl=64 time=4.664 ms
+64 bytes from 192.168.1.108: icmp_seq=73 ttl=64 time=111.306 ms
+64 bytes from 192.168.1.108: icmp_seq=74 ttl=64 time=5.108 ms
+Request timeout for icmp_seq 75
+Request timeout for icmp_seq 76
+Request timeout for icmp_seq 77
+64 bytes from 192.168.1.108: icmp_seq=78 ttl=64 time=8.143 ms
+64 bytes from 192.168.1.108: icmp_seq=79 ttl=64 time=46.002 ms
+Request timeout for icmp_seq 80
+64 bytes from 192.168.1.108: icmp_seq=81 ttl=64 time=41.128 ms
+64 bytes from 192.168.1.108: icmp_seq=82 ttl=64 time=6.125 ms
+Request timeout for icmp_seq 83
+Request timeout for icmp_seq 84
+64 bytes from 192.168.1.108: icmp_seq=85 ttl=64 time=236.730 ms
+64 bytes from 192.168.1.108: icmp_seq=86 ttl=64 time=13.842 ms
+Request timeout for icmp_seq 87
+Request timeout for icmp_seq 88
+64 bytes from 192.168.1.108: icmp_seq=89 ttl=64 time=272.806 ms
+64 bytes from 192.168.1.108: icmp_seq=90 ttl=64 time=13.036 ms
+Request timeout for icmp_seq 91
+Request timeout for icmp_seq 92
+64 bytes from 192.168.1.108: icmp_seq=93 ttl=64 time=5.678 ms
+64 bytes from 192.168.1.108: icmp_seq=94 ttl=64 time=78.521 ms
+64 bytes from 192.168.1.108: icmp_seq=95 ttl=64 time=121.604 ms
+Request timeout for icmp_seq 96
+Request timeout for icmp_seq 97
+Request timeout for icmp_seq 98
+Request timeout for icmp_seq 99
+64 bytes from 192.168.1.108: icmp_seq=100 ttl=64 time=181.875 ms
+64 bytes from 192.168.1.108: icmp_seq=101 ttl=64 time=7.583 ms
+64 bytes from 192.168.1.108: icmp_seq=102 ttl=64 time=103.492 ms
+Request timeout for icmp_seq 103
+64 bytes from 192.168.1.108: icmp_seq=104 ttl=64 time=70.472 ms
+64 bytes from 192.168.1.108: icmp_seq=105 ttl=64 time=33.574 ms
+64 bytes from 192.168.1.108: icmp_seq=106 ttl=64 time=95.349 ms
+64 bytes from 192.168.1.108: icmp_seq=107 ttl=64 time=41.588 ms
+64 bytes from 192.168.1.108: icmp_seq=108 ttl=64 time=31.075 ms
+64 bytes from 192.168.1.108: icmp_seq=109 ttl=64 time=58.777 ms
+64 bytes from 192.168.1.108: icmp_seq=110 ttl=64 time=71.174 ms
+64 bytes from 192.168.1.108: icmp_seq=111 ttl=64 time=86.406 ms
+64 bytes from 192.168.1.108: icmp_seq=112 ttl=64 time=109.431 ms
+64 bytes from 192.168.1.108: icmp_seq=113 ttl=64 time=230.297 ms
+64 bytes from 192.168.1.108: icmp_seq=114 ttl=64 time=46.984 ms
+64 bytes from 192.168.1.108: icmp_seq=115 ttl=64 time=67.242 ms
+64 bytes from 192.168.1.108: icmp_seq=116 ttl=64 time=81.562 ms
+64 bytes from 192.168.1.108: icmp_seq=117 ttl=64 time=101.179 ms
+64 bytes from 192.168.1.108: icmp_seq=118 ttl=64 time=323.501 ms
+64 bytes from 192.168.1.108: icmp_seq=119 ttl=64 time=40.851 ms
+64 bytes from 192.168.1.108: icmp_seq=120 ttl=64 time=74.380 ms
+64 bytes from 192.168.1.108: icmp_seq=121 ttl=64 time=86.701 ms
+64 bytes from 192.168.1.108: icmp_seq=122 ttl=64 time=108.343 ms
+64 bytes from 192.168.1.108: icmp_seq=123 ttl=64 time=25.294 ms
+64 bytes from 192.168.1.108: icmp_seq=124 ttl=64 time=45.483 ms
+64 bytes from 192.168.1.108: icmp_seq=125 ttl=64 time=64.999 ms
+64 bytes from 192.168.1.108: icmp_seq=126 ttl=64 time=89.644 ms
+64 bytes from 192.168.1.108: icmp_seq=127 ttl=64 time=109.183 ms
+64 bytes from 192.168.1.108: icmp_seq=128 ttl=64 time=34.180 ms
+64 bytes from 192.168.1.108: icmp_seq=129 ttl=64 time=45.006 ms
+64 bytes from 192.168.1.108: icmp_seq=130 ttl=64 time=62.945 ms
+64 bytes from 192.168.1.108: icmp_seq=131 ttl=64 time=81.595 ms
+64 bytes from 192.168.1.108: icmp_seq=132 ttl=64 time=100.364 ms
+64 bytes from 192.168.1.108: icmp_seq=133 ttl=64 time=119.175 ms
+64 bytes from 192.168.1.108: icmp_seq=134 ttl=64 time=36.423 ms
+64 bytes from 192.168.1.108: icmp_seq=135 ttl=64 time=55.229 ms
+64 bytes from 192.168.1.108: icmp_seq=136 ttl=64 time=75.556 ms
+64 bytes from 192.168.1.108: icmp_seq=137 ttl=64 time=93.059 ms
+64 bytes from 192.168.1.108: icmp_seq=138 ttl=64 time=113.503 ms
+64 bytes from 192.168.1.108: icmp_seq=139 ttl=64 time=41.066 ms
+64 bytes from 192.168.1.108: icmp_seq=140 ttl=64 time=52.928 ms
+64 bytes from 192.168.1.108: icmp_seq=141 ttl=64 time=5.617 ms
+64 bytes from 192.168.1.108: icmp_seq=142 ttl=64 time=90.373 ms
+64 bytes from 192.168.1.108: icmp_seq=143 ttl=64 time=312.410 ms
+64 bytes from 192.168.1.108: icmp_seq=144 ttl=64 time=7.821 ms
+64 bytes from 192.168.1.108: icmp_seq=145 ttl=64 time=452.717 ms
+64 bytes from 192.168.1.108: icmp_seq=146 ttl=64 time=62.755 ms
+64 bytes from 192.168.1.108: icmp_seq=147 ttl=64 time=9.594 ms
+64 bytes from 192.168.1.108: icmp_seq=148 ttl=64 time=105.726 ms
+64 bytes from 192.168.1.108: icmp_seq=149 ttl=64 time=230.413 ms
+64 bytes from 192.168.1.108: icmp_seq=150 ttl=64 time=5.362 ms
+64 bytes from 192.168.1.108: icmp_seq=151 ttl=64 time=67.083 ms
+
+--- 192.168.1.108 ping statistics ---
+152 packets transmitted, 126 packets received, 17.1% packet loss
+round-trip min/avg/max/stddev = 4.046/69.697/452.717/74.527 ms
