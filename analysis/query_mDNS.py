@@ -40,6 +40,7 @@ def __main__():
 		sys.exit(1)
 	
 	try:
+		i=0
 		while True:
 			try:
 				query_time = time.time()
@@ -47,7 +48,8 @@ def __main__():
 				message = message.replace(" ", "").replace("\n", "") 
 				sock.sendto(binascii.unhexlify(message), (multicast_add, mdns_port))
 				data, _ = sock.recvfrom(4096)
-				print("time: "+str(round(1000*(time.time()-query_time),3))+" ms")
+				print("ID: "+ i +" - time: "+str(round(1000*(time.time()-query_time),3))+" ms")
+				i += 1;
 				time.sleep(0.5)
 			except socket.timeout as e:
 				print(e)
