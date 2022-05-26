@@ -37,18 +37,15 @@ def plot_boxplot(path):
     my_dict = {}
     i = 0
     for filename in os.listdir(path):
-        i+= 1
+        i += 1
         s = pd.Series(dump_to_rtt_list(read_file(path + filename)))
         first_in_first = find_timeout_indexes(s)[0]
         one_last_thing = find_timeout_indexes(s)[-1]
         attack_rtts = s[first_in_first:one_last_thing+1]
         if i == 1:
-            no_attack_rtts = s[-(one_last_thing+1):first_in_first]
-            my_dict["No attack"] = no_attack_rtts
+            my_dict["No attack"] = s[-(one_last_thing+1):first_in_first]
         my_dict["Attack_"+str(i)] = attack_rtts
-
     fig, ax = plt.subplots()
-    ax.set_title('Basic Plot')
+    ax.set_title('Box Plot, average RTTs')
     ax.boxplot(my_dict.values(), showmeans=True)
-    ax.xticks(rotation = 45)
-    ax.set_xticklabels(my_dict.keys())
+    ax.set_xticklabels(my_dict.keys(), rotation=90)
