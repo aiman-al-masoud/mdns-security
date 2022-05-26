@@ -62,7 +62,7 @@
 	right=2cm,
 	top=2.25cm,
 	bottom=2.25cm,
-	headheight=11pt,
+	headheight=12pt,
 	letterpaper,
 ]{geometry}
 
@@ -92,12 +92,12 @@
 % Headers
 \lhead{}
 \chead{}
-\rhead{\small\sffamily\bfseries\@PaperTitle\ --- \thepage/\pageref{LastPage}}
+\rhead{\small\sffamily\bfseries\@PaperTitle}
 
 % Footers
 \lfoot{}
 \cfoot{}
-\rfoot{}
+\rfoot{\thepage}
 
 %----------------------------------------------------------------------------------------
 %	SECTION SETUP
@@ -127,7 +127,7 @@
 	[]
 
 \titleformat{\subsubsection}
-	{\sffamily\small\bfseries}
+	{\color{color1}\sffamily\bfseries}
 	{\thesubsubsection}
 	{0.5em}
 	{#1}
@@ -164,17 +164,17 @@
 
 \titlecontents{subsection}[\tocsep]
 	{\addvspace{2pt}\sffamily}
-	{\contentslabel[\thecontentslabel]{\tocsep}}
+	{\contentslabel[\thecontentslabel]{1pc}\space\space }
 	{}
-	{\ \titlerule*[.5pc]{.}\ \thecontentspage}
+	{\titlerule*[.5pc]{.}\ \thecontentspage}
 	[]
 
-\titlecontents*{subsubsection}[\tocsep]
-	{\footnotesize\sffamily}
+\titlecontents{subsubsection}[\tocsep]
+	{\addvspace{2pt}\sffamily}
+	{\contentslabel[\thecontentslabel]{0.5pc}\space\space\space\space\space\space\space}
 	{}
-	{}
-	{}
-	[\ \textbullet\ ]
+	{\titlerule*[.5pc]{.}\thecontentspage}
+	[]
 
 %----------------------------------------------------------------------------------------
 %	MULTIPLE AUTHOR SET

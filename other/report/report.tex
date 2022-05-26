@@ -3,14 +3,6 @@
 % LaTeX Template
 % Version 2.2 (2020-10-22)
 %
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Original author:
-% Mathias Legrand (legrand.mathias@gmail.com) 
-% With extensive modifications by:
-% Vel (vel@latextemplates.com)
-%
 % License:
 % CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
 %
@@ -20,7 +12,7 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[fleqn, 10pt]{SelfArx} % Document font size and equations flushed left
+\documentclass[fleqn, 11pt]{SelfArx} % Document font size and equations flushed left
 
 \usepackage[english]{babel} % Specify a different language here - english by default
 
@@ -72,26 +64,26 @@
 %	ARTICLE INFORMATION
 %----------------------------------------------------------------------------------------
 
-\JournalInfo{\today -- v.1.0} % Journal information
-\Archive{\textcopyright 2022/23} % Additional notes (e.g. copyright, DOI, review/research article)
+\JournalInfo{\today} % Journal information
+\Archive{\textcopyright \space 2022} % Additional notes (e.g. copyright, DOI, review/research article)
 
-\PaperTitle{DoS attack, through mDNS} % Article title
+\PaperTitle{Implementation of DoS attack through mDNS and brief discussion on its vulnerabilities} % Article title
 
-\Authors{A. Al Masoud\textsuperscript{1}, F. Amato\textsuperscript{2}, A. Blindu\textsuperscript{3}, D. Lotito\textsuperscript{4}, D. Ragusa\textsuperscript{5}} % Authors
-\affiliation{\textsuperscript{1}\textit{Department of Computer Engineering, University of Pavia, Pavia, Italy}} % Author affiliation
-\affiliation{\textsuperscript{2}\textit{Enterprise Digital Infrastructure}} % Author affiliation
-\affiliation{\textbf{Corresponding author}: francesco.amato01@universitadipavia.it} % Corresponding author
+\Authors{A. Al Masoud • F. Amato • A. Blindu • D. Lotito • D. Ragusa} % Authors
+\affiliation{\textit{Department of Computer Engineering, University of Pavia, Pavia, Italy}} % Author affiliation
+\affiliation{\textit{Enterprise Digital Infrastructure}} % Author affiliation
 
-\Keywords{\small{DoS -- mDNS -- Botnet -- Security}} % Keywords - if you don't want any simply remove all the text between the curly brackets
+\Keywords{\small{DoS • mDNS • Security • LAN }} % Keywords - if you don't want any simply remove all the text between the curly brackets
 \newcommand{\keywordname}{Keywords} % Defines the keywords heading name
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
 
-\Abstract{The aim of this report is to implement a DoS attack, based on the mDNS protocol. 
-In addition, the generated traffic has been analyzed, and some studies have been conducted, 
-in order to understand the impact of this kind of DoS attack under different conditions.}
+\Abstract{The aim of this report is to study and discuss the implementation of a DoS attack on a local network exploiting the mDNS protocol. 
+The traffic that was generated has been analyzed and some studies have been conducted
+in order to understand the impact of this kind of DoS attack under different conditions.
+Moreover, other possible vulnerabilities of this protocol have been studied with their countermeasure to understand their possible effect.}
 
 %----------------------------------------------------------------------------------------
 
@@ -107,31 +99,36 @@ in order to understand the impact of this kind of DoS attack under different con
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
 
-\section*{Introduction} % The \section*{} command stops section numbering
+\section{Introduction} % The \section*{} command stops section numbering
+The idea behind this project is to implement a DoS attack exploiting the mDNS (Multicast Domain Name System) protocol \cite{rfc6762} on a local area network which could use it to make various IoT devices communicate, this to show how easily inaccessible the service can be made. \newline
 
-\addcontentsline{toc}{section}{Introduction} % Adds this section to the table of contents
+In general, a DoS attack is when an attacker is attempting to make it impossible for a target service, or multiple services, to operate properly. These attacks work by overwhelming a system with requests for data. \newline
+This goal is usually achieved by sending small requests to a third party service, spoofing the IP address of the target one, and this third party service in turn respond with bigger response to the target letting it to crash. \newline The result is that available internet bandwidth and the resources of the target system become overloaded.\newline
+In this project, the mDNS protocol was used because it would allow amplification by exploiting particular types of queries that send a lot of data (ANY type) and also reflection, sending packets to all devices in the network through multicast mode. \newline
 
-The idea for this project is to perform a Denial Of Service attack (DoS) \cite{DDoS} using the Multicast Domain Name System (mDNS) \cite{rfc6762}.\\
-For those who are not familiar with these concepts, a brief discussion about DoS and its principles is explained below.
-A DoS attack is when an attacker is attempting to make it impossible for a target service, or multiple services, to be properly delivered.\\
-In this types of attacks, it’s one system that is sending the malicious data or requests.\\
-Generally, these attacks work by overwhelming a system with requests for data. This could be sending a web server so many requests to serve a page that it crashes under the demand, or small requests that are amplificated by providing a huge response. \\ The result is that available internet bandwidth and the resources of the target system become overloaded.\\
-In this project mDNS has been exploited in order to perform a DoS attack. The starting hypothesis is that the attacker and the target devices are within the same network of the target. In order to overload the network the attacker sends a query in multicast to all the devices inside the network according to the mDNS protocol. \\ The devices respond in multicast and the result is that the network availability, its bandwith and the mDNS service are compromised. \\
-In order to understand how we exploited the mDNS for the DoS attack, an explanation of how this protocol works is provied below.
+To simplify the work and avoid legal problems, the initial assumption was that the attacker and the target devices are within the same network although, as will be explained below, the striker could also act from the outside in case of misconfiguration.
 
 %----------------------------------------------------------------------------------------
 %	mDNS protocol
 %----------------------------------------------------------------------------------------
 
+\section{The mDNS protocol}
+Multicast DNS (mDNS) is a service that aims to solve name resolution in smaller networks. It takes a different approach than the well-known DNS: instead of sending requests to a name server, the network participants are all contacted through multicast mode. \newline
 
-\section{mDNS protocol}
-Multicast DNS (mDNS) is a service that aims to solve name resolution in smaller networks. It takes a different approach than the well-known DNS: instead of sending requests to a name server, the network participants are all contacted directly.
-The corresponding client sends a multicast into the network and asks which network participant the host name corresponds to. \\
-In this way, the request also reaches the member of the group that has the searched hostname. This responds to the entire network, again via multicast. Moreover, all participants are informed about the name and IP address connection and can make a corresponding entry in their mDNS cache. \\
-Multicast DNS causes relatively high traffic, but actively tries to conserve network resources: to this end, the requesting client sends the correct response according to its opinion (i.e. according to the current cache entry). \\ Only if this is no longer correct, or if the entry is about to expire, does the recipient have to respond. \\
-In general, only hostnames ending with {\it{.local}} can be used with Multicast DNS. In addition, it is relies on top of UDP layer.\\
-The mDNS was developed in the context of Zeroconf (Zero Configuration Networking) using essentially the same programming interfaces, packet formats, and operating semantics as the unicast Domain Name Service (DNS). The idea behind Zero Configuration Networking is to allow computers to communicate with each other without the need for prior configuration.\\
-A popular implementation of mDNS is Bonjour by Apple, also the open source software Avahi can now be used as an mDNS service. As of Windows 10, mDNS is also available in Microsoft's operating system.
+A client, that needs to know information about an hostname, sends a query to all the devices in the network. The response, instead, should go to the entire network or directly to the client in unicast. In this way, if the answer is sent to all devices in multicast, all of them are informed about the name and IP address such that they can create an entry in their mDNS cache. \newline
+Multicast DNS can cause relatively high traffic, so the protocol actively tries to conserve network resources: to this end, the requesting client sends the correct response according to its opinion (i.e. according to the current cache entry). Only if this is no longer correct, or if the entry is about to expire, the recipient have to respond. \newline
+
+Generally, only hostnames ending with {\it{.local}} can be used with Multicast DNS. Another characteristic is that it relies on top of the UDP protocol at the transport layer.\newline
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\linewidth]{./mdns-02.jpg}
+    \caption{Example of mDNS operation where the query (red) is sent to all devices and the same happens for the response (yellow) from the printer}
+    \label{fig:msdns-1}
+\end{figure}
+
+The mDNS was developed in the context of Zeroconf (Zero Configuration Networking) using essentially the same programming interfaces (packet formats) and operating semantics as the unicast Domain Name Service (DNS). The idea behind Zero Configuration Networking is to allow computers to communicate with each other without the need for a prior configuration.\newline
+
+A popular implementation of mDNS is Bonjour by Apple, but also the open source software Avahi can be used as an mDNS service. As of Windows 10, mDNS is also available in Microsoft's operating system.
 
 \paragraph{Advantages} 
 \begin{itemize}[leftmargin=*]
@@ -140,198 +137,127 @@ A popular implementation of mDNS is Bonjour by Apple, also the open source softw
 
 \paragraph{Disadvantages} 
 \begin{itemize}[leftmargin=*]
-    \item One problem lies in the Multicast procedure itself. Although the protocol tries to keep network traffic low, participating computers must constantly monitor the network and process incoming messages. This requires computing power.
-    \item Assigning host names is problematic: since you can freely choose a name for each device, as long as it ends in {\it{.local}}, this can (at least theoretically) lead to two network devices with the same host name.\\
-          The developers of mDNS have deliberately not proposed a solution to this problem. On the one hand, it is assumed that the case rarely occurs; on the other hand, the double naming may be intentional. Also, by default, mDNS only resolves hostnames that end with the {\it{.local}} top-level domain. \\
-          This can cause problems if {\it{.local}} includes hosts that do not implement mDNS but can be found via a conventional unicast DNS server. Resolving such conflicts requires network configuration changes that mDNS is designed to avoid.
-    \item In some cases, mDNS is open. This means that it also responds to requests from outside (the Internet). Attackers can find such open services and use them for DoS attacks, using network devices improperly and targeting a server. In addition, in a DNS Multicast even sensitive data can be detected. 
-	      This allows attackers to know information about connected devices and use it for further attacks.
+    \item One problem lies in the multicast procedure itself. Although the protocol tries to keep network traffic low, participating computers must constantly monitor the network and process incoming messages. This requires computing power.
+    \item Assigning host names is problematic: since you can freely choose a name for each device, as long as it ends in {\it{.local}}, this can (at least theoretically) lead to two network devices with the same host name. The developers of mDNS have deliberately not proposed a solution to this problem: on the one hand, it is assumed that the case rarely occurs; on the other hand, the double naming may be intentional. \newline 
+    Also, by default, mDNS only resolves hostnames that end with the {\it{.local}} top-level domain. This can cause problems if {\it{.local}} includes hosts that do not implement mDNS but can be found via a conventional unicast DNS server. Resolving such conflicts requires network configuration changes that mDNS is designed to avoid.
+    \item In some cases, mDNS is open. This means that it also responds to requests from outside (the Internet). Attackers can find such open services and use them for DoS attacks, using network devices improperly. \newline
+    In addition, using mDNS, even sensitive data can be detected. This allows attackers to know information about connected devices and use it for further attacks.
 \end{itemize}
 
 \subsection{Packets structure}
 An mDNS message is a UDP packet sent in multicast using the following addressing:
 \begin{itemize}[leftmargin=*]
-    \item IPv4 address 224.0.0.251 or IPv6 address ff02::fb
-    \item UDP port 5353
-    \item When using Ethernet frames, the standard IP multicast MAC address 01:00:5E:00:00:FB (for IPv4) \\or 33:33:00:00:FB (for IPv6)
+    \item IPv4 address \textit{224.0.0.251} or IPv6 address \textit{ff02::fb}
+    \item UDP port \textit{5353}
 \end{itemize}
-The payload structure is based on the unicast DNS packet format, which consists of two parts: the header and the data.\\
-The header is identical to the one found in the unicast DNS, as are the subsections in the data part: queries, responses, authoritative-nameservers, and additional records. The number of records in each subsection corresponds to the value of the corresponding {\it{COUNT}} field in the header.
+The payload structure is based on the unicast DNS packet format, which consists of two parts: the header and the data.\newline
+The header, shown in Figure \ref{fig:msdns-message-1}, is identical to the one found in the unicast DNS, as are the subsections in the data part: queries, responses, authoritative-nameservers, and additional records.
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\linewidth]{./msg-format.png}
+    \caption{mDNS/Unicast DNS message format}
+    \label{fig:msdns-message-1}
+\end{figure}
 
 \subsection{Queries}
-The format of the records in the query section is a bit different from that of classic DNS by adding a single-bit {\it{UNICAST-RESPONSE}} field.
-The payload structure is based on the unicast DNS packet format, which consists of two parts: the header and the data.
+The format, shown in Table \ref{tab:query-section}, of the query section is a bit different from that of the classic DNS because it adds a single-bit {\it{"QU" question}} field. \newline
 
 \begin{table}[hbt]
 	\centering
 	\begin{tabular}{|C{2cm}|C{2.8cm}|C{1.5cm}|}
 		\hline
-		Field & Description & Lenght \\
+		\textbf{Field} & \textbf{Description} & \textbf{Length} \\
 		\hline
 		\hline
-		QNAME & Name of the node to which the query pertains & Variable \\
+		Name & Name of the node to which the query pertains & Variable \\
 		\hline
-		QTYPE &	The type of the query &	16 \\
+		Type &	The type of the query &	16 \\
 		\hline
-		UNICAST-RESPONSE & Boolean flag indicating whether a unicast-response is desired & 1\\
+		Class & IN & 15 \\
 		\hline
-		QCLASS & IN & 15 \\
+		"QU" question & Boolean flag indicating whether a unicast response is desired & 1 (higher order bit of Class field)\\
 		\hline
 	\end{tabular}
-	\caption{Query structure}
+	\caption{Query section fields}
+	\label{tab:query-section}
 \end{table}
 
-The {\it{UNICAST-RESPONSE}} field is used to minimize unnecessary transmissions over the network: if the bit is set, responders should send a direct-unicast 
-response directly to the requesting node rather than broadcasting the response to the entire network.\\
-The {\it{QCLASS}} field is identical to that found in unicast DNS ({\it{IN}} class).
+The {\it{Class}} field is identical to that found in unicast DNS ({\it{IN}} class).
+The {\it{"QU" question}} field is used to minimize unnecessary transmissions over the network: if the bit is set (the high order bit of the Class field), responders should send a direct-unicast response to the requesting node rather than broadcasting the response to the entire network.\newline
 
 \subsection{Resource Records}
-All records in the answers, authoritative-nameservers, and additional records sections have the same format and are known collectively as Resource Records (RR) \cite{rfc4034}.\\
-The general format of RRs in mDNS is slightly different from classic DNS, as shown in the table \ref{table}. % -- PLEASE DO NOT REMOVE THIS COMMENT.
+All records in the answers, authoritative-nameservers, and additional records sections have the same format while the RRs in the answer section in mDNS are slightly different from classic DNS. What they are and their length are shown in Table \ref{table}. \newline
+
+In particular, the {\it{Cache-flush}} bit is used to instruct neighboring nodes that the record should overwrite, rather than be added to any existing cache entry for this RR {\it{Name}} and {\it{Type}}.
 
 \begin{table}[hbt]
 	\centering
-	\begin{tabular}{|C{1.7cm}|C{4.2cm}|C{1cm}|}
+	\begin{tabular}{|C{2.0cm}|C{4.2cm}|C{1.25cm}|}
 		\hline
-		Field & Description & Lenght \\
+		\textbf{Field} & \textbf{Description} & \textbf{Length} \\
 		\hline
 		\hline
-		RRNAME & Name of the node to which the record pertains & Variable\\
+		Name & Name of the node to which the record pertains & Variable\\
 		\hline
-		RRTYPE & The type of the Resource Record & 16\\
+		Type & Type of the Resource Record & 16\\
 		\hline
-		CACHE-FLUSH & Boolean flag indicating whether outdated cached records should be purged & 1\\
+		Class & Class code, 1 a.k.a. IN for the Internet and IP networks & 15\\
 		\hline
-		RRCLASS & Class code, 1 a.k.a. IN for the Internet and IP networks & 15\\
+		Cache-flush & Boolean flag indicating whether outdated cached records should be purged & 1\\
 		\hline
 		TTL & Time interval (in seconds) that the RR should be cached & 32\\
 		\hline
-		RDLENGTH & Integer representing the length (in octets) of the RDATA field & 16\\
+		Data length & Integer representing the length (in octets) of the RDATA field & 16\\
 		\hline
-		RDATA & Resource data; internal structure varies by RRTYPE & Variable\\
+		Data & Resource data; internal structure varies by RRTYPE & Variable\\
 		\hline
 	\end{tabular}
 	\caption{Resource Records}
-	 \label{table} % -- PLEASE DO NOT REMOVE THIS COMMENT
+	\label{table}
 \end{table}
 
-The {\it{CACHE-FLUSH}} bit is used to instruct neighboring nodes that the record should overwrite, rather than be added to any existing cache entry for this {\it{RRNAME}} and {\it{RRTYPE}}.
-
 %----------------------------------------------------------------------------------------
-%	EXPERIMENT
+%	Tools used
 %----------------------------------------------------------------------------------------
 
-\section{Experiment}
-The aim of this section is taking into account the implemented mDNS DoS attack solution, and consider the different parts of the script
-(GitHub repository \cite{repo}).
+\section{Tools used}
+\subsection{Scripton.py}
+\subsection{Ping}
+\subsection{Query\_mDNS.py}
+\subsection{Wireshark}
 
-\subsection{How to start the attack}
-Once the repository is cloned on your own device, the easiest way to start the script is by executing the following command, on your terminal (remember to move within the same folder
-in which you cloned this repo):
+%----------------------------------------------------------------------------------------
+%	Experiment setup
+%----------------------------------------------------------------------------------------
 
-\begin{scriptsize}
-	\begin{verbatim}
-	$ python3 src/scripton.py -t $TARGET(.local) 
-	\end{verbatim}
-\end{scriptsize}
-
-Where the {\it{target}} is the device, to be compromised, connected within your network.
-This parameter is the only one mandatory in order to start the DoS over mDNS attack.\\
-The main goal is to compromise both the target and the service on which the DoS is based. 
-As a result of this, the other devices connected within the same network of the target will 
-also suffer from side effects, in a more or less visible way, depending on the extent and power of the assault
-(e.g., unable to reach and use completely or partially the mDNS service, the network is overloaded due to the huge quantity of the traffic ganerated, \dots).\\
-Other parameters can be specified, such as:
-\begin{itemize}[leftmargin=*]
-    \item {\it{RRTYPE}} (-rr or - -type, default type A), which are the RR types used in order to send particular mDNS requests to the target device
-    \item {\it{Spoofed IP} \cite{SPOOFING}} (-i or - -spoofed-ip, default NONE), in order to avoid that to prevent network administrators from tracing to whom the real device started the attack, 
-	the IP of our machine (or devices connected to the botnet \cite{BOTNET}, whose term indicates a set of infected devices, always ready to listen and perform the commands of the head of the botnet) is changed to one of another device connected within the same target's network (for example a friend, relative, colleague, \dots).\\
-	If the primary objective of the attack is to compromise the target device (and not only the network, or mDNS service) it is necessary that all the botnet devices have spoofed their IP, 
-	so that the target device has a huge mDNS traffic to manage.
-    \item {\it{Number of threads}} (-n or - -nthreads, default 1), this parameter is setted to create a higher level of parallelism (using multi-threading \cite{THREAD}), with the aim of increasing the number of mDNS requests that can be performed to the target device in a second. \\
-    If a botnet has not been created (distributed DoS), the power of the attack depends only on the computing power (therefore number of cores) of the device from which the attack starts (the more the number of cores the greater the amount of traffic generated). \\
-	In order to perform a distributed attack, is enough to make this script run simultaneously on multiple infected devices, using the same spoofed IP and the same target IP (of course botmaster and botnet must be connected within the same network) and exploiting the full computing power of each infected network node, the order of magnitude of the attack can be very devastating.
-\end{itemize}
-
-The complete command, using all the parameters, should be executed as follows (a single line in the terminal/prompt):
-
-\begin{scriptsize}
-	\begin{verbatim}
-	$ python3 src/scripton.py -t $TARGET(.local) -rr $RR_TYPE
-	  -i $SPOOFED_IP -n $NUM_THREADS 
-	\end{verbatim}
-\end{scriptsize}
-
-\subsection{Python script analysis}
-In this section the python script, its functions and their behavior are discussed in more details.
-
-\subsubsection{Main()}
-Starting from the principal function, it parses the parameter passed as parameter, already discussed in the previous section.\\
-After that, a new socket is created and each of the threads are sharing the same socket, where the
-number of threads is the one specified as parameter when executed the latest illustrated command.\\
-In addition, it istantiates the threads and each of the thread executes the {\it{send\textunderscore query()}} function, that will be
-discussed later.\\
-Furthermore, the threads are made as deamons, so that when the main thread stops, all the other deamons are
-killed.\\
-The way the attack can be stopped is by inserting on the terminal the {\it{"control + c"}} command (the main thread and all the others are killed).
-In the case the IP of the attacker was spoofed, the source IP will be restablished as the same one it had before the spoofing phase.
-
-\subsubsection{Send\textunderscore query()}
-It accepts as parameters the: {\it{host}}, {\it{RR type}}, {\it{socket instance}}, and the {\it{stop\textunderscore event}}.
-Where the {\it{stop\textunderscore event}} parameter indicates a threading event that when is set it stops the sending of the queries.\\
-Until the {\it{stop\textunderscore event}} is not set it builds the query with the {\it{build\textunderscore message()}} function and then sends it through the socket 
-in multicast.\\
-The {\it{host}} is the IP of the target device, connected within the attackers network.
-
-\subsubsection{Build\textunderscore message()}
-It accepts as parameters the: {\it{RR type}}, and the {\it{address}}. Where the {\it{address}} is the target IP. \\
-The purpose of this function is to create the hexadecimal message with all the flags setted.
-This message is the one that will be sent to the target IP. \\ There is even the possibility to set the type of 
-resource records (RR) we request to our target. Those RRs types are defined in the {\it{rr\textunderscore type}} dictionary.
+\section{Experiment setup}
+\subsection{Methodological approach}
+\subsection{Monitoring activity}
+\subsubsection{Ping probing configuration}
+\subsubsection{mDNS probing configuration}
 
 %----------------------------------------------------------------------------------------
 %	RESULTS
 %----------------------------------------------------------------------------------------
 
 \section{Results}
-The objective of this section is discussing about the results that have been achieved by the implemented DoS attack.
-
-\subsection{Generated traffic}
-As already discussed, the main objective of a DoS attack is making unavailable a service (or a set of services), to all users connected within 
-the same network.\\
-Here it will be briefly discussed the effect size of the performed attack, both on the service used 
-in order to perform the attack (mDNS), and other kind of services (ICMP and UDP).\\
-A figure of merit taken into account for assessing this study is the Round Trip Time (RTT) \cite{RTT}. 
-This value has been considered both when the network was under attack, and not (baseline condition).
-
-\paragraph{Environment setup}
-The following results have been obtained by performing the DoS attack on a "test" network (with few devices connected). 
-Just try to imagine the impact that would have had executing this script on a real network, and so on the other requests made by
-other users connected within a huge network.
-
-\subsubsection{mDNS analysis}
-\dots
-
-\subsubsection{ICMP analysis}
-\dots
-
-\subsection{Summary}
-Since mDNS works on top of UDP, an expect thing is that the same behavior occours when considering the UDP service.
+\subsection{Ping probing results}
+\subsection{mDNS probing results}
+\subsection{Countermeasures} %se ci proviamo va bene qua altrimenti spostare in un'altra sezione
 
 %----------------------------------------------------------------------------------------
 %	MITIGATION/PREVENTION
 %----------------------------------------------------------------------------------------
 
-\section{Ways to mitigate or prevent}
-But how is possible to prevent or mitigate DoS attacks, and more specifically DoS over mDNS protocol? \\
-Many different solutions are here discussed.
+\section{Other vulnerabilities}
+TO-DO
 
 %----------------------------------------------------------------------------------------
 %	MITIGATION/PREVENTION
 %----------------------------------------------------------------------------------------
 
 \section{Conclusions}
-Add here lessons learnt.
+TO-DO
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
