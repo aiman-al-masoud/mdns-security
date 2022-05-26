@@ -1,0 +1,221 @@
+#The mdns queries device is the target one, and the
+#attack was performed by 1 attackers (Andrei), with 300 
+#thread (5 devices conneced to the network and query type A)
+
+ID: 1 - timed out
+ID: 2 - time: 209.339 ms
+ID: 3 - time: 212.449 ms
+ID: 4 - time: 218.91 ms
+ID: 5 - time: 213.213 ms
+ID: 6 - time: 216.639 ms
+ID: 7 - time: 217.427 ms
+ID: 8 - time: 116.861 ms
+ID: 9 - time: 114.297 ms
+ID: 10 - time: 313.804 ms
+ID: 11 - time: 216.575 ms
+ID: 12 - time: 5.638 ms
+ID: 13 - time: 221.373 ms
+ID: 14 - time: 217.144 ms
+ID: 15 - time: 56.708 ms
+ID: 16 - time: 79.126 ms
+ID: 17 - time: 4.321 ms
+ID: 18 - time: 115.399 ms
+ID: 19 - time: 211.285 ms
+ID: 20 - time: 215.645 ms
+ID: 21 - time: 216.197 ms
+ID: 22 - time: 134.768 ms
+ID: 23 - time: 285.508 ms
+ID: 24 - time: 265.653 ms
+ID: 25 - time: 90.546 ms
+ID: 26 - time: 7.503 ms
+ID: 27 - time: 205.113 ms
+ID: 28 - time: 168.87 ms
+ID: 29 - time: 63.715 ms
+ID: 30 - time: 113.843 ms
+ID: 31 - time: 7.019 ms
+ID: 32 - time: 228.392 ms
+ID: 33 - time: 224.305 ms
+ID: 34 - time: 12.247 ms
+ID: 35 - time: 97.103 ms
+ID: 36 - time: 232.476 ms
+ID: 37 - time: 99.111 ms
+ID: 38 - time: 210.607 ms
+ID: 39 - time: 219.871 ms
+ID: 40 - time: 9.54 ms
+ID: 41 - time: 13.338 ms
+ID: 42 - time: 212.95 ms
+ID: 43 - time: 231.559 ms
+ID: 44 - time: 199.999 ms
+ID: 45 - time: 223.481 ms
+ID: 46 - time: 40.918 ms
+ID: 47 - time: 81.423 ms
+ID: 48 - time: 117.624 ms
+ID: 49 - time: 208.793 ms
+ID: 50 - time: 161.386 ms
+ID: 51 - time: 71.778 ms
+ID: 52 - time: 209.982 ms
+ID: 53 - time: 216.704 ms
+ID: 54 - time: 5.721 ms
+ID: 55 - time: 225.286 ms
+ID: 56 - time: 212.301 ms
+ID: 57 - time: 216.495 ms
+ID: 58 - time: 216.302 ms
+ID: 59 - time: 20.597 ms
+ID: 60 - time: 207.168 ms
+ID: 61 - time: 223.206 ms
+ID: 62 - time: 209.197 ms
+ID: 63 - time: 3.737 ms
+ID: 64 - time: 125.912 ms
+ID: 65 - time: 172.946 ms
+ID: 66 - time: 57.887 ms
+ID: 67 - time: 208.152 ms
+ID: 68 - time: 12.547 ms
+ID: 69 - time: 214.513 ms
+ID: 70 - time: 216.773 ms
+ID: 71 - time: 221.191 ms
+ID: 72 - time: 211.645 ms
+ID: 73 - time: 215.722 ms
+ID: 74 - time: 216.492 ms
+ID: 75 - time: 216.347 ms
+ID: 76 - time: 216.493 ms
+ID: 77 - time: 207.244 ms
+ID: 78 - time: 62.792 ms
+ID: 79 - time: 75.373 ms
+ID: 80 - time: 178.611 ms
+ID: 81 - time: 49.526 ms
+ID: 82 - time: 211.332 ms
+ID: 83 - time: 215.661 ms
+ID: 84 - time: 198.638 ms
+ID: 85 - time: 40.443 ms
+ID: 86 - time: 4.122 ms
+ID: 87 - time: 212.52 ms
+ID: 88 - time: 223.378 ms
+ID: 89 - time: 6.728 ms
+ID: 90 - time: 214.849 ms
+ID: 91 - time: 221.062 ms
+ID: 92 - time: 109.898 ms
+ID: 93 - time: 114.918 ms
+ID: 94 - time: 214.118 ms
+ID: 95 - time: 245.896 ms
+ID: 96 - timed out
+ID: 97 - time: 197.166 ms
+ID: 98 - time: 508.295 ms
+ID: 99 - time: 179.376 ms
+ID: 100 - timed out
+ID: 101 - timed out
+ID: 102 - timed out
+ID: 103 - time: 5.206 ms
+ID: 104 - timed out
+ID: 105 - time: 14.438 ms
+ID: 106 - time: 103.655 ms
+ID: 107 - time: 7.376 ms
+ID: 108 - time: 136.844 ms
+ID: 109 - time: 33.79 ms
+ID: 110 - timed out
+ID: 111 - time: 8.34 ms
+ID: 112 - timed out
+ID: 113 - time: 80.509 ms
+ID: 114 - time: 146.044 ms
+ID: 115 - timed out
+ID: 116 - time: 7.533 ms
+ID: 117 - timed out
+ID: 118 - timed out
+ID: 119 - timed out
+ID: 120 - time: 17.259 ms
+ID: 121 - time: 122.313 ms
+ID: 122 - timed out
+ID: 123 - time: 11.46 ms
+ID: 124 - time: 156.323 ms
+ID: 125 - time: 152.839 ms
+ID: 126 - time: 45.546 ms
+ID: 127 - timed out
+ID: 128 - time: 38.834 ms
+ID: 129 - timed out
+ID: 130 - time: 55.924 ms
+ID: 131 - time: 223.673 ms
+ID: 132 - time: 15.446 ms
+ID: 133 - time: 19.301 ms
+ID: 134 - timed out
+ID: 135 - time: 94.164 ms
+ID: 136 - time: 101.964 ms
+ID: 137 - time: 11.816 ms
+ID: 138 - time: 213.136 ms
+ID: 139 - time: 218.961 ms
+ID: 140 - time: 194.244 ms
+ID: 141 - time: 437.979 ms
+ID: 142 - time: 152.433 ms
+ID: 143 - time: 79.096 ms
+ID: 144 - time: 10.08 ms
+ID: 145 - time: 117.636 ms
+ID: 146 - timed out
+ID: 147 - time: 106.428 ms
+ID: 148 - time: 211.793 ms
+ID: 149 - time: 216.11 ms
+ID: 150 - time: 217.236 ms
+ID: 151 - time: 101.389 ms
+ID: 152 - time: 226.855 ms
+ID: 153 - time: 122.38 ms
+ID: 154 - time: 208.414 ms
+ID: 155 - time: 215.076 ms
+ID: 156 - time: 13.916 ms
+ID: 157 - time: 206.029 ms
+ID: 158 - time: 234.916 ms
+ID: 159 - time: 110.349 ms
+ID: 160 - time: 113.02 ms
+ID: 161 - time: 396.227 ms
+ID: 162 - time: 153.031 ms
+ID: 163 - time: 297.512 ms
+ID: 164 - time: 221.339 ms
+ID: 165 - timed out
+ID: 166 - time: 712.562 ms
+ID: 167 - time: 220.244 ms
+ID: 168 - time: 213.547 ms
+ID: 169 - time: 116.799 ms
+ID: 170 - time: 212.514 ms
+ID: 171 - time: 215.849 ms
+ID: 172 - time: 13.402 ms
+ID: 173 - time: 214.153 ms
+ID: 174 - time: 216.873 ms
+ID: 175 - time: 158.385 ms
+ID: 176 - time: 71.954 ms
+ID: 177 - time: 212.155 ms
+ID: 178 - time: 115.883 ms
+ID: 179 - time: 116.81 ms
+ID: 180 - time: 6.618 ms
+ID: 181 - time: 217.33 ms
+ID: 182 - time: 215.683 ms
+ID: 183 - time: 118.478 ms
+ID: 184 - timed out
+ID: 185 - time: 103.763 ms
+ID: 186 - time: 113.794 ms
+ID: 187 - time: 213.644 ms
+ID: 188 - time: 218.796 ms
+ID: 189 - time: 212.255 ms
+ID: 190 - time: 5.62 ms
+ID: 191 - time: 332.365 ms
+ID: 192 - time: 303.187 ms
+ID: 193 - time: 124.955 ms
+ID: 194 - time: 123.071 ms
+ID: 195 - time: 203.86 ms
+ID: 196 - time: 216.563 ms
+ID: 197 - time: 321.647 ms
+ID: 198 - time: 21.397 ms
+ID: 199 - time: 102.148 ms
+ID: 200 - time: 340.471 ms
+ID: 201 - time: 100.301 ms
+ID: 202 - time: 205.679 ms
+ID: 203 - time: 32.197 ms
+ID: 204 - time: 96.572 ms
+ID: 205 - time: 134.606 ms
+ID: 206 - time: 280.676 ms
+ID: 207 - time: 267.693 ms
+ID: 208 - time: 80.397 ms
+ID: 209 - time: 112.834 ms
+ID: 210 - time: 212.733 ms
+ID: 211 - time: 6.211 ms
+ID: 212 - time: 127.932 ms
+ID: 213 - time: 9.989 ms
+
+Quitting...
+Good bye!
+
