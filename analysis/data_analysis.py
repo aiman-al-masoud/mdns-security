@@ -50,4 +50,5 @@ def plot_boxplot(path):
     fig, ax = plt.subplots()
     ax.set_title('Basic Plot')
     ax.boxplot(my_dict.values(), showmeans=True)
+    ax.xticks(rotation = 45)
     ax.set_xticklabels(my_dict.keys())
