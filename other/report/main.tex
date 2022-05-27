@@ -128,7 +128,7 @@ Generally, only hostnames ending with {\it{.local}} can be used with Multicast D
 
 The mDNS was developed in the context of Zeroconf (Zero Configuration Networking) using essentially the same programming interfaces (packet formats) and operating semantics as the unicast Domain Name Service (DNS). The idea behind Zero Configuration Networking is to allow computers to communicate with each other without the need for a prior configuration.\newline
 
-A popular implementation of mDNS is Bonjour by Apple, but also the open source software Avahi can be used as an mDNS service. As of Windows 10, mDNS is also available in Microsoft's operating system.
+A popular implementation of mDNS is \textit{Bonjour} by Apple, but also the open source software \textit{Avahi} can be used as an mDNS service. As of Windows 10, mDNS is also available in Microsoft's operating system.
 
 \paragraph{Advantages} 
 \begin{itemize}[leftmargin=*]
@@ -221,11 +221,29 @@ In particular, the {\it{Cache-flush}} bit is used to instruct neighboring nodes 
 %----------------------------------------------------------------------------------------
 
 \section{Tools used}
-\subsection{Scripton.py}
-\subsection{Ping}
-\subsection{Query\_mDNS.py}
-\subsection{Wireshark}
+Several tools were used during the experiment, some of them developed in-house. In this section, they are presented and their source can be analyzed in the Github repository \cite{repo}. \newline
 
+Moreover, a Python Jupyter notebook, not described in this report, was used to perform analysis of the data collected during the experiments (graphs plot).
+
+\subsection{Scripton.py}
+\textit{Scripton} is a Python script that is used during the experiment to send thousands of query packets in multicast, thus allowing the actual DoS attack to be carried out.
+In this sense, multithreading is exploited so that packets can be sent massively while the payload of each query is built, in hexadecial code, in the \textit{build\_message()} function, making use of the specification defined in the RFC\cite{rfc6762}. Each packet is then sent directly in multicast from a socket avoiding intermediate services that could slow down the attack by waiting for a response from the mDNS service. \newline
+
+Scripton can also spoof an IP in the network by acting on the \textit{iptable} of the Linux system. \newline
+
+The number of threads used, the query type, and the target device input parameters could be tuned to perform the attack in various ways.
+
+\subsection{Ping}
+The \textit {ping} \cite{pingManPage} command is a simple active (evaluate the properties of an infrastructure under a controlled traffic) monitoring tool with the aim of measuring, testing and debugging a network infrastructure. It sends an Internet Control Message Protocol \textit{ICMP ECHO\_REQUEST} (type 8) to obtain an \textit{ICMP ECHO\_RESPONSE} (type 0) from the target. If the target is operational and on the network, it responds to the echo. The ping command sends one datagram per second and prints one line of output for every response received. Finally, the ping command calculates round-trip times and packet loss statistics, and displays a brief summary on completion.
+
+\subsection{Query\_mDNS.py}
+\textit{Query\_mDNS} is a simple Python tool developed, reusing Scripton functions, to send single multicast mDNS queries at regular intervals (1 second) waiting for a response. This will be used to check the availability of the mDNS service on the local network.\newline
+Similar to ping, the timeout was set to 4 seconds.
+
+\subsection{Wireshark}
+\textit{Wireshark} is a sniffer that works on devices whose NIC is set to promiscuous mode. It eavesdrops/captures packet sent and received and is used especially for network troubleshooting, monitoring and communication protocols development. The measures collected are all the information contained in an IP packet at all levels of the protocol stack. \newline
+This tool was used during the experiments to understand the operation of the protocol and the format of mDNS query/response packets. \newline
+It also allowed, in general, to analyze some statistics and the trend of attacks in real time.
 %----------------------------------------------------------------------------------------
 %	Experiment setup
 %----------------------------------------------------------------------------------------
