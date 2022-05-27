@@ -1,10 +1,8 @@
-import numpy as np
 import re
 
 TIMEOUT = 4000
 
 def dump_to_stats(dump):
-    
     """
     Get the final rtt stats from a ping dump.
     """
@@ -14,12 +12,14 @@ def dump_to_stats(dump):
     assert len(labels) == len(numbers) 
     return dict(zip(labels, numbers))
 
+
 def get_avg_rtt(dump):
         
     """
     Get the average rtt from a ping dump.
     """
     return dump_to_stats(dump)["rtt_avg"]
+
 
 def line_to_rtt(l)-> float:
 
@@ -35,12 +35,13 @@ def line_to_rtt(l)-> float:
             return TIMEOUT
         return None
 
+
 def dump_to_rtt_list(dump):
     """
     Get a list of rtts from a ping dump. 
     """
     return [line_to_rtt(l) for l in dump.split("\n")]
 
+
 def find_timeout_indexes(s):
     return [i for i, t in enumerate(s) if t and (t == TIMEOUT)]
-

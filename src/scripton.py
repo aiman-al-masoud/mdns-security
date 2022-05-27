@@ -1,13 +1,4 @@
-#!/bin/python3
-
-import signal
-import os
-import sys
-import argparse
-import threading
-import time
-import binascii
-import socket
+import signal, os, sys, argparse, threading, time, binascii, socket
 
 multicast_add = "224.0.0.251"
 mdns_port = 5353

@@ -114,6 +114,13 @@ To simplify the work and avoid legal problems, the initial assumption was that t
 
 \section{The mDNS protocol}
 Multicast DNS (mDNS) is a service that aims to solve name resolution in smaller networks. It takes a different approach than the well-known DNS: instead of sending requests to a name server, the network participants are all contacted through multicast mode. \newline
+Instead, a similarity to the classic DNS protocol is that mDNS is an application layer protocol if TCP/IP network stack is considered. \newline % so in this case the communication stack is the one displayes in \ref{fig:stack}. \newline
+
+% \begin{figure}[H]\centering
+%     \includegraphics[width=\linewidth]{stack.png}
+%     \caption{TCP/IP Network Stack}
+%     \label{fig:stack}
+% \end{figure}
 
 A client, that needs to know information about an hostname, sends a query to all the devices in the network. The response, instead, should go to the entire network or directly to the client in unicast. In this way, if the answer is sent to all devices in multicast, all of them are informed about the name and IP address such that they can create an entry in their mDNS cache. \newline
 Multicast DNS can cause relatively high traffic, so the protocol actively tries to conserve network resources: to this end, the requesting client sends the correct response according to its opinion (i.e. according to the current cache entry). Only if this is no longer correct, or if the entry is about to expire, the recipient have to respond. \newline

@@ -1,11 +1,6 @@
 #!/bin/python3
 
-import signal
-import sys
-import argparse
-import time
-import binascii
-import socket
+import signal, sys, argparse, time, binascii, socket
 sys.path.append("../src/")
 from scripton import build_message, signal_handler
 
