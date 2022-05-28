@@ -2,31 +2,6 @@ import re
 
 TIMEOUT = 4000
 
-'''
-def dump_to_stats(dump, mdns=False):
-    """
-    Get the final rtt stats from a ping dump.
-    """
-    if not mdns:
-        labels = ["rtt_min", "rtt_avg", "rtt_max", "rtt_mdev"]
-    else:
-        labels = ["time"]
-    last_line = dump.split("\n")[-2]
-    numbers =  [ float(t) for t in re.findall("\d+.\d+",  last_line )  ]
-    assert len(labels) == len(numbers) 
-    return dict(zip(labels, numbers))
-        
-
-
-def get_avg_rtt(dump):
-        
-    """
-    Get the average rtt from a ping dump.
-    """
-    return dump_to_stats(dump)["rtt_avg"]
-'''
-
-
 def line_to_rtt(l, mdns=False)-> float:
 
     """
@@ -54,6 +29,13 @@ def dump_to_rtt_list(dump, mdns=False):
 
 def find_timeout_indexes(s):
     return [i for i, t in enumerate(s) if t and (t == TIMEOUT)]
+
+def find_indexes_mdns(indexes):
+    valid_timeout = []
+    for i in range(len(indexes)-1):
+        if indexes[i]+1 == indexes[i+1]:
+            valid_timeout.append(indexes[i])
+    return valid_timeout
 
 def get_description(dump):
     lines = dump.split("\n")
