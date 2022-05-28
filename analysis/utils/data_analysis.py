@@ -41,7 +41,7 @@ def get_attack_data(path, filename, mdns):
     one_last_thing = timeout_indexes[-1]
     j=1 if not mdns else 2 
     return s, first_in_first, one_last_thing, j
-    
+
 
 """ Boxplot of only when system was under attack and when not """
 def plot_boxplot1(path, return_my_dict = False, mdns=False):
