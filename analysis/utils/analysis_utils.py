@@ -45,3 +45,8 @@ def dump_to_rtt_list(dump):
 
 def find_timeout_indexes(s):
     return [i for i, t in enumerate(s) if t and (t == TIMEOUT)]
+
+def get_description(dump):
+    lines = dump.split("\n")
+    l = [l[1:] for l in lines if (l and (l[0] == '#'))]
+    return '\n'.join(l)

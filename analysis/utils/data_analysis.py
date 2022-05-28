@@ -1,17 +1,12 @@
 import os, pandas as pd, numpy as np
 from matplotlib import pyplot as plt
 from analysis_utils import *
+from scipy.stats import mannwhitneyu
 
 
 def read_file(filename):
     with open(filename) as f:
         return f.read()
-
-
-def get_description(dump):
-    lines = dump.split("\n")
-    l = [l[1:] for l in lines if (l and (l[0] == '#'))]
-    return '\n'.join(l)
 
 
 def plot_RTT_per_ping(filename):
@@ -35,7 +30,7 @@ def set_bp_color_properties(boxplot):
 
 
 """ Boxplot of only when system was under attack and when not """
-def plot_boxplot1(path):
+def plot_boxplot1(path, return_my_dict = False):
     my_dict = {}
     my_dict["No attack"] = []
     my_dict["Attack"] = []
@@ -45,14 +40,16 @@ def plot_boxplot1(path):
         one_last_thing = find_timeout_indexes(s)[-1]    
         attack_rtts = s[first_in_first:one_last_thing+1]
         no_attack_rtts = s[-(one_last_thing+1):first_in_first]
-        my_dict["No attack"] += no_attack_rtts
-        my_dict["Attack"] += attack_rtts
+        my_dict["No attack"].extend(no_attack_rtts)
+        my_dict["Attack"].extend(attack_rtts)
     fig, ax = plt.subplots()
     ax.set_ylabel("RTTs (ms)")
     ax.set_title('Ping RTTs - Network under attack & not')
     bp = ax.boxplot(my_dict.values(), showmeans=True, meanprops={"marker":"s","markerfacecolor":"#90EE90", "markeredgecolor":"green"})
     ax.set_xticklabels(my_dict.keys())
     set_bp_color_properties(bp)
+    if (return_my_dict):
+        return my_dict
 
 
 def get_attacks_description():
@@ -61,8 +58,8 @@ def get_attacks_description():
 
 """ Boxplot of different attacks """
 def plot_boxplot2(path):
-    my_dict = {}
     i = 0
+    my_dict = {}
     for i, filename in enumerate(os.listdir(path)):
         i += 1
         s = dump_to_rtt_list(read_file(path + filename))
@@ -78,3 +75,12 @@ def plot_boxplot2(path):
     bp = ax.boxplot(my_dict.values(), showmeans=True)
     plt.figtext(1.5, 0.3, get_attacks_description(), wrap=True, horizontalalignment='center', fontsize=12)
     set_bp_color_properties(bp)
+
+
+def perform_mannwhitneyu_test(path, alpha):
+    my_dict = plot_boxplot1(path, True)
+    res = mannwhitneyu(my_dict["No attack"], my_dict["Attack"])
+    if (res[1] < alpha):
+        statistical_significant = "Yes :)  - different means"
+    else: statistical_significant = "No :'(  - random sampling"
+    print("Mann-Whitney U test(statistics: " + str(res[0]) + ", p-value: " + str(res[1]) + ")\nStatistical significant? " + statistical_significant)
