@@ -9,14 +9,18 @@ def read_file(filename):
         return f.read()
 
 
-def plot_RTT_per_ping(filename):
+def plot_RTT_per_ping(filename, mdns=False):
     dump = read_file(filename)
-    s = pd.Series(dump_to_rtt_list(dump))
+    s = pd.Series(dump_to_rtt_list(dump, mdns))
     s = s.apply(lambda x : float(x) if isinstance(x, float) else  np.inf)
     fig, ax = plt.subplots(figsize=(8,3))
-    ax.set_xlabel("Ping number")
+    if not mdns:
+        ax.set_xlabel("Ping number")
+        ax.set_title("RTTs for each ping request".title())
+    else:
+        ax.set_xlabel("mDNS ping number")
+        ax.set_title("RTTs for each mDNS ping request".title())
     ax.set_ylabel("RTT (ms)")
-    ax.set_title("RTTs for each ping request".title())
     plt.figtext(1.33, 0.65, get_description(dump), wrap=True, horizontalalignment='center', fontsize=12)
     s.plot(ax=ax, color='b')
 
@@ -34,7 +38,7 @@ def plot_boxplot1(path, return_my_dict = False):
     my_dict = {}
     my_dict["No attack"] = []
     my_dict["Attack"] = []
-    for i, filename in enumerate(os.listdir(path)):
+    for i, filename in enumerate(sorted(os.listdir(path))):
         s = dump_to_rtt_list(read_file(path + filename))
         first_in_first = find_timeout_indexes(s)[0]
         one_last_thing = find_timeout_indexes(s)[-1]    
@@ -53,14 +57,13 @@ def plot_boxplot1(path, return_my_dict = False):
 
 
 def get_attacks_description():
-    return "Attack 1__ 1 attacker, 1 thread, rr:ANY, pinged device:target\nAttack 2__ 1 attacker, 100 threads, rr:ANY, pinged device:target\nAttack 3__ 1 attacker, 300 threads, rr:PTR, pinged device:target\nAttack 4__ 1 attacker, 300 threads, rr:A, pinged device:target\nAttack 5__ 1 attacker, 300 threads, rr:ANY, pinged device:target\nAttack 6__ 1 attacker, 10 threads, rr:ANY, pinged device:target\nAttack 7__ 2 attackers, 300 threads, rr:ANY, pinged device:target\nAttack 8__ 2 attackers, 300 threads, rr:ANY, pinged device:another node\n"
-
+    return "Attack 1__ 2 attackers, 300 threads, rr:ANY, pinged device:another node\nAttack 2__ 2 attackers, 300 threads, rr:ANY, pinged device:target\nAttack 3__ 1 attacker, 300 threads, rr:ANY, pinged device:target\nAttack 4__ 1 attacker, 10 threads, rr:ANY, pinged device:target\nAttack 5__ 1 attacker, 1 thread, rr:ANY, pinged device:target\nAttack 6__ 1 attacker, 100 threads, rr:ANY, pinged device:target\nAttack 7__ 1 attacker, 300 threads, rr:A, pinged device:target\nAttack 8__ 1 attacker, 300 threads, rr:PTR, pinged device:target\n"
 
 """ Boxplot of different attacks """
 def plot_boxplot2(path):
     i = 0
     my_dict = {}
-    for i, filename in enumerate(os.listdir(path)):
+    for i, filename in enumerate(sorted(os.listdir(path))):
         i += 1
         s = dump_to_rtt_list(read_file(path + filename))
         first_in_first = find_timeout_indexes(s)[0]

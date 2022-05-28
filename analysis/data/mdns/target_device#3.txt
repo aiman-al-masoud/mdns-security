@@ -60,7 +60,7 @@ ID: 55 - time: 127.373 ms
 ID: 56 - time: 106.52 ms
 ID: 57 - time: 187.8 ms
 ID: 58 - time: 42.89 ms
-ID: 59 - timed out
+ID: 59 - timeout
 ID: 60 - time: 214.841 ms
 ID: 61 - time: 207.308 ms
 ID: 62 - time: 232.03 ms
@@ -69,19 +69,19 @@ ID: 64 - time: 216.211 ms
 ID: 65 - time: 226.222 ms
 ID: 66 - time: 110.865 ms
 ID: 67 - time: 105.574 ms
-ID: 68 - timed out
-ID: 69 - timed out
-ID: 70 - timed out
-ID: 71 - timed out
-ID: 72 - timed out
-ID: 73 - timed out
-ID: 74 - timed out
-ID: 75 - timed out
+ID: 68 - timeout
+ID: 69 - timeout
+ID: 70 - timeout
+ID: 71 - timeout
+ID: 72 - timeout
+ID: 73 - timeout
+ID: 74 - timeout
+ID: 75 - timeout
 ID: 76 - time: 419.465 ms
 ID: 77 - time: 362.121 ms
 ID: 78 - time: 274.22 ms
-ID: 79 - timed out
-ID: 80 - timed out
+ID: 79 - timeout
+ID: 80 - timeout
 ID: 81 - time: 233.067 ms
 ID: 82 - time: 121.982 ms
 ID: 83 - time: 95.994 ms

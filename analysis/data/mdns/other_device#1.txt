@@ -105,24 +105,24 @@ ID: 100 - time: 19.545 ms
 ID: 101 - time: 23.874 ms
 ID: 102 - time: 119.642 ms
 ID: 103 - time: 202.496 ms
-ID: 104 - timed out
-ID: 105 - timed out
-ID: 106 - timed out
-ID: 107 - timed out
-ID: 108 - timed out
-ID: 109 - timed out
-ID: 110 - timed out
-ID: 111 - timed out
-ID: 112 - timed out
-ID: 113 - timed out
-ID: 114 - timed out
-ID: 115 - timed out
-ID: 116 - timed out
-ID: 117 - timed out
-ID: 118 - timed out
+ID: 104 - timeout
+ID: 105 - timeout
+ID: 106 - timeout
+ID: 107 - timeout
+ID: 108 - timeout
+ID: 109 - timeout
+ID: 110 - timeout
+ID: 111 - timeout
+ID: 112 - timeout
+ID: 113 - timeout
+ID: 114 - timeout
+ID: 115 - timeout
+ID: 116 - timeout
+ID: 117 - timeout
+ID: 118 - timeout
 ID: 119 - time: 311.074 ms
-ID: 120 - timed out
-ID: 121 - timed out
+ID: 120 - timeout
+ID: 121 - timeout
 ID: 122 - time: 66.091 ms
 ID: 123 - time: 38.49 ms
 ID: 124 - time: 16.856 ms

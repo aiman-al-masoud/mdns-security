@@ -39,26 +39,26 @@ ID: 34 - time: 48.33 ms
 ID: 35 - time: 208.078 ms
 ID: 36 - time: 213.022 ms
 ID: 37 - time: 5.578 ms
-ID: 38 - timed out
-ID: 39 - timed out
-ID: 40 - timed out
-ID: 41 - timed out
+ID: 38 - timeout
+ID: 39 - timeout
+ID: 40 - timeout
+ID: 41 - timeout
 ID: 42 - time: 16.85 ms
 ID: 43 - time: 5.147 ms
 ID: 44 - time: 6.246 ms
-ID: 45 - timed out
-ID: 46 - timed out
+ID: 45 - timeout
+ID: 46 - timeout
 ID: 47 - time: 115.572 ms
 ID: 48 - time: 1220.384 ms
-ID: 49 - timed out
+ID: 49 - timeout
 ID: 50 - time: 25.033 ms
-ID: 51 - timed out
-ID: 52 - timed out
-ID: 53 - timed out
-ID: 54 - timed out
-ID: 55 - timed out
+ID: 51 - timeout
+ID: 52 - timeout
+ID: 53 - timeout
+ID: 54 - timeout
+ID: 55 - timeout
 ID: 56 - time: 20.974 ms
-ID: 57 - timed out
+ID: 57 - timeout
 ID: 58 - time: 6.855 ms
 ID: 59 - time: 202.62 ms
 ID: 60 - time: 216.345 ms

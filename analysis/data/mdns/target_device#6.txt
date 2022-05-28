@@ -2,7 +2,7 @@
 #attack was performed by 1 attackers (Andrei), with 300 
 #thread (5 devices conneced to the network and query type A)
 
-ID: 1 - timed out
+ID: 1 - timeout
 ID: 2 - time: 209.339 ms
 ID: 3 - time: 212.449 ms
 ID: 4 - time: 218.91 ms
@@ -97,45 +97,45 @@ ID: 92 - time: 109.898 ms
 ID: 93 - time: 114.918 ms
 ID: 94 - time: 214.118 ms
 ID: 95 - time: 245.896 ms
-ID: 96 - timed out
+ID: 96 - timeout
 ID: 97 - time: 197.166 ms
 ID: 98 - time: 508.295 ms
 ID: 99 - time: 179.376 ms
-ID: 100 - timed out
-ID: 101 - timed out
-ID: 102 - timed out
+ID: 100 - timeout
+ID: 101 - timeout
+ID: 102 - timeout
 ID: 103 - time: 5.206 ms
-ID: 104 - timed out
+ID: 104 - timeout
 ID: 105 - time: 14.438 ms
 ID: 106 - time: 103.655 ms
 ID: 107 - time: 7.376 ms
 ID: 108 - time: 136.844 ms
 ID: 109 - time: 33.79 ms
-ID: 110 - timed out
+ID: 110 - timeout
 ID: 111 - time: 8.34 ms
-ID: 112 - timed out
+ID: 112 - timeout
 ID: 113 - time: 80.509 ms
 ID: 114 - time: 146.044 ms
-ID: 115 - timed out
+ID: 115 - timeout
 ID: 116 - time: 7.533 ms
-ID: 117 - timed out
-ID: 118 - timed out
-ID: 119 - timed out
+ID: 117 - timeout
+ID: 118 - timeout
+ID: 119 - timeout
 ID: 120 - time: 17.259 ms
 ID: 121 - time: 122.313 ms
-ID: 122 - timed out
+ID: 122 - timeout
 ID: 123 - time: 11.46 ms
 ID: 124 - time: 156.323 ms
 ID: 125 - time: 152.839 ms
 ID: 126 - time: 45.546 ms
-ID: 127 - timed out
+ID: 127 - timeout
 ID: 128 - time: 38.834 ms
-ID: 129 - timed out
+ID: 129 - timeout
 ID: 130 - time: 55.924 ms
 ID: 131 - time: 223.673 ms
 ID: 132 - time: 15.446 ms
 ID: 133 - time: 19.301 ms
-ID: 134 - timed out
+ID: 134 - timeout
 ID: 135 - time: 94.164 ms
 ID: 136 - time: 101.964 ms
 ID: 137 - time: 11.816 ms
@@ -147,7 +147,7 @@ ID: 142 - time: 152.433 ms
 ID: 143 - time: 79.096 ms
 ID: 144 - time: 10.08 ms
 ID: 145 - time: 117.636 ms
-ID: 146 - timed out
+ID: 146 - timeout
 ID: 147 - time: 106.428 ms
 ID: 148 - time: 211.793 ms
 ID: 149 - time: 216.11 ms
@@ -166,7 +166,7 @@ ID: 161 - time: 396.227 ms
 ID: 162 - time: 153.031 ms
 ID: 163 - time: 297.512 ms
 ID: 164 - time: 221.339 ms
-ID: 165 - timed out
+ID: 165 - timeout
 ID: 166 - time: 712.562 ms
 ID: 167 - time: 220.244 ms
 ID: 168 - time: 213.547 ms
@@ -185,7 +185,7 @@ ID: 180 - time: 6.618 ms
 ID: 181 - time: 217.33 ms
 ID: 182 - time: 215.683 ms
 ID: 183 - time: 118.478 ms
-ID: 184 - timed out
+ID: 184 - timeout
 ID: 185 - time: 103.763 ms
 ID: 186 - time: 113.794 ms
 ID: 187 - time: 213.644 ms

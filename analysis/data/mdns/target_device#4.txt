@@ -3,7 +3,7 @@
 #thread (5 devices conneced to the network and query type ANY)
 
 ID: 1 - time: 538.603 ms
-ID: 2 - timed out
+ID: 2 - timeout
 ID: 3 - time: 6.218 ms
 ID: 4 - time: 123.044 ms
 ID: 5 - time: 99.647 ms
@@ -21,7 +21,7 @@ ID: 16 - time: 205.766 ms
 ID: 17 - time: 21.826 ms
 ID: 18 - time: 217.614 ms
 ID: 19 - time: 215.263 ms
-ID: 20 - timed out
+ID: 20 - timeout
 ID: 21 - time: 212.464 ms
 ID: 22 - time: 213.084 ms
 ID: 23 - time: 215.087 ms
@@ -60,7 +60,7 @@ ID: 55 - time: 6.869 ms
 ID: 56 - time: 172.343 ms
 ID: 57 - time: 143.519 ms
 ID: 58 - time: 129.373 ms
-ID: 59 - timed out
+ID: 59 - timeout
 ID: 60 - time: 85.459 ms
 ID: 61 - time: 224.912 ms
 ID: 62 - time: 105.62 ms
@@ -76,28 +76,28 @@ ID: 71 - time: 7.276 ms
 ID: 72 - time: 211.51 ms
 ID: 73 - time: 336.449 ms
 ID: 74 - time: 15.505 ms
-ID: 75 - timed out
-ID: 76 - timed out
-ID: 77 - timed out
-ID: 78 - timed out
+ID: 75 - timeout
+ID: 76 - timeout
+ID: 77 - timeout
+ID: 78 - timeout
 ID: 79 - time: 692.197 ms
-ID: 80 - timed out
-ID: 81 - timed out
+ID: 80 - timeout
+ID: 81 - timeout
 ID: 82 - time: 82.432 ms
 ID: 83 - time: 112.921 ms
-ID: 84 - timed out
+ID: 84 - timeout
 ID: 85 - time: 224.887 ms
-ID: 86 - timed out
-ID: 87 - timed out
+ID: 86 - timeout
+ID: 87 - timeout
 ID: 88 - time: 26.737 ms
 ID: 89 - time: 70.416 ms
-ID: 90 - timed out
+ID: 90 - timeout
 ID: 91 - time: 4.679 ms
-ID: 92 - timed out
-ID: 93 - timed out
-ID: 94 - timed out
+ID: 92 - timeout
+ID: 93 - timeout
+ID: 94 - timeout
 ID: 95 - time: 177.499 ms
-ID: 96 - timed out
+ID: 96 - timeout
 ID: 97 - time: 7.027 ms
 ID: 98 - time: 136.329 ms
 ID: 99 - time: 12.451 ms
@@ -124,7 +124,7 @@ ID: 119 - time: 216.947 ms
 ID: 120 - time: 93.707 ms
 ID: 121 - time: 138.106 ms
 ID: 122 - time: 133.696 ms
-ID: 123 - timed out
+ID: 123 - timeout
 ID: 124 - time: 82.66 ms
 ID: 125 - time: 155.786 ms
 ID: 126 - time: 77.92 ms
@@ -145,7 +145,7 @@ ID: 140 - time: 213.475 ms
 ID: 141 - time: 318.526 ms
 ID: 142 - time: 115.939 ms
 ID: 143 - time: 213.551 ms
-ID: 144 - timed out
+ID: 144 - timeout
 ID: 145 - time: 207.85 ms
 ID: 146 - time: 7.235 ms
 ID: 147 - time: 323.025 ms

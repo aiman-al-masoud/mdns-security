@@ -3,7 +3,7 @@
 #thread (5 devices conneced to the network and query type PTR)
 
 ID: 1 - time: 112.564 ms
-ID: 2 - timed out
+ID: 2 - timeout
 ID: 3 - time: 206.094 ms
 ID: 4 - time: 216.702 ms
 ID: 5 - time: 123.917 ms
@@ -25,7 +25,7 @@ ID: 20 - time: 89.563 ms
 ID: 21 - time: 40.015 ms
 ID: 22 - time: 420.16 ms
 ID: 23 - time: 315.579 ms
-ID: 24 - timed out
+ID: 24 - timeout
 ID: 25 - time: 195.543 ms
 ID: 26 - time: 227.528 ms
 ID: 27 - time: 116.748 ms
@@ -92,37 +92,37 @@ ID: 87 - time: 144.347 ms
 ID: 88 - time: 286.816 ms
 ID: 89 - time: 125.758 ms
 ID: 90 - time: 211.453 ms
-ID: 91 - timed out
-ID: 92 - timed out
-ID: 93 - timed out
+ID: 91 - timeout
+ID: 92 - timeout
+ID: 93 - timeout
 ID: 94 - time: 18.474 ms
 ID: 95 - time: 206.045 ms
-ID: 96 - timed out
-ID: 97 - timed out
+ID: 96 - timeout
+ID: 97 - timeout
 ID: 98 - time: 27.805 ms
 ID: 99 - time: 52.979 ms
 ID: 100 - time: 16.347 ms
 ID: 101 - time: 25.759 ms
-ID: 102 - timed out
-ID: 103 - timed out
-ID: 104 - timed out
-ID: 105 - timed out
+ID: 102 - timeout
+ID: 103 - timeout
+ID: 104 - timeout
+ID: 105 - timeout
 ID: 106 - time: 13.269 ms
-ID: 107 - timed out
-ID: 108 - timed out
-ID: 109 - timed out
-ID: 110 - timed out
-ID: 111 - timed out
-ID: 112 - timed out
+ID: 107 - timeout
+ID: 108 - timeout
+ID: 109 - timeout
+ID: 110 - timeout
+ID: 111 - timeout
+ID: 112 - timeout
 ID: 113 - time: 17.0 ms
-ID: 114 - timed out
-ID: 115 - timed out
-ID: 116 - timed out
+ID: 114 - timeout
+ID: 115 - timeout
+ID: 116 - timeout
 ID: 117 - time: 109.489 ms
 ID: 118 - time: 274.598 ms
 ID: 119 - time: 20.14 ms
-ID: 120 - timed out
-ID: 121 - timed out
+ID: 120 - timeout
+ID: 121 - timeout
 ID: 122 - time: 82.822 ms
 ID: 123 - time: 210.634 ms
 ID: 124 - time: 124.059 ms
@@ -143,7 +143,7 @@ ID: 138 - time: 47.676 ms
 ID: 139 - time: 4.455 ms
 ID: 140 - time: 129.339 ms
 ID: 141 - time: 319.402 ms
-ID: 142 - timed out
+ID: 142 - timeout
 ID: 143 - time: 311.666 ms
 ID: 144 - time: 318.044 ms
 ID: 145 - time: 7.558 ms
@@ -166,7 +166,7 @@ ID: 161 - time: 216.205 ms
 ID: 162 - time: 216.975 ms
 ID: 163 - time: 249.19 ms
 ID: 164 - time: 172.498 ms
-ID: 165 - timed out
+ID: 165 - timeout
 ID: 166 - time: 321.464 ms
 ID: 167 - time: 218.372 ms
 ID: 168 - time: 211.011 ms
