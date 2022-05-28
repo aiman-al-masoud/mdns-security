@@ -1,7 +1,7 @@
 #The pinged (ICMP protocol) device is different by the target one 
 #(another node connected within the same network), and the attack was 
 #performed by 2 attackers (Davide & Andrei), each one with 300
-#threads (5 devices conneced to the network and query type ANY)
+#threads (5 devices connected to the network and query type ANY)
 
 
 PING 192.168.1.159 (192.168.1.159): 56 data bytes

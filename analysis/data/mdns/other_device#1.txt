@@ -1,6 +1,6 @@
-#The mdns queries against another davice (domenico), and the
-#attack was performed by 1 attackers (Andrei), with 300 
-#threads (5 devices conneced to the network and query type ANY)
+#The mdns queries against another device (domenico), and the
+#attack was performed by 1 attacker (Andrei), with 300 
+#threads (5 devices connected to the network and query type ANY)
 
 ID: 1 - time: 87.976 ms
 ID: 2 - time: 928.055 ms

@@ -1,6 +1,6 @@
 #The pinged (ICMP protocol) device is the target one, and the
 #attack was performed by 2 attackers (Davide & Andrei), each one with 300 
-#threads (5 devices conneced to the network and query type ANY)
+#threads (5 devices connected to the network and query type ANY)
 
 PING 192.168.1.108 (192.168.1.108): 56 data bytes
 64 bytes from 192.168.1.108: icmp_seq=0 ttl=64 time=40.857 ms
