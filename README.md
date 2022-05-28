@@ -3,12 +3,12 @@
 [![forthebadge](https://forthebadge.com/images/badges/built-by-developers.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-responsibility.svg)](https://forthebadge.com)
 <br>
-![](https://komarev.com/ghpvc/?username=mDNS&color=green&style=for-the-badge&label=REPO+VIEWS)
+![](https://komarev.com/ghpvc/?username=mDNS&color=blueviolet&style=for-the-badge&label=REPO+VIEWS)
 
 ## Introduction
 A project with the aim to simulate (and try to prevent/mitigate) a DoS attack on a target server, relying on the mDNS protocol. 
 <br>
-If interested on more details, a link to the whole report is here provided: 
+For those who are interested, a link to the whole report is provided: 
 [.pdf report](https://drive.google.com/file/d/12v0-ll2ct8fnayhuDUyt1tBUqrDQh2AT/view?usp=sharing).
 
 ***
