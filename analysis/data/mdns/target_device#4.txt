@@ -1,6 +1,6 @@
 #The mdns queries device is the target one, and the
-#attack was performed by 1 attackers (Andrei), with 10 
-#thread (5 devices conneced to the network and query type ANY)
+#attack was performed by 1 attacker (Andrei), with 10 
+#threads (5 devices connected to the network and query type ANY)
 
 ID: 1 - time: 538.603 ms
 ID: 2 - timeout

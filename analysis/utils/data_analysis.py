@@ -32,6 +32,16 @@ def set_bp_color_properties(boxplot):
     for median in boxplot['medians']:
         median.set(color='#90EE90', linewidth=1.5)
 
+def get_attack_data(path, filename, mdns):
+    s = dump_to_rtt_list(read_file(path + filename), mdns)
+    timeout_indexes = find_timeout_indexes(s)
+    if mdns: 
+        timeout_indexes = find_indexes_mdns(timeout_indexes)
+    first_in_first = timeout_indexes[0]
+    one_last_thing = timeout_indexes[-1]
+    j=1 if not mdns else 2 
+    return s, first_in_first, one_last_thing, j
+    
 
 """ Boxplot of only when system was under attack and when not """
 def plot_boxplot1(path, return_my_dict = False, mdns=False):
@@ -39,13 +49,7 @@ def plot_boxplot1(path, return_my_dict = False, mdns=False):
     my_dict["No attack"] = []
     my_dict["Attack"] = []
     for i, filename in enumerate(sorted(os.listdir(path))):
-        s = dump_to_rtt_list(read_file(path + filename), mdns)
-        timeout_indexes = find_timeout_indexes(s)
-        if mdns: 
-            timeout_indexes = find_indexes_mdns(timeout_indexes)
-        first_in_first = timeout_indexes[0]
-        one_last_thing = timeout_indexes[-1]
-        j=1 if not mdns else 2 
+        s, first_in_first, one_last_thing, j = get_attack_data(path, filename, mdns)
         attack_rtts = s[first_in_first:one_last_thing+j]
         no_attack_rtts = s[-(one_last_thing+j):first_in_first]
         my_dict["No attack"].extend(no_attack_rtts)
@@ -66,8 +70,9 @@ def plot_boxplot1(path, return_my_dict = False, mdns=False):
 def get_attacks_description(mdns=False):
     if not mdns:
         return "Attack 1__ 2 attackers, 300 threads, rr:ANY, pinged device:another node\nAttack 2__ 2 attackers, 300 threads, rr:ANY, pinged device:target\nAttack 3__ 1 attacker, 300 threads, rr:ANY, pinged device:target\nAttack 4__ 1 attacker, 10 threads, rr:ANY, pinged device:target\nAttack 5__ 1 attacker, 1 thread, rr:ANY, pinged device:target\nAttack 6__ 1 attacker, 100 threads, rr:ANY, pinged device:target\nAttack 7__ 1 attacker, 300 threads, rr:A, pinged device:target\nAttack 8__ 1 attacker, 300 threads, rr:PTR, pinged device:target\n"
-    #else:
-       # return "Attack 1__ 1 attacker, 300 threads, rr:ANY, pinged device:another node\nAttack 2__ 2 attackers, 300 threads, rr:ANY, pinged device:another node\nAttack 3__ "
+    else:
+        return "Attack 1__ 1 attacker, 300 threads, rr:ANY, pinged device:another node\nAttack 2__ 2 attackers, 300 threads, rr:ANY, pinged device:another node\nAttack 3__ 1 attacker, 300 threads, rr:ANY, pinged device:target\nAttack 4__ 2 attackers, 300 threads, rr:ANY, pinged device:target\nAttack 5__ 1 attacker, 1 thread, rr:ANY, pinged device:target\nAttack 6__ 1 attacker, 10 thread, rr:ANY, pinged device:target\nAttack 7__ 1, 100 threads, rr:ANY, pinged device:target\nAttack 8__ 1 attacker, 300  thread, rr:A, pinged device:target\nAttack 9__ 1 attacker, 300  thread, rr:PTR, pinged device:target\n"
+
 
 """ Boxplot of different attacks """
 def plot_boxplot2(path, mdns=False):
@@ -75,22 +80,19 @@ def plot_boxplot2(path, mdns=False):
     my_dict = {}
     for i, filename in enumerate(sorted(os.listdir(path))):
         i += 1
-        s = dump_to_rtt_list(read_file(path + filename), mdns)
-        timeout_indexes = find_timeout_indexes(s)
-        if mdns: 
-            timeout_indexes = find_indexes_mdns(timeout_indexes)
-        first_in_first = timeout_indexes[0]
-        one_last_thing = timeout_indexes[-1]
-        j=1 if not mdns else 2 
+        s, first_in_first, one_last_thing, j = get_attack_data(path, filename, mdns)
         attack_rtts = s[first_in_first:one_last_thing+j]
         my_dict[str(i)] = attack_rtts
     my_dict = dict(sorted(my_dict.items()))
     fig, ax = plt.subplots()
     ax.set_xlabel("Attack ID")
     ax.set_ylabel("RTTs (ms)")
-    ax.set_title('Ping RTTs - Network under attack\n(different attacks)')
+    if not mdns:
+        ax.set_title('Ping RTTs - Network under attack\n(different attacks)')
+    else:
+        ax.set_title('mDNS ping RTTs - Network under attack\n(different attacks)')
     bp = ax.boxplot(my_dict.values(), showmeans=True)
-    plt.figtext(1.5, 0.3, get_attacks_description(), wrap=True, horizontalalignment='center', fontsize=12)
+    plt.figtext(1.5, 0.3, get_attacks_description(mdns), wrap=True, horizontalalignment='center', fontsize=12)
     set_bp_color_properties(bp)
 
 
