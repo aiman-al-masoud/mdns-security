@@ -82,9 +82,8 @@
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
 
-\Abstract{The aim of this report is to study and discuss the implementation of a DoS attack on a local network exploiting the mDNS protocol. 
-The generated traffic has been analyzed and some studies have been conducted
-in order to understand the impact of this kind of DoS attack, under different conditions.
+\Abstract{The aim of this report is studying and discussing about the implementation of a DoS attack on a local area network (LAN) exploiting the mDNS protocol. 
+The generated traffic has been analyzed and some studies have been conducted in order to understand the impact of this attack, under many conditions.
 Moreover, other possible vulnerabilities of this protocol have been studied with their countermeasure to understand their possible effect.}
 
 %----------------------------------------------------------------------------------------
@@ -102,10 +101,10 @@ Moreover, other possible vulnerabilities of this protocol have been studied with
 %----------------------------------------------------------------------------------------
 
 \section{Introduction} % The \section*{} command stops section numbering
-The idea behind this project is to implement a DoS attack exploiting the mDNS (Multicast Domain Name System) protocol \cite{rfc6762} on a local area network which could use it to make various IoT devices communicate, this to show how easily inaccessible the service can be made. \newline
+The core of this project is implementing a DoS attack, exploiting the mDNS (Multicast Domain Name System) protocol \cite{rfc6762} on a local area network (used for making various types of devices communicate each other), to show how easily inaccessible the service can be made. \newline
 
-In general, a DoS attack is when an attacker is attempting to make it impossible for a target service, or multiple services, to operate properly. These attacks work by overwhelming a system with requests for data. \newline
-This goal is usually achieved by sending small requests to a third party service, spoofing the IP address of the target one, and this third party service in turn respond with bigger response to the target letting it to crash. \newline The result is that available internet bandwidth and the resources of the target system become overloaded.\newline
+In general, a DoS attack is when an attacker is attempting to make it impossible for a target to provide a service, or a set of services. These attacks work by overwhelming a system with requests for data. \newline
+This goal is usually achieved by sending small requests to a third party service, spoofing the IP address of the target one, and this third party service in turn respond with bigger response to the target letting it to crash. \newline The result is that available bandwidth and the resources of the target system become overloaded.\newline
 In this project, the mDNS protocol has been used it allows amplification by exploiting particular types of queries that send a lot of data (ANY type) and also reflection, sending packets to all devices in the network through multicast mode. \newline
 
 To simplify the work and avoid legal problems, an initial assumption has been established. The attacker and the target devices are within the same network although, as will be explained below, the striker could also act from the outside in case of misconfiguration.
@@ -115,7 +114,7 @@ To simplify the work and avoid legal problems, an initial assumption has been es
 %----------------------------------------------------------------------------------------
 
 \section{The mDNS protocol}
-Multicast DNS (mDNS) is a service that aims to solve name resolution in smaller networks. It takes a different approach than the well-known DNS: instead of sending requests to a name server, the network participants are all contacted through multicast mode. \newline
+Multicast DNS (mDNS) is a service aimed to solve name resolution problem in smaller networks. It takes a different approach than the well-known DNS: instead of sending requests to a name server, the network participants are all contacted through multicast mode. \newline
 Instead, a similarity to the classic DNS protocol is that mDNS is an application layer protocol if TCP/IP network stack is considered. \newline % so in this case the communication stack is the one displayes in \ref{fig:stack}. \newline
 
 % \begin{figure}[H]\centering
@@ -135,7 +134,8 @@ Generally, only hostnames ending with {\it{.local}} can be used with Multicast D
     \label{fig:msdns-1}
 \end{figure}
 
-The mDNS was developed in the context of Zeroconf (Zero Configuration Networking) using essentially the same programming interfaces (packet formats) and operating semantics as the unicast Domain Name Service (DNS). The idea behind Zero Configuration Networking is to allow computers to communicate with each other without the need for a prior configuration.\newline
+The mDNS has been developed in the Zeroconf (Zero Configuration Networking) context, by using the same programming interfaces and operating semantics as the standard unicast Domain Name Service (DNS). 
+The idea of Zeroconf is allowing computers to communicate with each other without the need for a prior configuration.\newline
 
 A popular implementation of mDNS is \textit{Bonjour} by Apple, but also the open source software \textit{Avahi} can be used as an mDNS service. As of Windows 10, mDNS is also available in Microsoft's operating system.
 
@@ -146,9 +146,9 @@ A popular implementation of mDNS is \textit{Bonjour} by Apple, but also the open
 
 \paragraph{Disadvantages} 
 \begin{itemize}[leftmargin=*]
-    \item One problem lies in the multicast procedure itself. Although the protocol tries to keep network traffic low, participating computers must constantly monitor the network and process incoming messages. This requires computing power.
-    \item Assigning host names is problematic: since it can be freely choosen a name for each device, as long as it ends in {\it{.local}}, this can (at least theoretically) lead to two network devices with the same host name. The developers of mDNS have deliberately not proposed a solution to this problem: on the one hand, it is assumed that the case rarely occurs; on the other hand, the double naming may be intentional. \newline 
-    Also, by default, mDNS only resolves hostnames that end with the {\it{.local}} top-level domain. This can cause problems if {\it{.local}} includes hosts that do not implement mDNS but can be found via a conventional unicast DNS server. Resolving such conflicts requires network configuration changes that mDNS is designed to avoid.
+    \item Although the protocol tries to keep network traffic low, participating computers must constantly monitor the network and process incoming messages. This requires computing power.
+    \item Assigning host names is problematic: since it can be freely choosen a name for each device, as long as it ends in {\it{.local}}. This can lead to two network devices with the same host name. The developers of mDNS have deliberately not proposed a solution to this problem: on the one hand, it is assumed that the case rarely occurs; on the other hand, the double naming may be intentional. \newline 
+    mDNS resolves ending with the {\it{.local}} top-level domain (TLD) hostnames. This can be a possible source of problems, if {\it{.local}} includes hosts that do not implement mDNS, but can be found via an unicast DNS server. Resolving this conflicts requires network configuration changes, that mDNS prefers avoiding.
     \item In some cases, mDNS is open. This means that it also responds to requests from outside (the Internet). Attackers can find such open services and use them for DoS attacks, using network devices improperly. \newline
     In addition, using mDNS, even sensitive data can be detected. This allows attackers to know information about connected devices and use it for further attacks.
 \end{itemize}
@@ -159,9 +159,8 @@ An mDNS message is a UDP packet sent in multicast using the following addressing
     \item IPv4 address \textit{224.0.0.251} or IPv6 address \textit{ff02::fb}
     \item UDP port \textit{5353}
 \end{itemize}
-The payload structure is based on the unicast DNS packet format, which consists of two parts: the header and the data.\newline
-The header, shown in Figure \ref{fig:msdns-message-1}, is identical to the one found in the unicast DNS, as are the subsections in the data part: queries, responses, authoritative-nameservers, and additional records.
-
+The mDNS payload structure is based on the unicast DNS packet format, which consists of two parts: the header and the data.\newline
+The header, shown in Figure \ref{fig:msdns-message-1}, is identical to the one in unicast DNS, as the subsections in the data part: queries, responses, authoritative-nameservers, and additional records.
 \begin{figure}[H]\centering
     \includegraphics[width=\linewidth]{./msg-format.png}
     \caption{mDNS/Unicast DNS message format}
@@ -178,9 +177,9 @@ The format, shown in Table \ref{tab:query-section}, of the query section is a bi
 		\textbf{Field} & \textbf{Description} & \textbf{Length} \\
 		\hline
 		\hline
-		Name & Name of the node to which the query pertains & Variable \\
+		Name & Name of the node & Variable \\
 		\hline
-		Type &	The type of the query &	16 \\
+		Type & The type of the query & 16 \\
 		\hline
 		Class & IN & 15 \\
 		\hline
@@ -206,15 +205,15 @@ In particular, the {\it{Cache-flush}} bit is used to instruct neighboring nodes 
 		\textbf{Field} & \textbf{Description} & \textbf{Length} \\
 		\hline
 		\hline
-		Name & Name of the node to which the record pertains & Variable\\
+		Name & Name of the node & Variable\\
 		\hline
 		Type & Type of the Resource Record & 16\\
 		\hline
-		Class & Class code, 1 a.k.a. IN for the Internet and IP networks & 15\\
+		Class & Class code, 1 also known as IN for the Internet and IP networks & 15\\
 		\hline
 		Cache-flush & Boolean flag indicating whether outdated cached records should be purged & 1\\
 		\hline
-		TTL & Time interval (in seconds) that the RR should be cached & 32\\
+		TTL & Time interval (in seconds) RR should be cached & 32\\
 		\hline
 		Data length & Integer representing the length (in octets) of the RDATA field & 16\\
 		\hline
@@ -314,7 +313,7 @@ This part is focused on analyzing the differences of the RTTs when the system wa
     \caption{Boxplots - Ping RTTs vs network condition}
 \end{figure}
 
-As illustrated, it can be noticed that the RTTs when the system was under attack, on average, are lower with respect the system under attack.
+As illustrated, it can be noticed that the RTTs when the system was under attack, on average (green squared dots), are lower with respect the system under attack.
 The reason why the RTTs are so high when the system is under attack is due to the fact that lot of timeout are occurring, and when the ping request are 
 succeeded also have high RTT values.
 
@@ -483,8 +482,37 @@ It looks like the other nodes connected within the network of the attacked devic
 %----------------------------------------------------------------------------------------
 
 \section{Other vulnerabilities}
-TO-DO
+The mDNS protocol does not provide any security services, such as DNSSEC or DNS over TLS for the well-known DNS protocol, since they are difficult to configure in small and simple local area networks. 
 
+This is why local networks using this protocol may be subject to security threats. 
+
+Analyzing all the vulnerabilities of services/products using the mDNS protocol, can be identified three main types of threats:
+\begin{itemize}[leftmargin=*]
+	\item {\textbf{denial of service attack}}: attackers fill the local network nodes (with mDNS enabled) with lots of messages that exploit protocol-specific features. These messages can make nodes unreachable and overload the local network
+	\item {\textbf{sensitive information leak}}: attackers can be able to enter the local network and obtain sensitive information
+	\item {\textbf{remote code execution}}: attackers who can access a computer in the local area networkand can execute system commands, write, modify, delete, or read files
+	\item {\textbf{buffer Overflow}}: attackers manipulate the software code to carry out malicious actions and compromise the affected system 
+\end{itemize}
+
+\paragraph{Denial of Service}\mbox{}\\
+DoS attacks are caused by both vulnerabilities such as CVE-2022-20682, CVE-2021-1439, CVE-2020-3359 in which insufficient checks are made on incoming mDNS messages. But also by vulnerabilities such as CVE-2017-6520, CVE-2015-2809, CVE-2015-1892 in which devices are misconfigured and inadvertently respond to unicast queries with source addresses that are not link-local.
+
+It should also be added that the nature of the protocol, in which multicast queries are involved, is itself a feature that attackers can exploit to carry out a DoS/DDoS attack on a local network after gaining access to it. 
+
+\paragraph{Sensitive information leak}\mbox{}\\
+In analyzing the vulnerabilities of this protoccol, it is observed that leakage of sensitive information, but more generally of any information one does not want to share, is caused by several factors. Again, the most frequent problem, evidenced by vulnerabilities such as CVE-2015-6586, CVE-2017-6520, CVE-2015-2809, and CVE-2015-1892 is caused by malconfigurations that allow devices to respond to mDNS queries not coming from within the local network. 
+
+Another vulnerability such as CVE-2020-3182 that plagues the protocol configuration of Cisco Webex Meetings Client for macOS, exists because some sensitive information is included in the mDNS replies. Thus an attacker could exploit this vulnerability by making mDNS queries for a particular service against an affected device, and gain access to sensitive information. A similar problem is highlighted by vulnerability CVE-2020-26966, in which searching for a single word from the address bar causes an mDNS query to be sent on the local network searching for a hostname consisting of that string (only affected Windows operating systems).
+\paragraph{Remote code execution}\mbox{}\\
+Remote code execution is a threat highlighted by vulnerabilities such as CVE-2020-6072 and CVE-2014-9378, where in both cases there are errors in checking some return values of certain functions. 
+
+The CVE-2020-6072 vulnerability evinces that the minimal mDNS resolver library named libmicrodns in version 0.1.0, when parsing compressed labels in mDNS messages, does not check the return value of the rr\_decode function. 
+Similar problem is the one highlighted in vulnerability CVE-2014-9378 in which the free and open source network security tool for man-in-the-middle attacks on a LAN, named Ettercap, does not validate certain return values.
+
+\paragraph{Buffer overflow}\mbox{}\\
+A buffer overflow condition exists when a program attempts to put more data in a buffer than it can hold or when a program attempts to put data in a memory area past a buffer. Writing outside the bounds of a block of allocated memory can corrupt data, crash the program, or cause the execution of malicious code. The buffer overflow exploit techniques a hacker uses depends on the architecture and operating system being used by their target. 
+
+There are some vulnerabilities such as CVE-2018-4003, CVE-2017-12087, CVE-2015-7987, and CVE-2007-2386 that highlight buffer overflow problems. In particular, vulnerabilities CVE-2015-7987 and CVE-2007-2386 evince these problems for "mDNSResponder" the core Bonjour's process that regularly scans the local network looking for other Bonjour-enabled devices. Note that Apple's Bonjour service is available for both Mac OS and Windows.  
 %----------------------------------------------------------------------------------------
 %	MITIGATION/PREVENTION
 %----------------------------------------------------------------------------------------

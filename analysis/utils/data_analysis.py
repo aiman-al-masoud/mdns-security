@@ -91,7 +91,7 @@ def plot_boxplot2(path, mdns=False):
         ax.set_title('Ping RTTs - Network under attack\n(different attacks)')
     else:
         ax.set_title('mDNS ping RTTs - Network under attack\n(different attacks)')
-    bp = ax.boxplot(my_dict.values(), showmeans=True)
+    bp = ax.boxplot(my_dict.values(), showmeans=True, meanprops={"marker":"s","markerfacecolor":"#90EE90", "markeredgecolor":"green"})
     plt.figtext(1.5, 0.3, get_attacks_description(mdns), wrap=True, horizontalalignment='center', fontsize=12)
     set_bp_color_properties(bp)
 
