@@ -246,6 +246,7 @@ The number of threads used, the query type, and the target device input paramete
 The \textit {ping} \cite{pingManPage} command is a simple active (evaluate the properties of an infrastructure under a controlled traffic) monitoring tool with the aim of measuring, testing and debugging a network infrastructure. It sends an Internet Control Message Protocol \textit{ICMP ECHO\_REQUEST} (type 8) to obtain an \textit{ICMP ECHO\_RESPONSE} (type 0) from the target. If the target is operational and on the network, it responds to the echo. The ping command sends one datagram per second and prints one line of output for every response received. Finally, the ping command calculates round-trip times and packet loss statistics, and displays a brief summary on completion.
 
 \subsection{Query\_mDNS.py}
+\label{sec:query-mdns-script}
 \textit{Query\_mDNS} is a simple Python tool developed, reusing Scripton functions, to send single multicast mDNS queries at regular intervals (1 second) waiting for a response. This will be used to check the availability of the mDNS service on the local network.\newline
 Similar to ping, the timeout was set to 4 seconds.
 
@@ -274,7 +275,7 @@ The objective of this section is to consider the gathered data and to obtain use
 
 As already discussed, the main purpose of a DoS attack is to make unavailable a particular service (or a set of services) provided by a given network, as consequence of the huge traffic.
 
-In this particular case, in order to keep simple the discussion, two kind of services have been considered:
+In order to keep simple the discussion, two kind of services have been considered:
 \begin{itemize}[leftmargin=*]
 	\item ICMP protocol, using the ping command
  	\item UDP protocol, since mDNS works on top of UDP, using the mDNS query command
@@ -299,11 +300,12 @@ The easiest visualization from which this analysis can start is taking into acco
     \centering
     \subfloat[\centering The pinged device is the target. The attack has been performed by two attackers, each one with 300 threads, rr any]{{\includegraphics[width=5.8cm]{./ping/ping-rtt1.png} }}%
     \qquad
-    \subfloat[\centering The pinged device is the target. The attack has been performed by one attackers, 1 thread, rr any]{{\includegraphics[width=5.8cm]{./ping/ping-rtt2.png} }}%
+    \subfloat[\centering The pinged device is the target. The attack has been performed by one attacker, 1 thread, rr any]{{\includegraphics[width=5.8cm]{./ping/ping-rtt2.png} }}%
     \caption{Ping RTTs time series examples}%
     \label{fig:rtts-time-series}%
 \end{figure}
-Only some ping RTTs graphs have been shown in figure \ref*{fig:rtts-time-series}, since the same information is represented in a more compact way by the boxplots represented in the figure \ref{Figure-pingbp2}.
+Only some ping RTTs graphs have been shown in figure \ref{fig:rtts-time-series}, since the same information is represented in a more compact way by the boxplots represented in the figure \ref{fig:pingbp2}.
+
 \paragraph{Boxplots}\mbox{}\\
 This part is focused on analyzing the differences of the RTTs when the system was under attack and when not.
 
@@ -312,37 +314,42 @@ This part is focused on analyzing the differences of the RTTs when the system wa
     \caption{Boxplots - Ping RTTs vs network condition}
 \end{figure}
 
-As illustrated it can be noticed that the RTTs when the system was under attack are lower with respect the system under attack.
+As illustrated, it can be noticed that the RTTs when the system was under attack, on average, are lower with respect the system under attack.
+The reason why the RTTs are so high when the system is under attack is due to the fact that lot of timeout are occurring, and when the ping request are 
+succeeded also have high RTT values.
 
 But how it can be ensured that the mean effect of the two groups of samples (attack, no attack) is different not just visually but also statistically?
 An useful statistical test that can help to perform this kind of analysis is the {\it{Mann-Whitney U Test}}.
 
-By performing this test it can be noticed that the two samples have different means, and it is statistically significant (small p-value).
+By performing the mentioned test, it can be noticed that the two samples have very different means, and it is statistically significant (small p-value).
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\linewidth]{./ping/mannwhitneyu1.png}
+    \caption{Mann-Whitney U Test results}
+	\label{fig:mannwhitneyu1}
+\end{figure}
 
 \subparagraph{Mann-Whitney U Test \cite{MannWhitneyU}}
 This statistical test does not assume that the distribution that have generated the different samples is normal.
 In addition, the two samples does not must have the same length.
 The null hypothesis is that the two groups have the same distribution, while the alternative hypothesis is that one group has larger (or smaller) values than the other.\\\\
 
-\begin{figure}[H]\centering
-    \includegraphics[width=\linewidth]{./ping/mannwhitneyu1.png}
-    \caption{Mann-Whitney U Test results}
-\end{figure}
-
 Whereas, by distinguishing the different types of attacks, other considerations can be extracted.
 
 \begin{figure}[H]\centering
     \includegraphics[width=\linewidth]{./ping/ping-boxplot2.png}
     \caption{Boxplots - Ping RTTs vs attack type}
-	\label{Figure-pingbp2}
+	\label{fig:pingbp2}
 \end{figure}
-Each of the attacks' id corresponds to a particular conducted experiment.
+Each of the attacks' id corresponds to a particular conducted experiment, as described in the table \ref{tab:ping-attack-ids-descr}.
 
-\begin{table}[hbt]
+By the illustrated boxplots it can be noticed that the worst condition has been obtained by using two attackers, with lots of active threads, and pinging the target device.
+
+\begin{table}[h]
 	\centering
-	\begin{tabular}{|C{1.1cm}|C{1.5cm}|C{1.2cm}|C{0.5cm}|C{1.1cm}|}
+	\begin{tabular}{|C{1.1cm}|C{1.5cm}|C{1.8cm}|C{0.5cm}|C{1.1cm}|}
 		\hline
-		\textbf{Attack ID} & \textbf{Attackers} & \textbf{Threads} & \textbf{RR} & \textbf{Pinged device} \\
+		\textbf{Attack ID} & \textbf{Attackers} & \textbf{Threads/ Attackers} & \textbf{RR} & \textbf{Pinged device} \\
 		\hline
 		\hline
 		1 & 2 & 300 & any & another \\
@@ -363,12 +370,111 @@ Each of the attacks' id corresponds to a particular conducted experiment.
 		\hline
 	\end{tabular}
 	\caption{mDNS attacks ID description}
+	\label{tab:ping-attack-ids-descr}
 \end{table}
 
-\subsection{mDNS probing results}
+So, as expected, by increasing the number of attackers the effect of the attack increases and so more timeouts occurs.
 
+Whereas, by increasing the number of threads and so exploiting more calculation power of the single device performing the attack, the order of magnitude of the attack still increases.
+
+Finally, by changing the type of query performed the RTT changes, but not so much and so it cannot be said that changing the resource record does change the effect of the attack (random sampling).
+
+It can be noticed that the attack causes problems not only to the target device, but even to other nodes connected within its network  (as shown in the boxplot correspondent to {\it{pinged device: another}}).
+\subsection{mDNS probing results}
+This section is focused on analyzing the effect size of the DoS attack over the mDNS protocol, and so consequentially the UDP, since mDNS works on top of UDP as already pointed out.
+
+Different attacks have been performed, by changing the hyperparameter of the {\it{scripton}} code.
+
+The expected behavior is that the effect of the DoS over the mDNS service is even worse with respect to the ICMP protocol case (ping).
+
+The script used to generate the mDNS queries has already been discussed in the section \ref{sec:query-mdns-script}.
 \paragraph{Time series}\mbox{}\\
+The following figure shows the timeline of the mDNS queries RTTs when some particular kind of attacks have been performed.
+
+The same information is represented in a more compact way by the boxplots represented in the figure \ref{fig:mdnsbp2}.
+
+\begin{figure}[H]
+    \centering
+    \subfloat[\centering The mDNS queried device is the target. The attack has been performed by one attacker, 300 threads, rr ptr]{{\includegraphics[width=5.8cm]{./mdns/mdnsping-rtt1.png} }}%
+    \qquad
+    \subfloat[\centering The mDNS queried device is another node connected within the same network of the target device. The attack has been performed by one attacker, 300 threads, rr any]{{\includegraphics[width=5.8cm]{./mdns/mdnsping-rtt2.png} }}%
+    \caption{mDNS queries RTTs time series examples}%
+    \label{fig:mdns-rtts-time-series}%
+\end{figure}
+
+In this case, since some single timeouts are present even when the attack is not performed, the attack starts when two timeouts are occurring one immediately after another. 
+
 \paragraph{Boxplots}\mbox{}\\
+This part is focused on analyzing the differences of the mDNS queries RTTs when the system was under attack and when not.
+\begin{figure}[H]\centering
+    \includegraphics[width=\linewidth]{./mdns/mdns-boxplot1.png}
+    \caption{Boxplots - mDNS queries RTTs vs network condition}
+\end{figure}
+
+As illustrated, it can be noticed that the RTTs when the system was under attack, on average, are lower with respect the system under attack.
+The reasoning is the same of the ping case of study.
+
+Since more timeouts are occurring when the system is not under attack, the RTTs mean is slightly higher with respect to the ping case (when the network is not under attack).
+
+By performing the statistical test already discussed, the following results are obtained.
+\begin{figure}[H]\centering
+    \includegraphics[width=\linewidth]{./mdns/mannwhitneyu2.png}
+    \caption{Mann-Whitney U Test results}
+	\label{fig:mannwhitneyu2}
+\end{figure}
+By this test it can be said that the two samples (no attack, attack) have different means and it is statistically significant (small p-value).
+
+Furthermore, by comparing the statistics values in the figures \ref{fig:mannwhitneyu1} and \ref{fig:mannwhitneyu2} it can be seen that the effect of the DoS attack over the mDNS protocol is higher with respect to the case of the ICMP protocol. 
+\\\\
+Now, different types of attacks will be distinguished, so that other considerations can be extracted.
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\linewidth]{./mdns/mdns-boxplot2.png}
+    \caption{Boxplots - mDNS queries RTTs vs attack type}
+	\label{fig:mdnsbp2}
+\end{figure}
+
+Each of the attacks' id corresponds to a particular conducted experiment, as described in the table \ref{tab:mdns-ping-attack-ids-descr}.
+
+Also here, by increasing the number of attackers the effect of the attack increases and so more timeouts occurs.
+
+As strange result, by increasing the number of threads and so exploiting more calculation power of the single device performing the attack, the order of magnitude of the attack decreases.
+
+Finally, by changing the type of query performed the RTT changes, but not so much and so it cannot be said that changing the resource record does change the effect of the attack (random sampling).
+
+It can be noticed that the attack causes problems not only to the target device, but even to other nodes connected within its network.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|C{1.1cm}|C{1.5cm}|C{1.8cm}|C{0.5cm}|C{1.1cm}|}
+		\hline
+		\textbf{Attack ID} & \textbf{Attackers} & \textbf{Threads/ Attackers} & \textbf{RR} & \textbf{mDNS queried device} \\
+		\hline
+		\hline
+		1 & 1 & 300 & any & another \\
+		\hline
+		2 & 2 & 300 & any & another \\
+		\hline
+		3 & 1 & 300 & any & target \\
+		\hline
+		4 & 2 & 300 & any & target \\
+		\hline
+		5 & 1 & 1 & any & target \\
+		\hline
+		6 & 1 & 10 & any & target \\
+		\hline
+		7 & 1 & 100 & any & target \\
+		\hline
+		8 & 1 & 300 & a & target \\
+		\hline
+		9 & 1 & 300 & ptr & target \\
+		\hline
+	\end{tabular}
+	\caption{mDNS attacks ID description}
+	\label{tab:mdns-ping-attack-ids-descr}
+\end{table}
+
+It looks like the other nodes connected within the network of the attacked device have higher mDNS queries RTTs when the attack is performed, with respect to the target device.
 
 \subsection{Countermeasures} %se ci proviamo va bene qua altrimenti spostare in un'altra sezione
 
@@ -393,7 +499,6 @@ TO-DO
 \phantomsection
 \bibliographystyle{unsrt}
 \bibliography{mybibl.bib}
-\nocite{*}
 
 %----------------------------------------------------------------------------------------
 
