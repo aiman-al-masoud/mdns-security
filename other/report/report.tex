@@ -16,13 +16,11 @@
 
 \usepackage[english]{babel} % Specify a different language here - english by default
 
-\usepackage{lipsum} % Required to insert dummy text. To be removed otherwise
-
 \usepackage{array} % Required for centering tables content
 
 \usepackage{float} % Avoid putting tables on top of the pages
 
-\usepackage{subfig}
+\usepackage{subfig} % Put more subfigures in the same figures
 
 \graphicspath{ {./images/} } % Paths were images are taken
 
@@ -93,12 +91,14 @@ Moreover, other possible vulnerabilities of this protocol, and some possible cou
 \maketitle % Output the title and abstract box
 
 \tableofcontents % Output the contents section
+\vfill\null
 
 \thispagestyle{empty} % Removes page numbering from the first page
 
 %----------------------------------------------------------------------------------------
 %	INTRODUCTION
 %----------------------------------------------------------------------------------------
+
 
 \section{Introduction} % The \section*{} command stops section numbering
 The core of this project is implementing a DoS attack, exploiting the mDNS (Multicast Domain Name System) protocol \cite{rfc6762} on a local area network (used for making various types of devices communicate each other), to show how easily inaccessible the service can be made. \newline
@@ -229,15 +229,15 @@ In particular, the {\it{Cache-flush}} bit is used to instruct neighboring nodes 
 %----------------------------------------------------------------------------------------
 
 \section{Tools used}
-Several tools have been used during the experiment, some of them developed in-house. In this section, they are presented and their source can be analyzed in the Github repository \cite{mDNS-security}. \newline
+Several tools have been used during the experiment, some of them developed in-house. In this section, they are presented and their source can be analyzed in the Github repository \cite{mDNS-security}. 
 
-Moreover, a Python Jupyter notebook, not described in this report, has been used to perform analysis of the data collected during the experiments (graphs plot).
+Moreover, a {\it{Python Jupyter notebook}}, not described in this report, has been used to perform analysis of the data collected during the experiments (graphs plot).
 
 \subsection{Scripton.py}
 \textit{Scripton} is a Python script that is used during the experiment to send thousands of query packets in multicast, thus allowing the actual DoS attack to be carried out.
-In this sense, multithreading is exploited so that packets can be sent massively while the payload of each query is built, in hexadecial code, in the \textit{build\_message()} function, making use of the specification defined in the RFC\cite{rfc6762}. Each packet is then sent directly in multicast from a socket avoiding intermediate services that could slow down the attack by waiting for a response from the mDNS service. \newline
+In this sense, multithreading is exploited so that packets can be sent massively while the payload of each query is built, in hexadecial code, in the \textit{build\_message()} function, making use of the specification defined in the RFC\cite{rfc6762}. Each packet is then sent directly in multicast from a socket avoiding intermediate services that could slow down the attack by waiting for a response from the mDNS service.
 
-Scripton can also spoof an IP in the network by acting on the \textit{iptable} of the Linux system. \newline
+Scripton can also spoof an IP in the network by acting on the \textit{iptable} of the Linux system.
 
 The number of threads used, the query type, and the target device input parameters could be tuned to perform the attack in various ways.
 
@@ -252,19 +252,38 @@ Similar to ping, the timeout was set to 4 seconds.
 \subsection{Wireshark}
 \textit{Wireshark} is a sniffer that works on devices whose NIC is set to promiscuous mode. It eavesdrops/captures packet sent and received and is used especially for network troubleshooting, monitoring and communication protocols development. The measures collected are all the information contained in an IP packet at all levels of the protocol stack. \newline
 This tool was used during the experiments to understand the operation of the protocol and the format of mDNS query/response packets. \newline
-It also allowed, in general, to analyze some statistics and the trend of attacks in real time.
+It also allowed, in general, to analyze some statistics and the trend of attacks in real time.\newline
 %----------------------------------------------------------------------------------------
 %	Experiment setup
 %----------------------------------------------------------------------------------------
 
 \section{Experiment setup}
-\subsection{Methodological approach}
-(Remember to describe the router features - the router where the different devices were connected when measuring the different data)
-\subsection{Monitoring activity}
-The obtained results have been stored into a {\it{GDrive folder}} \cite{GDrive}, which is open accessible.
-\subsubsection{Ping probing configuration}
-\subsubsection{mDNS probing configuration}
+In this section, the different paragraphs will discuss about the way we perform this expirments and the choices that has been made.
+\subsection{Methodological approach and monitoring}
+To avoid damage to a real network, it has been used an internal network provided by a particular router (router specifics \cite{RouterSpecs}).
 
+\begin{figure}[H]\centering
+    \includegraphics[width=5cm]{./router.jpg}
+    \caption{Web-pocket router}
+\end{figure}
+
+To monitor the different conducted experiments some devices have been connected within the same LAN network.
+Some of them were used to perform the attack (DoS or DDoS in case of at least two attackers), other were instead used to conduct the monitoring,
+using the ping command or the mDNS ping already discussed script. 
+In all the cases the attacked device has been the same, while the number of attackers changed over the time.
+
+It can be noticed that some devices are better performing the attack, instead of others, depending on the device specifics.
+
+In order to conduct these phase, in some cases the pinged device (or mDNS queried) device was the attacked one, while in other cases
+another node connected within the same network that was not attacked (to see the effects of the attack on other nodes).
+\newline
+
+The measurement activity considered different variations on the attack script parameters, the number of attackers (1,2) such as the number of threads (1, 10, 100, 300) for each attacker,
+the resource record (ANY, A, PTR).
+The parameters have been varied one at time, since the analysis can be easily to be interpreted and consider the effects of each varied parameter.
+\newline
+
+The obtained results have been stored into a {\it{GDrive folder}} \cite{GDrive}, which is open accessible.
 %----------------------------------------------------------------------------------------
 %	RESULTS
 %----------------------------------------------------------------------------------------
@@ -331,7 +350,7 @@ By performing the mentioned test, it can be noticed that the two samples have ve
 \subparagraph{Mann-Whitney U Test \cite{MannWhitneyU}}
 This statistical test does not assume that the distribution that have generated the different samples is normal.
 In addition, the two samples does not must have the same length.
-The null hypothesis is that the two groups have the same distribution, while the alternative hypothesis is that one group has larger (or smaller) values than the other.\\\\
+The null hypothesis is that the two groups have the same distribution, while the alternative hypothesis is that one group has larger (or smaller) values than the other.\\
 
 Whereas, by distinguishing the different types of attacks, other considerations can be extracted.
 
@@ -390,8 +409,6 @@ The script used to generate the mDNS queries has already been discussed in the s
 \paragraph{Time series}\mbox{}\\
 The following figure shows the timeline of the mDNS queries RTTs when some particular kind of attacks have been performed.
 
-The same information is represented in a more compact way by the boxplots represented in the figure \ref{fig:mdnsbp2}.
-
 \begin{figure}[H]
     \centering
     \subfloat[\centering The mDNS queried device is the target. The attack has been performed by one attacker, 300 threads, rr ptr]{{\includegraphics[width=5.8cm]{./mdns/mdnsping-rtt1.png} }}%
@@ -401,17 +418,21 @@ The same information is represented in a more compact way by the boxplots repres
     \label{fig:mdns-rtts-time-series}%
 \end{figure}
 
+The same information is represented in a more compact way by the boxplots represented in the figure \ref{fig:mdnsbp2}.
+
 In this case, since some single timeouts are present even when the attack is not performed, the attack starts when two timeouts are occurring one immediately after another. 
 
 \paragraph{Boxplots}\mbox{}\\
 This part is focused on analyzing the differences of the mDNS queries RTTs when the system was under attack and when not.
+
+As illustrated in the following figure it can be noticed that the RTTs when the system was under attack, on average, are lower with respect the system under attack.
+The reasoning is the same of the ping case of study.
+
 \begin{figure}[H]\centering
     \includegraphics[width=\linewidth]{./mdns/mdns-boxplot1.png}
     \caption{Boxplots - mDNS queries RTTs vs network condition}
+	\label{fig:mdns-boxplot1}
 \end{figure}
-
-As illustrated, it can be noticed that the RTTs when the system was under attack, on average, are lower with respect the system under attack.
-The reasoning is the same of the ping case of study.
 
 Since more timeouts are occurring when the system is not under attack, the RTTs mean is slightly higher with respect to the ping case (when the network is not under attack).
 
@@ -421,10 +442,11 @@ By performing the statistical test already discussed, the following results are 
     \caption{Mann-Whitney U Test results}
 	\label{fig:mannwhitneyu2}
 \end{figure}
+
 By this test it can be said that the two samples (no attack, attack) have different means and it is statistically significant (small p-value).
 
 Furthermore, by comparing the statistics values in the figures \ref{fig:mannwhitneyu1} and \ref{fig:mannwhitneyu2} it can be seen that the effect of the DoS attack over the mDNS protocol is higher with respect to the case of the ICMP protocol. 
-\\\\
+
 Now, different types of attacks will be distinguished, so that other considerations can be extracted.
 
 \begin{figure}[H]\centering
@@ -545,6 +567,7 @@ There are some vulnerabilities (e.g., CVE-2018-4003 \cite{CVE-2018-4003}, CVE-20
 %	MITIGATION/PREVENTION
 %----------------------------------------------------------------------------------------
 
+\vfill\null
 \section{Conclusions}
 This report presented an overview of the field of IT security, in particular it touched a particular problem, the DoS (or DDoS) attacks performed on top of mDNS.
 More in detail the following topics have been covered:
@@ -559,7 +582,7 @@ More in detail the following topics have been covered:
  	\item a discussion on the obtained results, supported by the use of statistics and some visualization tools
 \end{itemize}
 
-Many other aspects can be extended, such as implementing a solution that mitigates the effects of dos attacks, exploiting mDNS, using preventive actions 
+Many other aspects can be extended, such as implementing a solution that mitigates the effects of DoS attacks, exploiting mDNS, using preventive actions 
 (for example blocking the working of the protocol when the traffic on the network, using the latter, becomes too high).
 
 Furthermore, the other threated vulnerabilities can be exploited and their possible countermeasures implementations can be proposed.
@@ -571,6 +594,7 @@ Furthermore, the other threated vulnerabilities can be exploited and their possi
 %	REFERENCE LIST
 %----------------------------------------------------------------------------------------
 
+\clearpage
 \phantomsection
 \bibliographystyle{unsrt}
 \bibliography{mybibl.bib}
