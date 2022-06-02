@@ -83,8 +83,8 @@
 %----------------------------------------------------------------------------------------
 
 \Abstract{The aim of this report is studying and discussing about the implementation of a DoS attack on a local area network (LAN) exploiting the mDNS protocol. 
-The generated traffic has been analyzed and some studies have been conducted in order to understand the impact of this attack, under many conditions.
-Moreover, other possible vulnerabilities of this protocol have been studied with their countermeasure to understand their possible effect.}
+The generated traffic has been analyzed and some studies have been conducted to understand the impact of this attack, under many conditions.
+Moreover, other possible vulnerabilities of this protocol, and some possible countermeasures that can be implemented to overcome its security issues, have been identified.}
 
 %----------------------------------------------------------------------------------------
 
@@ -290,7 +290,7 @@ Further investigations can be applieds considering the GDrive data source, or ex
 \subsection{Ping probing results}
 This subsection is focused on considering the effect size of the DoS attack on the ICMP protocol.
 
-Different kinds of attacks have been performed in order to measure how the different {\it{scripton}} parameters are influencing the attack's order of magnitude.
+Different kinds of attacks have been performed to measure how the different {\it{scripton}} parameters are influencing the attack's order of magnitude.
 
 \paragraph{Time series}\mbox{}\\
 The easiest visualization from which this analysis can start is taking into account how the RTTs are varying when considering different types of mDNS attack.
@@ -483,7 +483,7 @@ It looks like the other nodes connected within the network of the attacked devic
 Unfortunately, mDNS does not provide any built-in security feature \cite{securityOfIoT}.
 But how can be possible mitigate these kinds of DoS (or DDoS) attacks, based on mDNS protocol?
 
-There are some specific countermeasurements that can be applied in order to make the protocol more reliable and secure, and can be considered as belonging in two mainly different categories:
+There are some specific countermeasurements that can be applied to make the protocol more reliable and secure, and can be considered as belonging in two mainly different categories:
 \begin{itemize}[leftmargin=*]
 	\item {\it{Simple methods}}: provided by operating systems
  	\item {\it{Sophisticated methods}}: provided by the services built on top of mDNS
@@ -491,20 +491,20 @@ There are some specific countermeasurements that can be applied in order to make
 
 \paragraph{Simple mitigation techniques}\mbox{}\\
 Those kind of solutions can be implemented, for example, either {\it{disabling mDNS services}} when not needed, or
-{\it{disabling the mDNS UDP port}} (5353) in order to block the traffic from/to outside the LAN (firewall).
+{\it{disabling the mDNS UDP port}} (5353) to block the traffic from/to outside the LAN (firewall).
 
 In the majority of cases, mDNS protocol is enabled by default on most devices, but users might not be aware of this protocol running on their devices.
 
 A possible cause of this DoS attack is that mDNS service, although designed for LAN, can be accessible from the Internet (so the botnet devices can start the attack from outside).
 
-Different operating systems have implemented a way in order to block the mDNS traffic, such as: Windows \cite{blockWindowsMDNS}  (after version 10); or Mac OS and Linux \cite{blockMacOsLinuxMDNS}.
+Different operating systems have implemented a way to block the mDNS traffic, such as: Windows \cite{blockWindowsMDNS}  (after version 10); or Mac OS and Linux \cite{blockMacOsLinuxMDNS}.
 
 \paragraph{Sophisticated mitigation techniques}\mbox{}\\
 These methods, instead, are based on ensuring the following two security requirements: {\it{authenticity}}, and {\it{confidentiality}}.
 
 The main goal of authenticity is to allow mDNS requests/responses, to only authenticated users, so that the hostnames are more difficult to be spoofed \cite{Bai2016StayingSA, Bai2017AppleZH, WuTSB16}.
 
-Whereas, confidentiality (so the disclosure of informations) can be ensured by encrypting the mDNS traffic, in order to avoid that an user that has access to the network (or a man in the middle) can steal sensitive informations of other users devices \cite{Kaiser2014AddingPT, EfficientmDNS}.
+Whereas, confidentiality (so the disclosure of informations) can be ensured by encrypting the mDNS traffic, to avoid that an user that has access to the network (or a man in the middle) can steal sensitive informations of other users devices \cite{Kaiser2014AddingPT, EfficientmDNS}.
 %----------------------------------------------------------------------------------------
 %	MITIGATION/PREVENTION
 %----------------------------------------------------------------------------------------
@@ -546,7 +546,26 @@ There are some vulnerabilities (e.g., CVE-2018-4003 \cite{CVE-2018-4003}, CVE-20
 %----------------------------------------------------------------------------------------
 
 \section{Conclusions}
-TO-DO
+This report presented an overview of the field of IT security, in particular it touched a particular problem, the DoS (or DDoS) attacks performed on top of mDNS.
+More in detail the following topics have been covered:
+\begin{itemize}[leftmargin=*]
+	\item what are the DoS attacks and which are the objective of performing them 
+	\item the mDNS protocol, its working principles, how to exploit its vulnerabilities to perform a Dos (or DDoS) attack, and some possible 
+		  countermeasurements to overcome the security issues
+ 	\item an implemented script that can be used in order to perform mDNS DoS attacks
+	\item some active and passive monitoring tools that can be used to analyze the traffic over the network,
+	      to avoid that the effects become worse and worse over time
+	\item a script to measure the mDNS ping statistics
+ 	\item a discussion on the obtained results, supported by the use of statistics and some visualization tools
+\end{itemize}
+
+Many other aspects can be extended, such as implementing a solution that mitigates the effects of dos attacks, exploiting mDNS, using preventive actions 
+(for example blocking the working of the protocol when the traffic on the network, using the latter, becomes too high).
+
+Furthermore, the other threated vulnerabilities can be exploited and their possible countermeasures implementations can be proposed.
+
+\paragraph{Legal issues \cite{IllegalIssues}} The code to carry out the attack was used on a test network. If you want to use it, talk to the network administrator, because DoS attacks are illegal and
+						large fines, accompanied by years in prison, belong to malicious users.
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
