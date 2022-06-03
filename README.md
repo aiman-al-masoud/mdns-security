@@ -1,4 +1,4 @@
-# mDNS DoS Project
+# Implementation of a DoS attack exploiting mDNS
 ![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)
 [![forthebadge](https://forthebadge.com/images/badges/built-by-developers.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-responsibility.svg)](https://forthebadge.com)
