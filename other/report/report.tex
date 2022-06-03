@@ -243,7 +243,7 @@ The \textit {ping} \cite{pingManPage} command is a simple active monitoring tool
 As to the ping command, the timeout was set to 4 seconds.
 
 \subsection{Wireshark}
-\textit{Wireshark} is a sniffer that works on devices whose NIC is set to promiscuous mode. It eavesdrops/captures packets sent and received and is used especially for network troubleshooting, monitoring and communication protocols development. The measures collected are all the information contained in an IP packet at all levels of the protocol stack. \newline
+\textit{Wireshark} is a sniffer that works on devices whose NIC is set to promiscuous mode. It eavesdrops/captures packets sent and received and is used especially for network troubleshooting, monitoring and communication protocols development. The collected measures are all the information contained in an IP packet at all levels of the protocol stack. \newline
 This tool was used during the experiments to understand the operation of the protocol and the format of mDNS query/response packets. \newline
 It also allowed, in general, to analyze some statistics and the trend of attacks in real time.\newline
 %----------------------------------------------------------------------------------------
@@ -266,7 +266,7 @@ The used methodological approach is the following:
 	\item \textbf{Where}: the vantage point is a laptop internal to the network and passive to the attack.
 	\item \textbf{How}: several measures have been considered by varing the number of attackers (DoS or DDoS, the latter considered in case of at least two attackers). Initially the service's availability, through mDNS queries, or reachability, through ICMP messages (ping command), of the queried target device or the passive device has been measured for one minute, then as the attackers send thousands of queries for another minute the vantage point performs the same measurement which continues for another minute after the attack ends. \newline
 The measurement activity has considered different variations on the attack script parameters such as: the number of threads (1, 10, 100, 300) for each attacker, and the type of resource record (ANY, A, PTR). The parameters have been varied one at time, since the analysis can be easily to be interpreted and consider the effects of each varied parameter.
-\item \textbf{When}: the time interval between each experiment was of 5 minutes.
+\item \textbf{When}: the time interval between each experiment was of three minutes.
 \end{itemize}
 Since there was no intention to undermine a real local network, one has been created by making use of a portable Wind 4G router \cite{RouterSpecs} to which all devices have been connected.
 
