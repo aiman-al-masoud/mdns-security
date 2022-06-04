@@ -260,11 +260,11 @@ The used methodological approach is the following:
 	\item \textbf{Which/Who}:
 \begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
     \item a laptop selected as a target of the mDNS attack
-    \item a passive laptop used to test the network's traffic
+    \item a passive Lenovo 15ADA05 laptop used to test the network's traffic
 \end{itemize}
 	\item \textbf{What}: the selected measures are the time to receive a response to each ICMP, or mDNS, message sent, even considering timeouts.
-	\item \textbf{Where}: the vantage point is a laptop internal to the network and passive to the attack.
-	\item \textbf{How}: several measures have been considered by varing the number of attackers (DoS or DDoS, the latter considered in case of at least two attackers). Initially the service's availability, through mDNS queries, or reachability, through ICMP messages (ping command), of the queried target device or the passive device has been measured for one minute, then as the attackers send thousands of queries for another minute the vantage point performs the same measurement which continues for another minute after the attack ends. \newline
+	\item \textbf{Where}: the vantage point is a Macbook Pro inside the network and passive to the attack.
+	\item \textbf{How}: several measures have been considered by varing the number of attackers (DoS or DDoS, the latter considered in case of at least two attackers, in this case a HP Pavillion Gaming Notebook and a HP Pavilion 14-bk010nl). Initially the service's availability, through mDNS queries, or reachability, through ICMP messages (ping command), of the queried target device or the passive device has been measured for one minute, then as the attackers send thousands of queries for another minute the vantage point performs the same measurement which continues for another minute after the attack ends. \newline
 The measurement activity has considered different variations on the attack script parameters such as: the number of threads (1, 10, 100, 300) for each attacker, and the type of resource record (ANY, A, PTR). The parameters have been varied one at time, since the analysis can be easily to be interpreted and consider the effects of each varied parameter.
 \item \textbf{When}: the time interval between each experiment was of 5 minutes.
 \end{itemize}
@@ -583,6 +583,7 @@ Furthermore, the other treated vulnerabilities can be studied and possible count
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST
 %----------------------------------------------------------------------------------------
+\clearpage
 \phantomsection
 \bibliographystyle{unsrt}
 \bibliography{mybibl.bib}
