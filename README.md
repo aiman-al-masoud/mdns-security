@@ -9,7 +9,7 @@
 A project with the aim to simulate (and try to prevent/mitigate) a DoS attack on a target server, relying on the mDNS protocol. 
 <br>
 For those who are interested, a link to the whole report is provided: 
-[.pdf report](https://drive.google.com/file/d/12v0-ll2ct8fnayhuDUyt1tBUqrDQh2AT/view?usp=sharing).
+[.pdf report](https://drive.google.com/file/d/1d6tzAz1wC4bpMiFH1oKiUCOOXDT9VkJ2/view?usp=sharing).
 
 ***
 ## Other details
