@@ -80,7 +80,7 @@
 %	ABSTRACT
 %----------------------------------------------------------------------------------------
 
-\Abstract{The aim of this report is discussing an implementation of a DoS attack, on a local area network (LAN), exploiting the mDNS protocol. 
+\Abstract{The aim of this report is to discuss an implementation of a DoS attack, on a local area network (LAN), exploiting the mDNS protocol. 
 The generated traffic has been analyzed and some studies have been conducted to understand the impact of this attack under many conditions.
 Moreover, other possible vulnerabilities of this protocol, and some possible countermeasures that can be implemented to overcome these security issues, have been identified.}
 
@@ -243,7 +243,7 @@ The \textit {ping} \cite{pingManPage} command is a simple active monitoring tool
 As to the ping command, the timeout was set to 4 seconds.
 
 \subsection{Wireshark}
-\textit{Wireshark} is a sniffer that works on devices whose NIC is set to promiscuous mode. It eavesdrops/captures packets sent and received and is used especially for network troubleshooting, monitoring and communication protocols development. The collected measures are all the information contained in an IP packet at all levels of the protocol stack. \newline
+\textit{Wireshark} is a sniffer that works on devices whose NIC is set to promiscuous mode. It eavesdrops/captures packets sent and received and is used especially for network troubleshooting, monitoring and communication protocols development. The measures collected are all the information contained in an IP packet at all levels of the protocol stack. \newline
 This tool was used during the experiments to understand the operation of the protocol and the format of mDNS query/response packets. \newline
 It also allowed, in general, to analyze some statistics and the trend of attacks in real time.\newline
 %----------------------------------------------------------------------------------------
@@ -266,7 +266,7 @@ The used methodological approach is the following:
 	\item \textbf{Where}: the vantage point is a laptop internal to the network and passive to the attack.
 	\item \textbf{How}: several measures have been considered by varing the number of attackers (DoS or DDoS, the latter considered in case of at least two attackers). Initially the service's availability, through mDNS queries, or reachability, through ICMP messages (ping command), of the queried target device or the passive device has been measured for one minute, then as the attackers send thousands of queries for another minute the vantage point performs the same measurement which continues for another minute after the attack ends. \newline
 The measurement activity has considered different variations on the attack script parameters such as: the number of threads (1, 10, 100, 300) for each attacker, and the type of resource record (ANY, A, PTR). The parameters have been varied one at time, since the analysis can be easily to be interpreted and consider the effects of each varied parameter.
-\item \textbf{When}: the time interval between each experiment was of three minutes.
+\item \textbf{When}: the time interval between each experiment was of 5 minutes.
 \end{itemize}
 Since there was no intention to undermine a real local network, one has been created by making use of a portable Wind 4G router \cite{RouterSpecs} to which all devices have been connected.
 
@@ -328,9 +328,9 @@ succeeded also have high RTT values.
 
 But how it can be ensured that the mean effect of the two groups of samples (attack, no attack) is different not just visually but also statistically\mbox{?}
 
-A useful statistical test that can help to perform this kind of analysis is the {\it{Mann-Whitney U Test}}, explained below.
+A useful statistical test that can help to perform this kind of analysis is the {\it{Mann-Whitney U Test}}, explained below. \newline
 
-By performing the mentioned test, it can be noticed that the two samples have very different means, and it is statistically significant (small p-value).
+By performing the mentioned test, it can be noticed, in figure \ref{fig:mannwhitneyu1}, that the two samples have very different means, and it is statistically significant (small p-value).
 
 \begin{figure}[H]\centering
     \includegraphics[width=\linewidth]{./ping/mannwhitneyu1.png}
@@ -351,7 +351,7 @@ Whereas, by distinguishing the different types of attacks, figure \ref{fig:ping-
     \caption{Boxplots - Ping RTTs vs attack type}
 	\label{fig:ping-boxplot2}
 \end{figure}
-Each of the attacks' id corresponds to a particular conducted experiment, as described in the following table.
+Each of the attacks' id corresponds to a particular conducted experiment, as described in table \ref{tab:ping-attack-ids-descr}.
 
 \begin{table}[H]
 	\centering
@@ -395,7 +395,7 @@ The expected behavior is that the effect of the DoS over the mDNS service is eve
 
 The script used to generate the mDNS queries has already been discussed in the section \ref{sec:query-mdns-script}.
 \paragraph{Time series}\mbox{}\\
-The following figure shows the timeline of the mDNS queries RTTs when some particular kind of attacks have been performed.
+Figure \ref{fig:mdns-rtts-time-series} shows the timeline of the mDNS queries RTTs when some particular kind of attacks have been performed.
 
 \begin{figure}[H]
     \centering
@@ -424,7 +424,7 @@ The reasoning is the same of the ping case of study.
 
 Since more timeouts are occurring when the system is not under attack, the RTTs mean is slightly higher with respect to the ping case (when the network is not under attack).
 
-By performing the Mann-Whitney U statistical test already discussed, the following results are obtained.
+By performing the Mann-Whitney U statistical test already discussed, the results in figure \ref{fig:mannwhitneyu2} are obtained.
 \begin{figure}[H]\centering
     \includegraphics[width=\linewidth]{./mdns/mannwhitneyu2.png}
     \caption{Mann-Whitney U Test results}
@@ -534,24 +534,28 @@ Analyzing all the vulnerabilities of services/products using the mDNS protocol, 
 \end{itemize}
 
 \paragraph{Denial of Service}\mbox{}\\
-DoS attacks are caused by lot of vulnerabilities (e.g., CVE-2022-20682 \cite{CVE-2022-20682}, CVE-2021-1439 \cite{CVE-2021-1439}, CVE-2020-3359 \cite{CVE-2020-3359}) in which insufficient checks are made on incoming mDNS messages. But also by other vulnerabilities (e.g., CVE-2017-6520 \cite{CVE-2017-6520}, CVE-2015-2809 \cite{CVE-2015-2809}, CVE-2015-1892 \cite{CVE-2015-1892}) in which devices are misconfigured and inadvertently respond to unicast queries with source addresses that are not link-local.
+DoS attacks are caused by lot of vulnerabilities (e.g. CVE-2021-1439 \cite{CVE-2021-1439}) in which insufficient checks are made on incoming mDNS messages.
+But also by other vulnerabilities in which devices are misconfigured and inadvertently respond to unicast queries with source addresses that are not link-local. 
 
-It should also be added that the nature of the protocol, in which multicast queries are involved, is itself a feature that attackers can exploit to carry out a DoS/DDoS attack on a local network after gaining access to it. %???
+For example, the vulnerability CVE-2017-6520 \cite{CVE-2017-6520} affects the mDNS responder in the BOSE Soundtouch 30 series. It inadvertently responds to IPv4 unicast queries with source addresses that are not link-local. According to the RFC 6762\cite{rfc6762} section 5.5, "Since it is possible for a unicast query to be received from a machine outside the local link, responders should check that the source address in the query packet matches the local subnet for that link (or, in the case of IPv6, the source address has an on-link prefix) and silently ignore the packet if not." \newline\newline
+It should also be added that the nature of the protocol, in which multicast queries are involved, is itself a feature that attackers can exploit to carry out a DoS/DDoS attack on a local network after gaining access to it.
 
 \paragraph{Sensitive information leak}\mbox{}\\
-In analyzing the vulnerabilities of this protocol, it is observed that leakage of sensitive information, but more generally of any information one does not want to share, is caused by several factors. Again, the most frequent problem, evidenced by many vulnerabilities (e.g., CVE-2017-6520 \cite{CVE-2017-6520}, CVE-2015-2809 \cite{CVE-2015-2809}, CVE-2015-1892 \cite{CVE-2015-1892}, and CVE-2015-6586 \cite{CVE-2015-6586}) is caused by malconfigurations that allow devices to respond to mDNS queries not coming from within the local network. 
+In analyzing the vulnerabilities of this protocol, it is observed that leakage of sensitive information, but more generally of any information one does not want to share, is caused by several factors. Again, the most frequent problem, evidenced by many vulnerabilities is caused by malconfigurations that allow devices to respond to mDNS queries not coming from within the local network. 
 
-Another vulnerability (CVE-2020-3182 \cite{CVE-2020-3182}) that plagues the protocol configuration of Cisco Webex Meetings Client for macOS, exists because some sensitive information is included in the mDNS replies. Thus an attacker could exploit this vulnerability by making mDNS queries for a particular service against an affected device, and gain access to sensitive information. A similar problem is highlighted by another vulnerability (CVE-2020-26966 \cite{CVE-2020-26966}), in which searching for a single word from the address bar causes an mDNS query to be sent on the local network searching for a hostname consisting of that string (only affected Windows operating systems).
+Another vulnerability (CVE-2020-3182 \cite{CVE-2020-3182}) that plagues the protocol configuration of Cisco Webex Meetings Client for macOS, exists because some sensitive information is included in the mDNS replies. Thus an attacker could exploit this vulnerability by making mDNS queries for a particular service against an affected device, and gain access to sensitive information. A similar problem is highlighted by another vulnerability (CVE-2020-26966 \cite{CVE-2020-26966}), in which searching for a single word from the address bar causes an mDNS query to be sent on the local network searching for a hostname consisting of that string (affects Firefox $<$ 83, Firefox ESR $<$ 78.5, and Thunderbird $<$ 78.5 on Windows operating systems). Thus allowing anyone connected to the local network to obtain this data.
 \paragraph{Remote code execution}\mbox{}\\
-Remote code execution is a threat highlighted by some vulnerabilities (e.g., CVE-2020-6072 \cite{CVE-2020-6072} and CVE-2014-9378 \cite{CVE-2014-9378}), where in both cases there are errors in checking some return values of certain functions. 
+Remote code execution is a threat highlighted by some vulnerabilities where there are errors in checking some return values of certain functions. 
 
-The CVE-2020-6072 {\cite{CVE-2020-6072}} vulnerability evinces that the minimal mDNS resolver library named libmicrodns in version 0.1.0, when parsing compressed labels in mDNS messages, does not check the return value of the rr\_decode function. 
-Similar problem is the one highlighted in vulnerability CVE-2014-9378 \cite{CVE-2014-9378} in which the free and open source network security tool for man-in-the-middle attacks on a LAN, named Ettercap, does not validate certain return values.
+The CVE-2020-6072 {\cite{CVE-2020-6072}} vulnerability evinces that the minimal mDNS resolver library named \textit{libmicrodns} \cite{libmicrodns} in version 0.1.0, when parsing compressed labels in mDNS messages, does not check the return value of a function. Similar problem is the one highlighted in vulnerability CVE-2014-9378 \cite{CVE-2014-9378} in which the free and open source network security tool for man-in-the-middle attacks on a LAN, named \textit{Ettercap} \cite{Ettercap}, does not validate certain return values.
+\newline
+By not checking the return values of certain functions, the attackers can execute malicious code remotely. 
 
 \paragraph{Buffer overflow}\mbox{}\\
-A buffer overflow condition exists when a program attempts to put more data in a buffer than it can hold or when a program attempts to put data in a memory area past a buffer. Writing outside the bounds of a block of allocated memory can corrupt data, crash the program, or cause the execution of malicious code. The buffer overflow exploit techniques a hacker uses depends on the architecture and operating system being used by their target. 
+A buffer overflow condition exists when a program attempts to put more data in a buffer than it can hold or when a program attempts to put data in a memory area past a buffer. Writing outside the bounds of a block of allocated memory can corrupt data, crash the program, or cause the execution of malicious code. The buffer overflow exploit techniques a hacker uses depends on the architecture and operating system being used by their target. However, the additional data that are sent to a program will probably contain malicious code that allows the attacker to perform additional actions and send new instructions to the application. 
 
-There are some vulnerabilities (e.g., CVE-2018-4003 \cite{CVE-2018-4003}, CVE-2017-12087 \cite{CVE-2017-12087}, CVE-2015-7987 \cite{CVE-2015-7987}, and CVE-2007-2386 \cite{CVE-2007-2386}) that highlight buffer overflow problems. In particular, vulnerabilities CVE-2015-7987 \cite{CVE-2015-7987} and CVE-2007-2386 \cite{CVE-2007-2386} evince these problems for "mDNSResponder" the core Bonjour's process that regularly scans the local network looking for other Bonjour-enabled devices. Note that Apple's Bonjour service is available for both Mac OS and Windows.  
+There are some vulnerabilities (e.g. CVE-2015-7987 \cite{CVE-2015-7987}) that highlight buffer overflow problems. In particular, vulnerabilities CVE-2015-7987 \cite{CVE-2015-7987} and CVE-2007-2386 \cite{CVE-2007-2386} evince these problems for
+\textit{mDNSResponder} the core Bonjour's process that regularly scans the local network looking for other Bonjour-enabled devices. Note that Apple's Bonjour service is available for both Mac OS and Windows.  
 
 %----------------------------------------------------------------------------------------
 %	MITIGATION/PREVENTION
