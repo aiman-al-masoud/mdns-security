@@ -525,7 +525,7 @@ The mDNS protocol does not provide any security services, such as DNSSEC or DNS 
 
 This is why local networks using this protocol may be subject to security threats. 
 
-Analyzing all the vulnerabilities of services/products using the mDNS protocol, it appears that they can be categorized into three main types of threats:
+Analyzing all the vulnerabilities of services/products using the mDNS protocol, it appears that they can be categorized into four main types of threats:
 \begin{itemize}[leftmargin=*]
 	\item {\it{denial of service attack}}: where attackers fill the local network nodes (with mDNS enabled) with lots of messages that exploit protocol-specific features. These messages can make nodes unreachable and overload the local network
 	\item {\it{sensitive information leak}}: where attackers can be able to enter the local network and obtain sensitive information
@@ -537,7 +537,7 @@ Analyzing all the vulnerabilities of services/products using the mDNS protocol, 
 DoS attacks are caused by lot of vulnerabilities (e.g. CVE-2021-1439 \cite{CVE-2021-1439}) in which insufficient checks are made on incoming mDNS messages.
 But also by other vulnerabilities in which devices are misconfigured and inadvertently respond to unicast queries with source addresses that are not link-local. 
 
-For example, the vulnerability CVE-2017-6520 \cite{CVE-2017-6520} affects the mDNS responder in the BOSE Soundtouch 30 series. It inadvertently responds to IPv4 unicast queries with source addresses that are not link-local. According to the RFC 6762\cite{rfc6762} section 5.5, "Since it is possible for a unicast query to be received from a machine outside the local link, responders should check that the source address in the query packet matches the local subnet for that link (or, in the case of IPv6, the source address has an on-link prefix) and silently ignore the packet if not." \newline\newline
+For example, the vulnerability CVE-2017-6520 \cite{CVE-2017-6520} affects the mDNS responder in the BOSE Soundtouch 30 series. They inadvertently respond to IPv4 unicast queries with source addresses that are not link-local. According to the RFC 6762\cite{rfc6762} section 5.5, "Since it is possible for a unicast query to be received from a machine outside the local link, responders should check that the source address in the query packet matches the local subnet for that link (or, in the case of IPv6, the source address has an on-link prefix) and silently ignore the packet if not." \newline\newline
 It should also be added that the nature of the protocol, in which multicast queries are involved, is itself a feature that attackers can exploit to carry out a DoS/DDoS attack on a local network after gaining access to it.
 
 \paragraph{Sensitive information leak}\mbox{}\\
