@@ -119,7 +119,7 @@ Multicast DNS (mDNS) is a service aimed to solve name resolution problem in smal
 Instead, a similarity to the classic DNS protocol is that mDNS is an application layer protocol (considering the TCP/IP network stack) that relies on top of the UDP protocol. \newline
 
 A client, that needs to know information about an hostname, sends a query to all the devices in the network. The response, instead, should go to the entire network or directly to the client in unicast. In this way, if the answer is sent to all devices in multicast, all of them are informed about the name and IP address such that they can create an entry in their mDNS cache. \newline
-Multicast DNS can cause relatively high traffic, so the protocol actively tries to conserve network resources: to this end, the requesting client sends the correct response according to its opinion (i.e. according to the current cache entry). Only if this is no longer correct, or if the entry is about to expire, the recipient have to respond. \newline
+Multicast DNS can cause relatively high traffic, so the protocol actively tries to conserve network resources: to this end, the requesting client sends the correct response according to its opinion (i.e. according to the current cache entry). Only if this is no longer correct, or if the entry is about to expire, does the recipient have to respond. \newline
 Generally, only hostnames ending with {\it{.local}} can be used with Multicast DNS.
 \begin{figure}[H]\centering
     \includegraphics[width=\linewidth]{./mdns-02.jpg}
@@ -140,8 +140,8 @@ A popular implementation of mDNS is \textit{Bonjour} by Apple, but also the open
 \paragraph{Disadvantages} 
 \begin{itemize}[leftmargin=*]
     \item Although the protocol tries to keep network traffic low, participating computers must constantly monitor the network and process incoming messages. This requires computing power.
-    \item Assigning host names is problematic: since it can be freely choosen a name for each device, as long as it ends in {\it{.local}}. This can lead to two network devices with the same host name. The developers of mDNS have deliberately not proposed a solution to this problem: on the one hand, it is assumed that the case rarely occurs; on the other hand, the double naming may be intentional. \newline 
-    mDNS resolves ending with the {\it{.local}} top-level domain (TLD) hostnames. This can be a possible source of problems, if {\it{.local}} includes hosts that do not implement mDNS, but can be found via an unicast DNS server. Resolving this conflicts requires network configuration changes, that mDNS prefers avoiding.
+    \item Assigning host names is problematic: since a name can be freely choosen for each device, as long as it ends in {\it{.local}}. This can lead to two network devices with the same host name. The developers of mDNS have deliberately not proposed a solution to this problem: on the one hand, it is assumed that the case rarely occurs; on the other hand, the double naming may be intentional. \newline 
+    mDNS resolves ending with the {\it{.local}} top-level domain (TLD) hostnames. This can be a possible source of problems, if {\it{.local}} includes hosts that do not implement mDNS, but can be found via an unicast DNS server. Resolving these conflicts requires network configuration changes, that mDNS prefers avoiding.
     \item In some cases, mDNS is open. This means that it also responds to requests from outside (the Internet). Attackers can find such open services and use them for DoS attacks, using network devices improperly. \newline
     In addition, using mDNS, even sensitive data can be detected. This allows attackers to know information about connected devices and use it for further attacks.
 \end{itemize}
@@ -228,7 +228,7 @@ Moreover, a {\it{Python Jupyter notebook}}, not described in this report, has be
 
 \subsection{Scripton.py}
 \textit{Scripton} is a Python script that is used during the experiment to send thousands of query packets in multicast, thus allowing the actual DoS attack to be carried out.
-In this sense, multithreading is exploited so that packets can be sent massively. The payload of each query, instead, is built, in hexadecial code, in the \textit{build\_message()} function making use of the specification defined in the RFC\cite{rfc6762}. Each packet is then sent directly in multicast from a socket avoiding intermediate services that could slow down the attack by waiting for a response from the mDNS service.
+In this sense, multithreading is exploited so that packets can be sent massively. The payload of each query, instead, is built, in hexadecimal code, in the \textit{build\_message()} function making use of the specification defined in the RFC\cite{rfc6762}. Each packet is then sent directly in multicast from a socket avoiding intermediate services that could slow down the attack by waiting for a response from the mDNS service.
 
 Scripton can also spoof an IP in the network by acting on the \textit{iptable} of the Linux system.
 
@@ -259,7 +259,7 @@ The used methodological approach is the following:
 	\item \textbf{Why}: the main goal is to explicate the impact of a DoS attack that exploits the mDNS protocol, and then to monitor the reachability of the device under attack and of other nodes in the network.
 	\item \textbf{Which/Who}:
 \begin{itemize}[leftmargin=*, noitemsep, topsep=0pt]
-    \item a laptop selected as a target of the mDNS attack
+    \item a laptop (HP EliteBook 820 G2) selected as a target of the mDNS attack
     \item a passive Lenovo 15ADA05 laptop used to test the network's traffic
 \end{itemize}
 	\item \textbf{What}: the selected measures are the time to receive a response to each ICMP, or mDNS, message sent, even considering timeouts.
@@ -288,10 +288,10 @@ As already discussed, the main purpose of a DoS attack is to make unavailable a 
 % \end{itemize}
 % già detto nell'experimental setup, troppo ripetitivo
 Quite obviously, the attack is based on the mDNS protocol, so the expected effect is that this service would have slowed down or made useless.
-Making an anticipation, it will be shown, through the usage of graphs and statistics, that the DoS attack made unavailable both the two measured services, and which is the effect size of the attack on the baseline condition (the one where the network is not under attack). \newline
+Making an anticipation, it will be shown, through the usage of graphs and statistics, that the DoS attack made unavailable both the two measured services, and what is the size of the effect of the attack on the baseline condition (the one where the network is not under attack). \newline
 
 In this specific analysis only a subset of all the possible data has been taken into account.
-Further investigations can be applied considering the GDrive data source, or extending the analysis by measuring other data and study the effects of the implemented DoS attack on other services, different by the ones discussed in this section.
+Further investigations can be applied considering the GDrive data source, or extending the analysis by measuring other data and study the effects of the implemented DoS attack on other services, different from the ones discussed in this section.
 
 \subsection{Ping probing results}
 This subsection is focused on considering the effect size of the DoS attack on the ICMP protocol.
@@ -307,8 +307,8 @@ Only some ping RTTs graphs have been shown in figure \ref{fig:rtts-time-series},
 This part is focused on analyzing the differences of the RTTs when the system was under attack and when not.
 
 As illustrated in figure \ref{fig:ping-boxplot1}, it can be noticed that the RTTs when the system was under attack, on average (green squared dots), are lower with respect to the system under attack.
-The reason why the RTTs are so high when the system is under attack is due to the fact that lot of timeout are occurring, and when the ping request are 
-succeeded also have high RTT values.
+The reason why the RTTs are so high when the system is under attack is due to the fact that lot of timeouts are occurring, and also when the ping request
+succeed, they have high RTT values.
 
 \begin{figure}[H]
     \centering
@@ -326,7 +326,7 @@ succeeded also have high RTT values.
 	\label{fig:ping-boxplot1}%
 \end{figure}
 
-But how it can be ensured that the mean effect of the two groups of samples (attack, no attack) is different not just visually but also statistically\mbox{?}
+But how can it be ensured that the mean effect of the two groups of samples (attack, no attack) is different not just visually but also statistically\mbox{?}
 
 A useful statistical test that can help to perform this kind of analysis is the {\it{Mann-Whitney U Test}}, explained below. \newline
 
@@ -339,8 +339,8 @@ By performing the mentioned test, it can be noticed, in figure \ref{fig:mannwhit
 \end{figure}
 
 \subparagraph{Mann-Whitney U Test \cite{MannWhitneyU}}
-This statistical test does not assume that the distribution that have generated the different samples is normal.
-In addition, the two samples does not must have the same length.
+This statistical test does not assume that the distribution that has generated the different samples is normal.
+In addition, the two samples mustn't have the same length.
 
 The null hypothesis is that the two groups have the same distribution, while the alternative hypothesis is that one group has larger (or smaller) values than the other.\\
 
@@ -441,7 +441,7 @@ Each of the attacks' id corresponds to a particular conducted experiment, as des
 
 Also here, by increasing the number of attackers the effect of the attack increases and so more timeouts occurs.
 
-As strange result is that by increasing the number of threads and so exploiting more calculation power of the single device performing the attack, the order of magnitude of the attack decreases. \newline
+A strange result is that by increasing the number of threads and so exploiting more calculation power of the single device performing the attack, the order of magnitude of the attack decreases. \newline
 
 Finally, by changing the type of query performed the RTT changes, but not so much and so it cannot be said that changing the resource record does change the effect of the attack (random sampling).
 
@@ -492,7 +492,7 @@ It looks like the other nodes connected within the network of the attacked devic
 
 \section{Countermeasures} %se ci proviamo va bene qua altrimenti spostare in un'altra sezione
 Unfortunately, mDNS does not provide any built-in security feature \cite{securityOfIoT}.
-But how can be possible mitigate these kinds of DoS (or DDoS) attacks, based on mDNS protocol?
+But how can it be possible to mitigate these kinds of DoS (or DDoS) attacks, based on mDNS protocol?
 
 There are some specific countermeasures that can be applied to make the protocol more reliable and secure, and they can be considered as belonging in two mainly different categories:
 \begin{itemize}[leftmargin=*]
@@ -564,7 +564,7 @@ There are some vulnerabilities (e.g. CVE-2015-7987 \cite{CVE-2015-7987}) that hi
 This report presented an overview of the field of IT security, in particular it touched a particular problem: the DoS (or DDoS) attacks performed on top of mDNS. \newline
 More in detail the following topics have been covered:
 \begin{itemize}[leftmargin=*]
-	\item what are the DoS attacks and which are the objective of performing them 
+	\item what are the DoS attacks and what are the objectives of performing them 
 	\item the mDNS protocol, its working principles, how to exploit its vulnerabilities to perform a Dos (or DDoS) attack, and some possible 
 		  countermeasures to overcome the security issues
  	\item how to exploit mDNS specification to implement a script that can be used in order to perform mDNS DoS attacks
