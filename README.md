@@ -31,4 +31,17 @@ Only ```-t (target)``` is mandatory
 
 Please remember to cite this repository, whenever you have taken some parts, or the whole project.
 
+BibTeX
+```
+@software{Al_Masoud_mDNS-security_2022,
+  author = {Al Masoud, A. and Amato, F. and Blindu, A. and Lotito, D. and Ragusa, D.},
+  doi = {10.5281/mDNS-security.1234},
+  month = {5},
+  title = {{mDNS-security}},  
+  url = {https://github.com/aiman-al-masoud/mdns-security},
+  version = {1.0.0},
+  year = {2022}
+}
+```
+  
 </details>
