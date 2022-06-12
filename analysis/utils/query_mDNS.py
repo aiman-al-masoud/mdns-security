@@ -1,7 +1,7 @@
 #!/bin/python3
 
 import signal, sys, argparse, time, binascii, socket
-sys.path.append("../src/")
+sys.path.append("../../src/")
 from scripton import build_message, signal_handler
 
 multicast_add = "224.0.0.251"
